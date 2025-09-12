@@ -1,10 +1,12 @@
 name: Playwright Tests
+
 on:
   workflow_dispatch:
   push:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+
 jobs:
   test:
     timeout-minutes: 60
@@ -22,10 +24,18 @@ jobs:
 
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-      
+
+    # 🔹 Debug step: check if UAT site is accessible
+    - name: Check UAT site connectivity
+      run: |
+        echo "Pinging UAT site..."
+        ping -c 3 uat.mycompany.com || true
+        echo "Curling UAT site..."
+        curl -I https://uat.mycompany.com || true
+
     - name: Run Playwright tests
       run: npx playwright test
-      
+
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
