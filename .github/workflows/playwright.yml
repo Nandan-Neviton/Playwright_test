@@ -31,7 +31,7 @@ jobs:
         echo "Pinging UAT site..."
         ping -c 3 uat.mycompany.com || true
         echo "Curling UAT site..."
-        curl -I https://uat.mycompany.com || true
+        curl -I https://uat.note-iq.com/ || true
 
     - name: Run Playwright tests
       run: npx playwright test
