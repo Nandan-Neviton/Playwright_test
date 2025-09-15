@@ -7,15 +7,10 @@ on:
   pull_request:
     branches: [ main, master ]
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 jobs:
   test:
     timeout-minutes: 60
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v4
@@ -30,37 +25,20 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
-    - name: Run Playwright tests
-      run: npx playwright test --reporter=html
-
-    # ✅ Debug: list files to confirm report exists
-    - name: Check if report folder exists
+    # 🔹 Debug step: check if UAT site is accessible
+    - name: Check UAT site connectivity
       run: |
-        echo "Listing contents of repo root:"
-        ls -lah
-        echo "Listing contents of playwright-report:"
-        ls -lah playwright-report || echo "❌ playwright-report folder missing!"
+        echo "Pinging UAT site..."
+        ping -c 3 uat.note-iq.com || true
+        echo "Curling UAT site..."
+        curl -I https://uat.note-iq.com || true
 
-    # ✅ Upload Pages artifact
-    - name: Upload Playwright report
-      uses: actions/upload-pages-artifact@v3
+    - name: Run Playwright tests
+      run: npx playwright test
+
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
       with:
+        name: playwright-report
         path: playwright-report/
-
-  deploy:
-    needs: test
-    runs-on: windows-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      # ✅ Debug: confirm artifact download
-      - name: List downloaded artifact contents
-        run: |
-          echo "Listing contents of artifact:"
-          ls -lah
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        retention-days: 30
