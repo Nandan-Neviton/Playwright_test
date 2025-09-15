@@ -9,53 +9,56 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
+  pages: write        # Required for GitHub Pages
+  id-token: write     # Required for GitHub Pages
 
 jobs:
   test:
+    runs-on: windows-latest
     timeout-minutes: 60
-    runs-on: windows-latest   # Or ubuntu-latest if preferred
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
 
-    # 🔍 Debug network access
-    - name: Check UAT connectivity
-      run: |
-        curl -I https://uat.note-iq.com || echo "❌ Cannot reach UAT"
+      - name: Run Playwright tests with HTML report
+        run: npx playwright test --reporter=html --reporter=line
+        env:
+          # in case you use .env config
+          NODE_ENV: test
 
-    - name: Run Playwright tests
-      run: npx playwright test --reporter=line --reporter=html
+      # Upload Playwright artifacts (debugging)
+      - name: Upload Playwright Test Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-artifacts
+          path: |
+            test-results/
+            playwright-report/
+            *.png
+            *.zip
+          retention-days: 7
 
-    # ✅ Upload Playwright report
-    - name: Upload Playwright HTML report
-      if: always()
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: playwright-report/
+      # Upload HTML report for Pages
+      - name: Upload Playwright report to Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: playwright-report/
 
-    # ✅ Upload debug screenshots if tests fail
-    - name: Upload debug screenshots
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: debug-screenshots
-        path: '**/*.png'
-
+  # Deploy report to GitHub Pages
   deploy:
     needs: test
-    runs-on: ubuntu-latest   # keep deploy stable on Linux
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
