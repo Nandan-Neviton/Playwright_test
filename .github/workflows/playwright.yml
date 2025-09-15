@@ -7,6 +7,11 @@ on:
   pull_request:
     branches: [ main, master ]
 
+permissions:
+  contents: read
+  pages: write        # Required for GitHub Pages
+  id-token: write     # Required for GitHub Pages
+
 jobs:
   test:
     timeout-minutes: 60
@@ -25,20 +30,24 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
-    # 🔹 Debug step: check if UAT site is accessible
-    - name: Check UAT site connectivity
-      run: |
-        echo "Pinging UAT site..."
-        ping -c 3 uat.note-iq.com || true
-        echo "Curling UAT site..."
-        curl -I https://uat.note-iq.com || true
-
     - name: Run Playwright tests
-      run: npx playwright test
+      run: npx playwright test --reporter=html
 
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
+    # Upload Playwright HTML report for Pages
+    - name: Upload Playwright report to Pages artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        name: playwright-report
         path: playwright-report/
-        retention-days: 30
+
+  # Deploy report to GitHub Pages
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
