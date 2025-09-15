@@ -9,8 +9,8 @@ on:
 
 permissions:
   contents: read
-  pages: write        # Required for GitHub Pages
-  id-token: write     # Required for GitHub Pages
+  pages: write        # Needed for Pages
+  id-token: write     # Needed for Pages
 
 jobs:
   test:
@@ -33,13 +33,12 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test --reporter=html
 
-    # Upload Playwright HTML report for Pages
-    - name: Upload Playwright report to Pages artifact
+    # Upload report as Pages artifact
+    - name: Upload Playwright report
       uses: actions/upload-pages-artifact@v3
       with:
         path: playwright-report/
 
-  # Deploy report to GitHub Pages
   deploy:
     needs: test
     runs-on: ubuntu-latest
