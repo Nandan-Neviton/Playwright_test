@@ -7,10 +7,15 @@ on:
   pull_request:
     branches: [ main, master ]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   test:
     timeout-minutes: 60
-    runs-on: windows-latest
+    runs-on: windows-latest   # Or ubuntu-latest if preferred
 
     steps:
     - uses: actions/checkout@v4
@@ -25,22 +30,37 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
-    # 🔹 Debug step: check if UAT site is accessible
-    - name: Check UAT site connectivity
+    # 🔍 Debug network access
+    - name: Check UAT connectivity
       run: |
-        echo "Pinging UAT site..."
-        ping -c 3 uat.note-iq.com || true
-        echo "Curling UAT site..."
-        curl -I https://uat.note-iq.com || true
+        curl -I https://uat.note-iq.com || echo "❌ Cannot reach UAT"
 
     - name: Run Playwright tests
-      run: npx playwright test
+      run: npx playwright test --reporter=line --reporter=html
 
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
+    # ✅ Upload Playwright report
+    - name: Upload Playwright HTML report
+      if: always()
+      uses: actions/upload-pages-artifact@v3
       with:
-        name: playwright-report
         path: playwright-report/
-        retention-days: 30
-  
 
+    # ✅ Upload debug screenshots if tests fail
+    - name: Upload debug screenshots
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: debug-screenshots
+        path: '**/*.png'
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest   # keep deploy stable on Linux
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
