@@ -9,8 +9,8 @@ on:
 
 permissions:
   contents: read
-  pages: write        # Needed for Pages
-  id-token: write     # Needed for Pages
+  pages: write
+  id-token: write
 
 jobs:
   test:
@@ -33,7 +33,15 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test --reporter=html
 
-    # Upload report as Pages artifact
+    # ✅ Debug: list files to confirm report exists
+    - name: Check if report folder exists
+      run: |
+        echo "Listing contents of repo root:"
+        ls -lah
+        echo "Listing contents of playwright-report:"
+        ls -lah playwright-report || echo "❌ playwright-report folder missing!"
+
+    # ✅ Upload Pages artifact
     - name: Upload Playwright report
       uses: actions/upload-pages-artifact@v3
       with:
@@ -47,6 +55,12 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
+      # ✅ Debug: confirm artifact download
+      - name: List downloaded artifact contents
+        run: |
+          echo "Listing contents of artifact:"
+          ls -lah
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
