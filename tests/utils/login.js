@@ -1,3 +1,4 @@
+// utils/login.js
 import { expect } from '@playwright/test';
 
 export async function login(page, username, password) {
@@ -12,17 +13,28 @@ export async function login(page, username, password) {
   console.log(">>> Current URL after navigation:", page.url());
   await page.screenshot({ path: 'debug-before-login.png', fullPage: true });
 
-  // Try multiple selectors for email input
-  const emailField = page.getByRole('textbox', { name: 'Enter email address' })
+  // Email field
+  const emailField = page.getByRole('textbox', { name: 'Enter email address' });
+  await expect(emailField).toBeVisible({ timeout: 15000 });
   await emailField.fill(username);
 
-  const passwordField = page.getByRole('textbox', { name: 'Enter password' })
+  // Password field
+  const passwordField = page.getByRole('textbox', { name: 'Enter password' });
+  await expect(passwordField).toBeVisible({ timeout: 15000 });
   await passwordField.fill(password);
 
-  // Click Login button
-  const loginBtn = page.getByRole('button', { name: 'LOGIN', exact: true })
-  await loginBtn.click();
+  // Login button
+  const loginBtn = page.getByRole('button', { name: 'LOGIN', exact: true });
+  await expect(loginBtn).toBeVisible({ timeout: 15000 });
+  await Promise.all([
+    page.waitForNavigation({ waitUntil: "networkidle", timeout: 60000 }),
+    loginBtn.click(),
+  ]);
 
-  console.log(">>> Login submitted");
+  console.log(">>> Login submitted, waiting for post-login page...");
   await page.screenshot({ path: 'debug-after-login.png', fullPage: true });
+
+  // Verify successful login (check Admin link exists)
+  await expect(page.locator('a[href="/admin"]')).toBeVisible({ timeout: 20000 });
+  console.log(">>> Login successful, Admin link found");
 }
