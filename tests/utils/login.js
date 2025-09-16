@@ -34,7 +34,23 @@ export async function login(page, username, password) {
   console.log(">>> Login submitted, waiting for post-login page...");
   await page.screenshot({ path: 'debug-after-login.png', fullPage: true });
 
-  // Verify successful login (check Admin link exists)
-  await expect(page.locator('a[href="/admin"]')).toBeVisible({ timeout: 20000 });
-  console.log(">>> Login successful, Admin link found");
+  // Wait for Admin link with retry logic
+  const maxRetries = 3;
+  let attempt = 0;
+  const adminLink = page.locator('a[href="/admin"]');
+
+  while (attempt < maxRetries) {
+    try {
+      await expect(adminLink).toBeVisible({ timeout: 10000 });
+      console.log(">>> Login successful, Admin link found");
+      return; // success
+    } catch (err) {
+      attempt++;
+      console.warn(`>>> Attempt ${attempt}: Admin link not visible. Reloading page...`);
+      await page.keyboard.press('F5'); // press F5 to reload
+      await page.waitForLoadState('networkidle');
+    }
+  }
+
+  throw new Error('Admin link not visible after multiple reload attempts');
 }
