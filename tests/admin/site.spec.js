@@ -32,42 +32,42 @@ test.describe.serial('Admin - Site Management Tests', () => {
   });
 
   // ---------- TEST 1: Create a New Site ----------
-  // test('should create a new site with valid details', async ({ page }) => {
-  //   await goToModule(page, 'Site');
+  test('should create a new site with valid details', async ({ page }) => {
+    await goToModule(page, 'Site');
 
-  //   await page.getByRole('tab', { name: /new site/i }).click();
+    await page.getByRole('tab', { name: /new site/i }).click();
 
-  //   await page.getByRole('textbox', { name: /site name/i }).fill(siteData.name);
-  //   await page.getByRole('textbox', { name: /site code/i }).fill(siteData.code);
-  //   await page.getByRole('textbox', { name: /address/i }).fill(siteData.address);
+    await page.getByRole('textbox', { name: /site name/i }).fill(siteData.name);
+    await page.getByRole('textbox', { name: /site code/i }).fill(siteData.code);
+    await page.getByRole('textbox', { name: /address/i }).fill(siteData.address);
 
-  //   // Select a random Timezone
-  //   await page.locator('#timezone').click();
-  //   const tzOptions = page.locator('ul[role="listbox"] li');
-  //   const tzCount = await tzOptions.count();
-  //   if (tzCount === 0) throw new Error('No timezone options found');
-  //   const tzIndex = faker.number.int({ min: 0, max: tzCount - 1 });
-  //   const tzOption = tzOptions.nth(tzIndex);
-  //   siteData.timezone = (await tzOption.textContent())?.trim() ?? '';
-  //   await tzOption.click();
-  //   console.log(`>>> Selected Timezone: ${siteData.timezone}`);
+    // Select a random Timezone
+    await page.locator('#timezone').click();
+    const tzOptions = page.locator('ul[role="listbox"] li');
+    const tzCount = await tzOptions.count();
+    if (tzCount === 0) throw new Error('No timezone options found');
+    const tzIndex = faker.number.int({ min: 0, max: tzCount - 1 });
+    const tzOption = tzOptions.nth(tzIndex);
+    siteData.timezone = (await tzOption.textContent())?.trim() ?? '';
+    await tzOption.click();
+    console.log(`>>> Selected Timezone: ${siteData.timezone}`);
 
-  //   // Select a random Date Format
-  //   await page.locator('#date').click();
-  //   const dfOptions = page.locator('ul[role="listbox"] li');
-  //   const dfCount = await dfOptions.count();
-  //   if (dfCount === 0) throw new Error('No date format options found');
-  //   const dfIndex = faker.number.int({ min: 0, max: dfCount - 1 });
-  //   siteData.dateFormat = (await dfOptions.nth(dfIndex).textContent())?.trim() ?? '';
-  //   await dfOptions.nth(dfIndex).click();
-  //   console.log(`>>> Selected Date Format: ${siteData.dateFormat}`);
+    // Select a random Date Format
+    await page.locator('#date').click();
+    const dfOptions = page.locator('ul[role="listbox"] li');
+    const dfCount = await dfOptions.count();
+    if (dfCount === 0) throw new Error('No date format options found');
+    const dfIndex = faker.number.int({ min: 0, max: dfCount - 1 });
+    siteData.dateFormat = (await dfOptions.nth(dfIndex).textContent())?.trim() ?? '';
+    await dfOptions.nth(dfIndex).click();
+    console.log(`>>> Selected Date Format: ${siteData.dateFormat}`);
 
-  //   await page.getByRole('button', { name: /^create$/i }).click();
+    await page.getByRole('button', { name: /^create$/i }).click();
 
-  //   await expect(page.getByRole('alert')).toHaveText(siteData.successMessage, {
-  //     timeout: 5000,
-  //   });
-  // });
+    await expect(page.getByRole('alert')).toHaveText(siteData.successMessage, {
+      timeout: 5000,
+    });
+  });
 
   // ---------- TEST 2: Verify the Created Site ----------
   test('should verify the newly created site details', async ({ page }) => {
