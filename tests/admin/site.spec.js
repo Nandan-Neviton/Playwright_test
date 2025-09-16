@@ -80,12 +80,12 @@ test.describe.serial('Admin - Site Management Tests', () => {
   });
 
   // ---------- TEST 3: Filter & Download Site List ----------
-  // test('should filter site list by site code and download results', async ({ page }) => {
-  //   await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-  //   await goToModule(page, 'Site');
+  test('should filter site list by site code and download results', async ({ page }) => {
+    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await goToModule(page, 'Site');
 
-  //   await filterAndDownload(page, 'Site Code', siteData.code);
-  // });
+    await filterAndDownload(page, 'Site Code', siteData.code);
+  });
 
   // ---------- TEST 4: Edit Site ----------
   test('should edit an existing site', async ({ page }) => {
