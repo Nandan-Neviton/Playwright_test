@@ -3,8 +3,8 @@ import { expect } from '@playwright/test';
 export async function login(page, username, password) {
   console.log(">>> Navigating to login page...");
 
-  // Navigate to your app's login page
-  await page.goto(process.env.BASE_URL || "https://uat.note-iq.com/login", {
+  // Always navigate to fixed login page
+  await page.goto("https://uat.note-iq.com", {
     waitUntil: "domcontentloaded",
     timeout: 60000,
   });
