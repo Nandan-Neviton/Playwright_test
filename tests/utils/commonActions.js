@@ -3,7 +3,7 @@ import { expect } from '@playwright/test';
 
 
 export async function goToAdminSection(page) {
-  await page.locator('a:nth-child(2)').click();
+  await page.locator('a[href="/admin"]').click();
 }
 
 
