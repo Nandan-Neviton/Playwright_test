@@ -65,7 +65,7 @@ test.describe.serial('Admin - Site Management Tests', () => {
     await page.getByRole('button', { name: /^create$/i }).click();
 
     await expect(page.getByRole('alert')).toHaveText(siteData.successMessage, {
-      timeout: 60000,
+      timeout: 5000,
     });
   });
 
@@ -76,7 +76,7 @@ test.describe.serial('Admin - Site Management Tests', () => {
     await filterAndSearch(page, 'Code', siteData.code);
 
     const row = page.getByRole('row', { name: new RegExp(siteData.code, 'i') });
-    await expect(row).toBeVisible({ timeout: 60000 });
+    await expect(row).toBeVisible({ timeout: 5000 });
     await expect(row).toContainText(siteData.name);
     await expect(row).toContainText(siteData.timezone);
 
@@ -96,14 +96,14 @@ test.describe.serial('Admin - Site Management Tests', () => {
     await goToModule(page, 'Site');
 
     const row = page.getByRole('row', { name: new RegExp(siteData.name, 'i') });
-    await expect(row).toBeVisible({ timeout: 60000 });
+    await expect(row).toBeVisible({ timeout: 5000 });
     await row.getByRole('button', { name: /edit/i }).click();
 
     await page.getByRole('textbox', { name: /site name/i }).fill(updatedName);
     await page.getByRole('button', { name: /^update$/i }).click();
 
     await expect(page.getByRole('alert')).toHaveText('Site updated successfully', {
-      timeout: 60000,
+      timeout: 5000,
     });
   });
 
@@ -112,13 +112,13 @@ test.describe.serial('Admin - Site Management Tests', () => {
     await goToModule(page, 'Site');
 
     const row = page.getByRole('row', { name: new RegExp(`(${updatedName}|${siteData.name})`, 'i') });
-    await expect(row).toBeVisible({ timeout: 60000 });
+    await expect(row).toBeVisible({ timeout: 5000 });
     await row.getByRole('button', { name: /delete/i }).click();
 
     await page.getByRole('button', { name: /^delete$/i }).click();
 
     await expect(page.getByRole('alert')).toHaveText('Site deleted successfully', {
-      timeout: 60000,
+      timeout: 5000,
     });
   });
 });
