@@ -7,9 +7,15 @@ export async function goToAdminSection(page) {
   await adminLink.click();
   console.log(">>> Navigated to Admin section");
 }
+export async function goToConfigSection(page) {
+  const configLink = page.locator('a[href="/configuration"]');
+  await expect(configLink).toBeVisible({ timeout: 15000 }); // wait until link is visible
+  await configLink.click();
+  console.log(">>> Navigated to Config section");
+}
 
 export async function goToModule(page, moduleName) {
-  await goToAdminSection(page);
+
   const moduleLink = page.getByRole('link', { name: moduleName });
   await expect(moduleLink).toBeVisible({ timeout: 15000 });
   await moduleLink.click();

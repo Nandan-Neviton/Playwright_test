@@ -2,7 +2,7 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import { login } from '../utils/login.js';
-import { goToModule, filterAndSearch, filterAndDownload, toggleAndCheck } from '../utils/commonActions.js';
+import { goToModule, filterAndSearch, filterAndDownload, toggleAndCheck, goToAdminSection } from '../utils/commonActions.js';
 
 // Force desktop viewport to avoid responsive issues in GitHub Actions
 test.use({ viewport: { width: 1920, height: 1080 } });
@@ -33,6 +33,7 @@ test.describe.serial('Admin - Site Management Tests', () => {
 
   // ---------- TEST 1: Create a New Site ----------
   test('should create a new site with valid details', async ({ page }) => {
+    await goToAdminSection(page);
     await goToModule(page, 'Site');
 
     await page.getByRole('tab', { name: /new site/i }).click();
@@ -71,6 +72,7 @@ test.describe.serial('Admin - Site Management Tests', () => {
 
   // ---------- TEST 2: Verify the Created Site ----------
   test('should verify the newly created site details', async ({ page }) => {
+    await goToAdminSection(page);
     await goToModule(page, 'Site');
 
     await filterAndSearch(page, 'Code', siteData.code);
@@ -87,12 +89,14 @@ test.describe.serial('Admin - Site Management Tests', () => {
 
   // ---------- TEST 3: Filter & Download Site List ----------
   test('should filter site list by site code and download results', async ({ page }) => {
+    await goToAdminSection(page);
     await goToModule(page, 'Site');
     await filterAndDownload(page, 'Site Code', siteData.code);
   });
 
   // ---------- TEST 4: Edit Site ----------
   test('should edit an existing site', async ({ page }) => {
+    await goToAdminSection(page);
     await goToModule(page, 'Site');
 
     const row = page.getByRole('row', { name: new RegExp(siteData.name, 'i') });
@@ -109,6 +113,7 @@ test.describe.serial('Admin - Site Management Tests', () => {
 
   // ---------- TEST 5: Delete Site ----------
   test('should delete an existing site', async ({ page }) => {
+    await goToAdminSection(page);
     await goToModule(page, 'Site');
 
     const row = page.getByRole('row', { name: new RegExp(`(${updatedName}|${siteData.name})`, 'i') });

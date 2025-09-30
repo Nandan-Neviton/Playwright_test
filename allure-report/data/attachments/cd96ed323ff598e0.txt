@@ -1,0 +1,6 @@
+🔍 [START] Verifying and toggling Workflow Type
+>>> Navigating to login page...
+>>> Current URL after navigation: https://uat.note-iq.com/
+>>> Login submitted, waiting for post-login page...
+>>> Login successful
+>>> Navigated to Config section

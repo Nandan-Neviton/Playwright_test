@@ -22,7 +22,8 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['line'],   // good for CI logs
-    ['html', { open: 'never' }]  // keep HTML report as artifact
+    ['html', { open: 'never' }],
+    ['allure-playwright'] // keep HTML report as artifact
   ],
 
   /* Shared settings for all the projects below */
@@ -46,13 +47,13 @@ export default defineConfig({
     },
     // Run only chromium in CI for stability
     // Uncomment these for local cross-browser runs:
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
-    // },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
   ],
 });

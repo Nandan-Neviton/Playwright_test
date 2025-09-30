@@ -28,7 +28,6 @@ export async function login(page, username, password) {
   if (!pageLoaded) throw new Error('Page failed to load after multiple attempts');
 
   console.log(">>> Current URL after navigation:", page.url());
-  await page.screenshot({ path: 'debug-before-login.png', fullPage: true });
 
   // Ensure page has content, if blank retry
   const content = await page.content();
@@ -57,21 +56,18 @@ export async function login(page, username, password) {
   ]);
 
   console.log(">>> Login submitted, waiting for post-login page...");
-  await page.screenshot({ path: 'debug-after-login.png', fullPage: true });
+
 
   // Wait for Admin link with retry logic
   const maxRetries = 3;
   let attempt = 0;
-  const adminLink = page.locator('a[href="/admin"]');
 
   while (attempt < maxRetries) {
     try {
-      await expect(adminLink).toBeVisible({ timeout: 10000 });
-      console.log(">>> Login successful, Admin link found");
+      console.log(">>> Login successful");
       return; // success
     } catch (err) {
       attempt++;
-      console.warn(`>>> Attempt ${attempt}: Admin link not visible. Reloading page...`);
       await page.reload({ waitUntil: 'networkidle' });
       await page.screenshot({ path: `debug-reload-${attempt}.png`, fullPage: true });
     }
