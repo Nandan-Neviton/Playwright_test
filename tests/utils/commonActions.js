@@ -60,3 +60,17 @@ export async function filterAndSearch(page, filterBy, value) {
   await page.getByRole('textbox', { name: 'Search', exact: true }).fill(value);
   console.log(`>>> Applied filter: ${filterBy}, value: ${value}`);
 }
+
+export async function clickRandomButton(page, buttonConfigs) {
+  const locators = buttonConfigs.map(({ options, index = 0 }) =>
+    page.getByRole('button', options).nth(index)
+  );
+
+  const randomIndex = Math.floor(Math.random() * locators.length);
+  const chosenLocator = locators[randomIndex];
+
+  await expect(chosenLocator).toBeVisible({ timeout: 10000 });
+
+  console.log(`>>> Clicking random button: ${await chosenLocator.innerText()}`);
+  await chosenLocator.click();
+}
