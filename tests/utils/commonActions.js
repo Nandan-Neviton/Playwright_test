@@ -23,17 +23,20 @@ export async function goToModule(page, moduleName) {
 }
 
 export async function toggleAndCheck(page, expectedAlert, expectedStatus) {
-  const toggle = page.locator('.PrivateSwitchBase-input.MuiSwitch-input.css-1m9pwf3').first();
+  const toggleSelector = '.PrivateSwitchBase-input.MuiSwitch-input.css-1m9pwf3';
+  const toggle = page.locator(toggleSelector).first();
+  await toggle.waitFor({ state: 'attached', timeout: 10000 });
+  await toggle.scrollIntoViewIfNeeded({ timeout: 5000 });
   await expect(toggle).toBeVisible({ timeout: 10000 });
   await toggle.click();
-
   const alert = page.getByRole('alert').last();
   await expect(alert).toContainText(expectedAlert);
-
   const statusCell = page.getByRole('cell', { name: expectedStatus }).first();
-  await expect(statusCell).toBeVisible({ timeout: 10000 });
+  await expect(statusCell).toBeVisible({ timeout: 10000 })
   console.log(`>>> Toggle checked, expected status: ${expectedStatus}`);
 }
+
+
 
 export async function filterAndDownload(page, filterBy, value) {
   await page.locator('#table-search-option').click();

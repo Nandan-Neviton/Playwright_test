@@ -22,7 +22,7 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
         description: faker.commerce.productDescription(),
         prefixCode: faker.number.int({ min: 10, max: 100 }).toString(),
         numeringSystem: 'Musi',
-        initialVersion: faker.number.int({ min: 0, max: 10 }).toString(),
+        initialVersion: faker.number.int({ min: 1, max: 10 }).toString(),
         docFormat: 'Word Document (DOCX)',
         successMessage: 'Document Type created successfully',
     };
@@ -74,7 +74,7 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
             console.log('>>> No checkboxes found in combobox');
             return;
         }
-        const numberToSelect =Math.min(count, 5);
+        const numberToSelect = Math.min(count, 5);
         console.log(`>>> Will select ${numberToSelect} checkbox(es)`);
         const selectedIndexes = new Set();
         while (selectedIndexes.size < numberToSelect) {
@@ -93,24 +93,26 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
         await page.getByRole('button', { name: 'Next' }).click();
 
         await page.getByRole('combobox', { name: 'Workflow Type' }).click();
+        await page.waitForSelector('[role="option"], [role="checkbox"]', { timeout: 3000 });
 
-        const checkboxes1 = page.getByRole('checkbox');
-        const count1 = await checkboxes1.count();
-        if (count === 0) {
-            console.log('>>> No checkboxes found in combobox');
+        const dropdown = page.locator('[role="listbox"]');
+        const options = dropdown.locator('[role="option"]');
+        const count1 = await options.count();
+        if (count1 === 0) {
+            console.log('>>> No options found in combobox');
             return;
         }
-
-        const numberToSelect1 =Math.min(count, 5);
+        const numberToSelect1 = Math.min(count1, 5);
         console.log(`>>> Will select ${numberToSelect1} checkbox(es)`);
         const selectedIndexes1 = new Set();
         while (selectedIndexes1.size < numberToSelect1) {
             selectedIndexes1.add(Math.floor(Math.random() * count1));
         }
         for (const i of selectedIndexes1) {
-            const checkbox1 = checkboxes1.nth(i);
-            await checkbox1.click({ force: true });
-            console.log(`>>> Selected checkbox #${i + 1}`);
+            const option = options.nth(i);
+            await option.scrollIntoViewIfNeeded({ timeout: 5000 }).catch(() => console.log(`Could not scroll to option ${i + 1}`));
+            await option.click();
+            console.log(`>>> Selected option #${i + 1}`);
         }
         await page.mouse.click(0, 0);
 
@@ -130,15 +132,21 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
 
         await page.getByRole('tabpanel', { name: 'Notifcation Activity*' }).getByLabel('').click();
         await page.getByRole('option', { name: 'Document/Template Created' }).click();
-        await page.getByRole('button', { name: 'Add System Users' }).first().click()
-        await page.pause()
-        const checkboxes2 = page.getByRole('checkbox');
+        await page.getByRole('button', { name: 'Add System Users' }).first().click();
+
+        // Wait for modal to appear
+        const modal = page.locator('[role="dialog"]');
+        await modal.waitFor({ state: 'visible', timeout: 5000 });
+
+        // Wait for checkboxes inside modal
+        const checkboxes2 = modal.locator('input[type="checkbox"]'); // adjust selector if needed
+        await checkboxes2.first().waitFor({ state: 'visible', timeout: 5000 });
         const count2 = await checkboxes2.count();
-        if (count === 0) {
-            console.log('>>> No checkboxes found in combobox');
+        if (count2 === 0) {
+            console.log('>>> No checkboxes found in modal');
             return;
         }
-        const numberToSelect2 =Math.min(count, 2);
+        const numberToSelect2 = Math.min(count2, 2);
         console.log(`>>> Will select ${numberToSelect2} checkbox(es)`);
         const selectedIndexes2 = new Set();
         while (selectedIndexes2.size < numberToSelect2) {
@@ -147,10 +155,10 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
         for (const i of selectedIndexes2) {
             const cb = checkboxes2.nth(i);
             await cb.scrollIntoViewIfNeeded();
-            await cb.click();
+            await cb.click({ force: true }); // force click in case overlay
             console.log(`>>> Selected checkbox #${i + 1}`);
         }
-        await page.mouse.click(0, 0);
+        await page.mouse.click(0, 0); // click outside to close dropdown/modal
 
         await page.getByRole('button', { name: 'Add', exact: true }).click();
         await page.getByRole('button', { name: 'Create', exact: true }).click()
@@ -171,6 +179,7 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
         console.log(`🔹 Filtering by Name: ${docData.name}`);
         await filterAndSearch(page, 'Name', docData.name);
         await page.waitForTimeout(2000);
+        await expect(page.getByRole('cell', { name: docData.name })).toBeVisible();
 
         const inactiveCell = page.getByRole('cell', { name: 'Inactive' });
         const count = await inactiveCell.count();
@@ -180,8 +189,8 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
         }
         else {
             await toggleAndCheck(page, 'Document Type has been activated', 'Active');
+
         }
-        await expect(page.getByRole('cell', { name: docData.name })).toBeVisible();
     });
 
     // -----------------------
