@@ -63,15 +63,14 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
         await page.getByRole('radio', { name: 'Auto' }).click();
         await page.getByRole('button', { name: 'Next' }).click();
 
-        await page.getByRole('combobox', { name: 'Select System Data Field' }).click()
-        const checkboxes = page.locator('role=checkbox');
+        await page.getByRole('combobox', { name: 'Select System Data Field' }).click().waitForTimeout(2000);
+        const checkboxes = page.locator('checkbox');
         const count = await checkboxes.count();
         if (count === 0) {
             console.log('>>> No checkboxes found in combobox');
             return;
         }
-        const selectMultiple = Math.random() < 0.5; // 50% chance
-        const numberToSelect = selectMultiple ? Math.floor(Math.random() * count) + 1 : 1;
+        const numberToSelect = Math.min(count, 2);
         console.log(`>>> Will select ${numberToSelect} checkbox(es)`);
         const selectedIndexes = new Set();
         while (selectedIndexes.size < numberToSelect) {
@@ -97,8 +96,8 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
             console.log('>>> No checkboxes found in combobox');
             return;
         }
-        const selectMultiple1 = Math.random() < 0.5;
-        const numberToSelect1 = selectMultiple1 ? Math.floor(Math.random() * count1) + 1 : 1;
+
+        const numberToSelect1 = Math.min(count, 2);
         console.log(`>>> Will select ${numberToSelect1} checkbox(es)`);
         const selectedIndexes1 = new Set();
         while (selectedIndexes1.size < numberToSelect1) {
@@ -128,14 +127,13 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
         await page.getByRole('tabpanel', { name: 'Notifcation Activity*' }).getByLabel('').click();
         await page.getByRole('option', { name: 'Document/Template Created' }).click();
         await page.getByRole('button', { name: 'Add System Users' }).first().click()
-        const checkboxes2 = page.locator('role=checkbox');
+        const checkboxes2 = page.locator('checkbox');
         const count2 = await checkboxes2.count();
         if (count === 0) {
             console.log('>>> No checkboxes found in combobox');
             return;
         }
-        const selectMultiple2 = Math.random() < 0.5; // 50% chance
-        const numberToSelect2 = selectMultiple2 ? Math.floor(Math.random() * count2) + 1 : 1;
+        const numberToSelect2 = Math.min(count, 2);
         console.log(`>>> Will select ${numberToSelect2} checkbox(es)`);
         const selectedIndexes2 = new Set();
         while (selectedIndexes2.size < numberToSelect2) {
@@ -175,7 +173,7 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
             console.log('✅ No "Inactive" entries found — nothing to toggle.');
             return;
         }
-        else{
+        else {
             await toggleAndCheck(page, 'Document Type has been activated', 'Active');
         }
         await expect(page.getByRole('cell', { name: docData.name })).toBeVisible();

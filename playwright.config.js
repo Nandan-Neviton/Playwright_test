@@ -1,59 +1,64 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+import path from 'path';
+import fs from 'fs';
+
+const date = new Date();
+const timestamp = date.toISOString().replace(/[:.]/g, '-'); // safe folder name
+const reportFolder = path.join('allure-reports', timestamp);
+
+// Ensure allure report folder exists
+if (!fs.existsSync(reportFolder)) {
+  fs.mkdirSync(reportFolder, { recursive: true });
+}
+
+// Write date-time to environment.properties for Allure
+const envPropsPath = path.join('allure-results', 'environment.properties');
+if (!fs.existsSync('allure-results')) {
+  fs.mkdirSync('allure-results');
+}
+fs.writeFileSync(envPropsPath, `TestRun=${date.toISOString()}`);
+
+// Store timestamp for later use
+process.env.ALLURE_REPORT_FOLDER = reportFolder;
+process.env.ALLURE_RUN_TIMESTAMP = date.toISOString();
 
 export default defineConfig({
   testDir: './tests',
-  /* Run tests in files in parallel */
   fullyParallel: true,
-
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-
-  /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-
-  /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
+  timeout: 120000,
+  globalTimeout: 600000,
 
-  /* Global and test timeouts */
-  timeout: 120000,         // 2 minutes per test
-  globalTimeout: 600000,   // 10 minutes for the whole suite
-
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
-    ['line'],   // good for CI logs
+    ['line'],
     ['html', { open: 'never' }],
-    ['allure-playwright'] // keep HTML report as artifact
+    [
+      'allure-playwright',
+      {
+        outputFolder: 'allure-results',
+        detail: true,
+      },
+    ],
   ],
 
-  /* Shared settings for all the projects below */
   use: {
     baseURL: process.env.UAT_BASE_URL || 'https://uat.note-iq.com',
-    trace: 'retain-on-failure',      // Keep trace for failed tests
-    screenshot: 'only-on-failure',   // Capture screenshot on failure
-    video: 'retain-on-failure',      // Record video for failed tests
-    actionTimeout: 30000,            // Max time for single action
-    navigationTimeout: 60000,        // Max time for navigation
+    trace: 'retain-on-failure',
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+    actionTimeout: 30000,
+    navigationTimeout: 60000,
     viewport: { width: 1280, height: 720 },
     headless: true,
     ignoreHTTPSErrors: true,
   },
 
-  /* Configure projects */
   projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-    // Run only chromium in CI for stability
-    // Uncomment these for local cross-browser runs:
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
   ],
 });
