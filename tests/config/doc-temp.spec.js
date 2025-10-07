@@ -28,6 +28,7 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
     };
 
     const updatedName = faker.commerce.department().slice(0, 4);
+    console.log(`🔹 Test Data:`, docData);
 
     // -----------------------
     // 01 - Create Document Type
@@ -63,14 +64,17 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
         await page.getByRole('radio', { name: 'Auto' }).click();
         await page.getByRole('button', { name: 'Next' }).click();
 
-        await page.getByRole('combobox', { name: 'Select System Data Field' }).click().waitForTimeout(2000);
-        const checkboxes = page.locator('checkbox');
+        // await page.locator('#systemDataFields').click();
+        // await page.getByRole('placeholder',{name: 'Select System Data Field'}).click()
+        await page.getByRole('combobox', { name: 'Select System Data Field' }).click();
+        await page.waitForSelector('[role="option"]');
+        const checkboxes = page.getByRole('checkbox');
         const count = await checkboxes.count();
         if (count === 0) {
             console.log('>>> No checkboxes found in combobox');
             return;
         }
-        const numberToSelect = Math.min(count, 2);
+        const numberToSelect =Math.min(count, 5);
         console.log(`>>> Will select ${numberToSelect} checkbox(es)`);
         const selectedIndexes = new Set();
         while (selectedIndexes.size < numberToSelect) {
@@ -97,7 +101,7 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
             return;
         }
 
-        const numberToSelect1 = Math.min(count, 2);
+        const numberToSelect1 =Math.min(count, 5);
         console.log(`>>> Will select ${numberToSelect1} checkbox(es)`);
         const selectedIndexes1 = new Set();
         while (selectedIndexes1.size < numberToSelect1) {
@@ -127,13 +131,14 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
         await page.getByRole('tabpanel', { name: 'Notifcation Activity*' }).getByLabel('').click();
         await page.getByRole('option', { name: 'Document/Template Created' }).click();
         await page.getByRole('button', { name: 'Add System Users' }).first().click()
-        const checkboxes2 = page.locator('checkbox');
+        await page.pause()
+        const checkboxes2 = page.getByRole('checkbox');
         const count2 = await checkboxes2.count();
         if (count === 0) {
             console.log('>>> No checkboxes found in combobox');
             return;
         }
-        const numberToSelect2 = Math.min(count, 2);
+        const numberToSelect2 =Math.min(count, 2);
         console.log(`>>> Will select ${numberToSelect2} checkbox(es)`);
         const selectedIndexes2 = new Set();
         while (selectedIndexes2.size < numberToSelect2) {
