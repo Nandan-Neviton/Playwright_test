@@ -71,6 +71,10 @@ test.describe.serial('CI Tests — Admin Life Cycle States', () => {
         await page.getByRole('row', { name: new RegExp(`^${lifeData.name}.*`) })
             .getByRole('button')
             .nth(1)
+            .isVisible();
+        await page.getByRole('row', { name: new RegExp(`^${lifeData.name}.*`) })
+            .getByRole('button')
+            .nth(1)
             .click();
 
         console.log(`🔹 Updating Name to: ${newName}`);

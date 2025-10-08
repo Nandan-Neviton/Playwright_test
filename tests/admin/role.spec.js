@@ -163,6 +163,7 @@ test.describe.serial('Admin - Roles creation and verification', () => {
         await page.getByRole('row', { name: new RegExp(`^${roleData.name}.*`) }).getByRole('button').nth(1).click();
 
         await page.getByRole('textbox', { name: 'Role Name' }).fill(newName);
+        await page.getByRole('button', {name: 'Update'}).isVisible()
         await page.getByRole('button', { name: 'Update' }).click();
 
         await expect(page.getByRole('alert')).toHaveText('Role updated successfully');

@@ -160,6 +160,7 @@ test.describe.serial('CI Tests — Admin: Workflow Types', () => {
 
         await page.getByRole('textbox', { name: 'Name' }).fill(updatedName);
         await page.waitForTimeout(3000); // Wait for input stabilization
+        await page.getByRole('button', { name: 'Update' }).isVisible();
         await page.getByRole('button', { name: 'Update' }).click();
 
         await expect(page.getByRole('alert')).toHaveText('Workflow Type updated successfully');

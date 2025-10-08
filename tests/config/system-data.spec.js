@@ -112,6 +112,7 @@ test.describe.serial('CI Tests — Admin System Data Field Types', () => {
 
         console.log(`🔹 Updating field type name to: ${newName}`);
         await page.getByRole('textbox', { name: 'Name' }).fill(newName);
+        await page.getByRole('button', { name: 'Update' }).isVisible();
         await page.getByRole('button', { name: 'Update' }).click();
 
         await expect(page.getByRole('alert')).toHaveText('System Data Field Type updated successfully');

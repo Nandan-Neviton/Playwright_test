@@ -101,6 +101,7 @@ test.describe.serial('Admin - Site Management Tests', () => {
 
     const row = page.getByRole('row', { name: new RegExp(siteData.name, 'i') });
     await expect(row).toBeVisible({ timeout: 5000 });
+    await row.getByRole('button', { name: /edit/i }).isVisible();
     await row.getByRole('button', { name: /edit/i }).click();
 
     await page.getByRole('textbox', { name: /site name/i }).fill(updatedName);

@@ -89,6 +89,7 @@ test.describe.serial('Admin - User Group Management', () => {
             .click();
 
         await page.getByRole('textbox', { name: 'Enter Group Name' }).fill(updatedGroupName);
+        await page.getByRole('button', { name: 'Update' }).isVisible();
         await page.getByRole('button', { name: 'Update' }).click();
 
         await expect(page.getByRole('alert')).toHaveText('User Group updated successfully');

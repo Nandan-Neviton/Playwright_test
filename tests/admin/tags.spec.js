@@ -88,6 +88,7 @@ test.describe.serial('Admin - Tag Management', () => {
         await page.getByRole('row', { name: new RegExp(`^${tagData.name}.*`) }).getByRole('button').nth(1).click();
 
         await page.getByRole('textbox', { name: 'Tag Name' }).fill(newName);
+        await page.getByRole('button', { name: 'Update' }).isVisible();
         await page.getByRole('button', { name: 'Update' }).click();
 
         await expect(page.getByRole('alert')).toHaveText('Tag updated successfully');

@@ -222,6 +222,7 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
         console.log(`✏️ Editing Document Type: ${docData.name}`);
         await filterAndSearch(page, 'Name', docData.name);
         await page.waitForTimeout(2000);
+        await page.getByRole('button', { name: 'Edit' }).isVisible();
         await page.getByRole('button', { name: 'Edit' }).click();
 
         console.log(`🔹 Updating Name to: ${updatedName}`);

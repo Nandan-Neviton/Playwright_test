@@ -116,6 +116,7 @@ test.describe.serial('CI Tests — Admin Numbering System Management', () => {
         console.log(`✏️ Editing numbering system: ${numberData.name}`);
         await page.getByRole('row', { name: new RegExp(`^${numberData.name}.*`) }).getByRole('button').nth(1).click();
         await page.getByRole('textbox', { name: 'Name' }).fill(newName);
+        await page.getByRole('button', { name: 'Update' }).isVisible();
         await page.getByRole('button', { name: 'Update' }).click();
 
         await expect(page.getByRole('alert')).toHaveText('Numbering System has been updated');

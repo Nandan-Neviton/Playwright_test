@@ -93,6 +93,7 @@ test.describe.serial('CI Tests — Admin List Manager', () => {
 
         console.log(`🔹 Updating Pick List category to: ${newName}`);
         await page.getByRole('textbox', { name: 'Enter Pick List Category Name' }).fill(newName);
+        await page.getByRole('button', { name: 'Update' }).isVisible();
         await page.getByRole('button', { name: 'Update' }).click();
 
         await expect(page.getByRole('alert')).toHaveText('Pick List updated successfully');
