@@ -251,7 +251,7 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
   });
 });
 test.describe('🧾 Document/Template Validations', () => {
-  test.only('🧩 Validation: Empty field errors and workflow validation on new checklist creation', async ({ page }) => {
+  test('🧩 Validation: Empty field errors and workflow validation on new checklist creation', async ({ page }) => {
     console.log('🚀 [TEST START] Empty Field and Workflow Validation on New Checklist Creation');
 
     console.log('🔹 Step 1: Logging in as valid user');
@@ -291,9 +291,10 @@ test.describe('🧾 Document/Template Validations', () => {
     await page.getByRole('combobox', { name: 'Workflow Type' }).click();
     await page.getByRole('option', { name: '@NA_Workflow1' }).click();
     await page.getByRole('button', { name: 'Add' }).click();
-    console.log('🔹 Step 7: Checking review period validations');
-    await page.pause(); // Pause retained for debugging if intentional
+    await page.getByRole('button', { name: 'Next' }).click();
+    console.log('🔹 Step 7: Checking review period validations'); // Pause retained for debugging if intentional
     await page.getByRole('button', { name: 'NO' }).nth(1).click();
+    await page.getByRole('button', { name: 'Next' }).click();
     await expect(page.getByText('Review Period Duration is required')).toBeVisible();
     await expect(page.getByText('Prior Reminder is required')).toBeVisible();
     await expect(page.getByText('Reminder Recurrence Schedule is required')).toBeVisible();
@@ -308,7 +309,8 @@ test.describe('🧾 Document/Template Validations', () => {
     await expect(
       page.getByText('Please provide a valid mail list, separated by commas, or select at least one system user.')
     ).toBeVisible();
-    await expect(page.getByRole('alert', { name: 'At least one record should be added for notification.' })).toBeVisible();
+    await page.getByRole('button', {name: 'Create'}).click();
+    await expect(page.getByText('At least one record should be')).toBeVisible();
     console.log('✅ [TEST PASS] Validation messages appeared correctly for all required sections');
   });
 });
