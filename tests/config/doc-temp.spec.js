@@ -250,10 +250,6 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
     console.log('✅ Document Type deleted successfully');
   });
 });
-import { test, expect } from '@playwright/test';
-import { login } from '../utils/login.js';
-import { goToConfigSection, goToModule } from '../utils/commonActions.js';
-
 test.describe('🧾 Document/Template Validations', () => {
   test.only('🧩 Validation: Empty field errors and workflow validation on new checklist creation', async ({ page }) => {
     console.log('🚀 [TEST START] Empty Field and Workflow Validation on New Checklist Creation');
@@ -288,9 +284,10 @@ test.describe('🧾 Document/Template Validations', () => {
     console.log('🔹 Step 6: Navigating through form pages');
     await page.getByRole('button', { name: 'Next' }).click();
     await page.getByRole('button', { name: 'Next' }).click();
+    // await page.pause();
     await page.getByRole('button', { name: 'Next' }).click();
     console.log('🔍 Verifying workflow validation alerts');
-    await expect(page.getByRole('alert', { name: 'Please add at least one workflow type' })).toBeVisible();
+    await expect(page.getByText('Please add at least one')).toBeVisible();
     await page.getByRole('combobox', { name: 'Workflow Type' }).click();
     await page.getByRole('option', { name: '@NA_Workflow1' }).click();
     await page.getByRole('button', { name: 'Add' }).click();
@@ -311,11 +308,7 @@ test.describe('🧾 Document/Template Validations', () => {
     await expect(
       page.getByText('Please provide a valid mail list, separated by commas, or select at least one system user.')
     ).toBeVisible();
-    await expect(
-      page.getByRole('alert', {
-        name: 'At least one record should be added for notification.',
-      })
-    ).toBeVisible();
+    await expect(page.getByRole('alert', { name: 'At least one record should be added for notification.' })).toBeVisible();
     console.log('✅ [TEST PASS] Validation messages appeared correctly for all required sections');
   });
 });

@@ -15,5 +15,23 @@
     "allure:generate": "\"npx\" allure generate ./allure-results --clean -o ./allure-report",
     "allure:report": "\"npx\" allure open ./allure-report",
     "report:allure": "node generate-allure.js"
-  }
+  },
+  "name": "playwright_test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "generate-allure.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nandan-Neviton/Playwright_test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nandan-Neviton/Playwright_test/issues"
+  },
+  "homepage": "https://github.com/Nandan-Neviton/Playwright_test#readme"
 }
