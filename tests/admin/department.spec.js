@@ -48,7 +48,7 @@ test.describe.serial('Admin - Department creation and verification', () => {
         }
 
         // Pick random indexes to select business units
-        const numToSelect = faker.number.int({ min: 1, max: buCount });
+        const numToSelect = faker.number.int({ min: 1, max: 10 });
         const indexes = faker.helpers.arrayElements([...Array(buCount).keys()], numToSelect);
 
         deptData.businessUnits = [];
