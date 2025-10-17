@@ -10,217 +10,219 @@ import {
   clickRandomButton,
 } from '../utils/commonActions.js';
 
-// =======================
-// Test Suite: Document Types
-// =======================
+// ==========================================================
+// 🧩 Test Suite: Admin — Document Types
+// ==========================================================
 test.describe.serial('CI Tests — Admin: Document Types', () => {
-  // -----------------------
-  // Test Data (Randomized for CI runs)
-  // -----------------------
+  // --------------------------------------------------------
+  // 🔧 Test Data Setup (Randomized for CI consistency)
+  // --------------------------------------------------------
   const docData = {
-    name: faker.commerce.productName(),
-    description: faker.commerce.productDescription(),
-    prefixCode: faker.number.int({ min: 10, max: 100 }).toString(),
-    numeringSystem: 'Musi',
-    initialVersion: faker.number.int({ min: 1, max: 10 }).toString(),
-    docFormat: 'Word Document (DOCX)',
+    name: faker.commerce.productName(), // Random Document Type Name
+    description: faker.commerce.productDescription(), // Random Description
+    prefixCode: faker.number.int({ min: 10, max: 100 }).toString(), // Random Prefix
+    numeringSystem: 'Musi', // Static numbering system for testing
+    initialVersion: faker.number.int({ min: 1, max: 10 }).toString(), // Random version number
+    docFormat: 'Word Document (DOCX)', // Format selection
     successMessage: 'Document Type created successfully',
   };
 
-  const updatedName = faker.commerce.department().slice(0, 4);
-  console.log(`🔹 Test Data:`, docData);
+  const updatedName = faker.commerce.department().slice(0, 4); // Random short update name
+  console.log('🧾 Generated Test Data:', docData);
 
-  // -----------------------
-  // 01 - Create Document Type
-  // -----------------------
-  test('01 - Create Document Type', async ({ page }) => {
+  // --------------------------------------------------------
+  // 🧪 Test 01 — Create Document Type
+  // --------------------------------------------------------
+  test('01 - Should create new Document Type successfully', async ({ page }) => {
     console.log('🚀 [START] Creating new Document Type');
 
+    // Step 1: Login and navigate to module
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
     await goToConfigSection(page);
     await goToModule(page, 'Document Type/ Template Type');
 
+    // Step 2: Open creation tab
     await page.getByRole('tab', { name: 'New Document Type/Template' }).click();
 
+    // Step 3: Fill out main form fields
+    console.log('🧩 Filling document type basic details...');
     await page.getByRole('textbox', { name: 'Name' }).fill(docData.name);
     await page.getByRole('textbox', { name: 'Prefix code' }).fill(docData.prefixCode);
     await page.getByRole('textbox', { name: 'Description' }).fill(docData.description);
+
+    // Select numbering system and version
     await page.locator('#doc-type-numbering-system').click();
     await page.getByRole('option', { name: docData.numeringSystem }).click();
     await page.getByPlaceholder('Enter Version').fill(docData.initialVersion);
+
+    // Step 4: Random button toggles for various options
+    console.log('⚙️ Selecting random field toggles');
     await clickRandomButton(page, [{ options: { name: 'External Document' } }, { options: { name: 'Default Format' } }]);
+
+    // Select document format
     await page.getByRole('tabpanel', { name: 'Document Type Template Type' }).getByLabel('', { exact: true }).click();
     await page.getByRole('option', { name: docData.docFormat }).click();
+
+    // Select active/inactive, archive options, etc.
     await clickRandomButton(page, [{ options: { name: 'Active', exact: true } }, { options: { name: 'Inactive' } }]);
     await clickRandomButton(page, [{ options: { name: 'Yes' } }, { options: { name: 'No' } }]);
     await clickRandomButton(page, [{ options: { name: 'Yes', index: 1 } }, { options: { name: 'No', index: 1 } }]);
     await clickRandomButton(page, [{ options: { name: 'Yes', index: 2 } }, { options: { name: 'No', index: 2 } }]);
 
+    // Step 5: Navigate to next tab
     await page.getByRole('radio', { name: 'Auto' }).click();
     await page.getByRole('button', { name: 'Next' }).click();
 
-    // await page.locator('#systemDataFields').click();
-    // await page.getByRole('placeholder',{name: 'Select System Data Field'}).click()
+    // Step 6: Select random system data fields
+    console.log('📊 Selecting random System Data Fields...');
     await page.getByRole('combobox', { name: 'Select System Data Field' }).click();
     await page.waitForSelector('[role="option"]');
+
     const checkboxes = page.getByRole('checkbox');
     const count = await checkboxes.count();
     if (count === 0) {
-      console.log('>>> No checkboxes found in combobox');
+      console.log('⚠️ No checkboxes found in combobox');
       return;
     }
+
     const numberToSelect = Math.min(count, 5);
-    console.log(`>>> Will select ${numberToSelect} checkbox(es)`);
+    console.log(`🟢 Selecting ${numberToSelect} checkbox(es)...`);
     const selectedIndexes = new Set();
-    while (selectedIndexes.size < numberToSelect) {
-      selectedIndexes.add(Math.floor(Math.random() * count));
-    }
+    while (selectedIndexes.size < numberToSelect) selectedIndexes.add(Math.floor(Math.random() * count));
+
     for (const i of selectedIndexes) {
-      const cb = checkboxes.nth(i);
-      await cb.scrollIntoViewIfNeeded();
-      await cb.click();
-      console.log(`>>> Selected checkbox #${i + 1}`);
+      await checkboxes.nth(i).scrollIntoViewIfNeeded();
+      await checkboxes.nth(i).click();
+      console.log(`✅ Selected checkbox #${i + 1}`);
     }
+
     await page.mouse.click(0, 0);
     await page.getByRole('button', { name: 'Add' }).click();
+
+    // Step 7: Select repository and workflow
     await page.getByRole('combobox', { name: 'Select Parent Reporsitory' }).click();
     await page.getByRole('option', { name: 'NEVRepo' }).click();
     await page.getByRole('button', { name: 'Next' }).click();
 
+    console.log('🔄 Selecting Workflow Types...');
     await page.getByRole('combobox', { name: 'Workflow Type' }).click();
-    await page.waitForSelector('[role="option"], [role="checkbox"]', {
-      timeout: 3000,
-    });
+    await page.waitForSelector('[role="option"], [role="checkbox"]');
 
     const dropdown = page.locator('[role="listbox"]');
     const options = dropdown.locator('[role="option"]');
     const count1 = await options.count();
     if (count1 === 0) {
-      console.log('>>> No options found in combobox');
+      console.log('⚠️ No workflow options found');
       return;
     }
-    const numberToSelect1 = Math.min(count1, 5);
-    console.log(`>>> Will select ${numberToSelect1} checkbox(es)`);
-    const selectedIndexes1 = new Set();
-    while (selectedIndexes1.size < numberToSelect1) {
-      selectedIndexes1.add(Math.floor(Math.random() * count1));
-    }
-    for (const i of selectedIndexes1) {
-      const option = options.nth(i);
-      await option.scrollIntoViewIfNeeded({ timeout: 5000 }).catch(() => console.log(`Could not scroll to option ${i + 1}`));
-      await option.click();
-      console.log(`>>> Selected option #${i + 1}`);
+
+    const numToSelect = Math.min(count1, 5);
+    const indices = new Set();
+    while (indices.size < numToSelect) indices.add(Math.floor(Math.random() * count1));
+    for (const i of indices) {
+      const opt = options.nth(i);
+      await opt.scrollIntoViewIfNeeded();
+      await opt.click();
+      console.log(`✅ Selected workflow option #${i + 1}`);
     }
     await page.mouse.click(0, 0);
-
     await page.getByRole('button', { name: 'Add' }).click();
     await page.getByRole('button', { name: 'Next' }).click();
 
+    // Step 8: Review period configuration
+    console.log('🕒 Configuring Review Period...');
     await page.getByRole('button', { name: 'YES' }).first().click();
     await clickRandomButton(page, [{ options: { name: 'Months' } }]);
     await page.getByRole('textbox', { name: 'Months', exact: true }).fill('10');
     await clickRandomButton(page, [{ options: { name: 'Weeks' } }]);
-
     await page.getByRole('textbox', { name: 'Weeks' }).fill('10');
     await page.locator('input[name="reminderRecurrence"]').fill('10');
     await page.getByRole('button', { name: 'NO' }).nth(1).click();
-
     await page.getByRole('button', { name: 'Next' }).click();
 
+    // Step 9: Notification setup
+    console.log('📧 Configuring Notification Activity...');
     await page.getByRole('tabpanel', { name: 'Notifcation Activity*' }).getByLabel('').click();
     await page.getByRole('option', { name: 'Document/Template Created' }).click();
     await page.getByRole('button', { name: 'Add System Users' }).first().click();
+    await page.waitForTimeout(1000);
 
-    // Wait for modal to appear
+    // Wait for modal and select users randomly
     const modal = page.locator('[role="dialog"]');
-    await modal.waitFor({ state: 'visible', timeout: 5000 });
+    await modal.waitFor({ state: 'visible' });
+    const checkboxes2 = modal.locator('input[type="checkbox"]');
+    const total = await checkboxes2.count();
+    if (total > 0) {
+      const toSelect = Math.min(total, 2);
+      const chosen = new Set();
+      while (chosen.size < toSelect) chosen.add(Math.floor(Math.random() * total));
+      for (const i of chosen) {
+        await checkboxes2.nth(i).scrollIntoViewIfNeeded();
+        await checkboxes2.nth(i).click({ force: true });
+        console.log(`✅ Selected system user #${i + 1}`);
+      }
+    } else {
+      console.log('⚠️ No system user checkboxes found');
+    }
 
-    // Wait for checkboxes inside modal
-    const checkboxes2 = modal.locator('input[type="checkbox"]'); // adjust selector if needed
-    await checkboxes2.first().waitFor({ state: 'visible', timeout: 5000 });
-    const count2 = await checkboxes2.count();
-    if (count2 === 0) {
-      console.log('>>> No checkboxes found in modal');
-      return;
-    }
-    const numberToSelect2 = Math.min(count2, 2);
-    console.log(`>>> Will select ${numberToSelect2} checkbox(es)`);
-    const selectedIndexes2 = new Set();
-    while (selectedIndexes2.size < numberToSelect2) {
-      selectedIndexes2.add(Math.floor(Math.random() * count2));
-    }
-    for (const i of selectedIndexes2) {
-      const cb = checkboxes2.nth(i);
-      await cb.scrollIntoViewIfNeeded();
-      await cb.click({ force: true }); // force click in case overlay
-      console.log(`>>> Selected checkbox #${i + 1}`);
-    }
-    await page.mouse.click(0, 0); // click outside to close dropdown/modal
-
+    // Final submission
+    await page.mouse.click(0, 0);
     await page.getByRole('button', { name: 'Add', exact: true }).click();
     await page.getByRole('button', { name: 'Create', exact: true }).click();
-    await expect(page.getByRole('alert')).toHaveText('Document Type created successfully');
+    await expect(page.getByRole('alert')).toHaveText(docData.successMessage);
     console.log('✅ Document Type created successfully');
   });
 
-  // -----------------------
-  // 02 - Verify Document Type and Toggle Status
-  // -----------------------
-  test('02 - Verify Document Type and Toggle Status', async ({ page }) => {
-    console.log('🔹 Test Start: Verify Document Type and Toggle Status');
-
+  // --------------------------------------------------------
+  // 🧪 Test 02 — Verify and Toggle Document Type
+  // --------------------------------------------------------
+  test('02 - Should verify Document Type and toggle its status', async ({ page }) => {
+    console.log('🔹 [TEST START] Verify and Toggle Document Type');
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
     await goToConfigSection(page);
     await goToModule(page, 'Document Type/ Template Type');
 
-    console.log(`🔹 Filtering by Name: ${docData.name}`);
+    console.log(`🔍 Filtering by Name: ${docData.name}`);
     await filterAndSearch(page, 'Name', docData.name);
-    await page.waitForTimeout(2000);
     await expect(page.getByRole('cell', { name: docData.name })).toBeVisible();
 
+    // Toggle only if inactive entries exist
     const inactiveCell = page.getByRole('cell', { name: 'Inactive' });
     const count = await inactiveCell.count();
     if (count === 0) {
-      console.log('✅ No "Inactive" entries found — nothing to toggle.');
-      return;
+      console.log('✅ All entries active — no toggle required');
     } else {
       await toggleAndCheck(page, 'Document Type has been activated', 'Active');
     }
   });
 
-  // -----------------------
-  // 03 - Filter and Download Document Type
-  // -----------------------
-  test('03 - Filter and Download Document Type', async ({ page }) => {
-    console.log('🔹 Test Start: Filter and Download Document Type');
-
+  // --------------------------------------------------------
+  // 🧪 Test 03 — Filter and Download
+  // --------------------------------------------------------
+  test('03 - Should filter Document Type and download results', async ({ page }) => {
+    console.log('🔹 [TEST START] Filter & Download Document Type');
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
     await goToConfigSection(page);
     await goToModule(page, 'Document Type/ Template Type');
 
-    console.log(`🔹 Filtering by Name: ${docData.name}`);
     await filterAndDownload(page, 'Name', docData.name);
-
-    console.log('✅ Filter and download completed');
+    console.log('✅ Filter and download successful');
   });
 
-  // -----------------------
-  // 04 - Edit Document Type
-  // -----------------------
-  test('04 - Edit Document Type', async ({ page }) => {
-    console.log('🔹 Test Start: Edit Document Type');
-
+  // --------------------------------------------------------
+  // 🧪 Test 04 — Edit Document Type
+  // --------------------------------------------------------
+  test('04 - Should edit existing Document Type successfully', async ({ page }) => {
+    console.log('✏️ [TEST START] Edit Document Type');
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
     await goToConfigSection(page);
     await goToModule(page, 'Document Type/ Template Type');
 
-    console.log(`✏️ Editing Document Type: ${docData.name}`);
     await filterAndSearch(page, 'Name', docData.name);
     await page.waitForTimeout(2000);
-    await page.getByRole('button', { name: 'Edit' }).isVisible();
+    console.log(`🔹 Editing document type: ${docData.name}`);
     await page.getByRole('button', { name: 'Edit' }).click();
 
-    console.log(`🔹 Updating Name to: ${updatedName}`);
     await page.getByRole('textbox', { name: 'Name' }).fill(updatedName);
     await page.getByRole('button', { name: 'Update' }).click();
 
@@ -228,21 +230,19 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
     console.log('✅ Document Type updated successfully');
   });
 
-  // -----------------------
-  // 05 - Delete Document Type
-  // -----------------------
-  test('05 - Delete Document Type', async ({ page }) => {
-    console.log('🔹 Test Start: Delete Document Type');
-
+  // --------------------------------------------------------
+  // 🧪 Test 05 — Delete Document Type
+  // --------------------------------------------------------
+  test('05 - Should delete Document Type successfully', async ({ page }) => {
+    console.log('🗑 [TEST START] Delete Document Type');
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
     await goToConfigSection(page);
     await goToModule(page, 'Document Type/ Template Type');
 
-    console.log(`🔹 Filtering for deletion: ${docData.name}`);
+    console.log(`🔹 Searching for deletion target: ${docData.name}`);
     await filterAndSearch(page, 'Name', docData.name);
     await page.waitForTimeout(2000);
 
-    console.log(`🗑 Deleting Document Type: ${docData.name}`);
     await page.getByRole('button', { name: 'Delete' }).click();
     await page.getByRole('button', { name: 'Delete' }).click();
 
@@ -250,67 +250,75 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
     console.log('✅ Document Type deleted successfully');
   });
 });
+
+// ==========================================================
+// ⚠️ Validation Tests — Document/Template Field Validations
+// ==========================================================
 test.describe('🧾 Document/Template Validations', () => {
-  test('🧩 Validation: Empty field errors and workflow validation on new checklist creation', async ({ page }) => {
-    console.log('🚀 [TEST START] Empty Field and Workflow Validation on New Checklist Creation');
+  test('Validation - Should display proper error messages for empty fields and workflow validation', async ({ page }) => {
+    console.log('🚦 [TEST START] Validation Checks for Empty Fields & Workflow');
 
-    console.log('🔹 Step 1: Logging in as valid user');
+    // Step 1: Login and open module
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-
-    console.log('🔹 Step 2: Navigating to Config → Document Type/Template Type');
     await goToConfigSection(page);
     await goToModule(page, 'Document Type/ Template Type');
-
-    console.log('🔹 Step 3: Opening "New Document Type/Template" tab');
     await page.getByRole('tab', { name: 'New Document Type/Template' }).click();
-    console.log('🔹 Step 4: Attempting to proceed with empty fields');
+
+    // Step 2: Attempt to proceed without data
     await page.getByRole('button', { name: 'Next' }).click();
     await page.getByRole('textbox', { name: 'Name' }).fill(' ');
     await page.getByRole('textbox', { name: 'Prefix code' }).fill(' ');
     await page.getByRole('textbox', { name: 'Description' }).fill(' ');
-    console.log('🔍 Verifying validation messages for required fields');
+
+    console.log('🔍 Verifying validation error messages...');
     await expect(page.getByText('Document Type Name is required')).toBeVisible();
     await expect(page.getByText('Prefix Code must be alphanumeric')).toBeVisible();
     await expect(page.getByText('Initial version is required')).toBeVisible();
     await expect(page.getByText('Please select Document Format')).toBeVisible();
-    console.log('🔹 Step 5: Filling mandatory fields with valid data');
+
+    // Step 3: Fill mandatory fields correctly
     await page.locator('#doc-type-numbering-system').click();
-    await page.getByRole('option', { name: 'Auto' }).click();
+    await page.getByRole('option', { name: 'Musi' }).click();
     await page.getByRole('textbox', { name: 'Name' }).fill('test');
     await page.getByRole('textbox', { name: 'Prefix code' }).fill('22');
     await page.getByPlaceholder('Enter Version').fill('22');
     await page.getByRole('tabpanel', { name: 'Document Type Template Type' }).getByLabel('', { exact: true }).click();
     await page.getByRole('option', { name: 'Word Document (DOCX)' }).click();
-    console.log('🔹 Step 6: Navigating through form pages');
+
+    // Step 4: Proceed to workflow section and verify validation
     await page.getByRole('button', { name: 'Next' }).click();
     await page.getByRole('button', { name: 'Next' }).click();
-    // await page.pause();
     await page.getByRole('button', { name: 'Next' }).click();
-    console.log('🔍 Verifying workflow validation alerts');
     await expect(page.getByText('Please add at least one')).toBeVisible();
+
+    // Step 5: Add valid workflow entry
     await page.getByRole('combobox', { name: 'Workflow Type' }).click();
     await page.getByRole('option', { name: '@NA_Workflow1' }).click();
     await page.getByRole('button', { name: 'Add' }).click();
     await page.getByRole('button', { name: 'Next' }).click();
-    console.log('🔹 Step 7: Checking review period validations'); // Pause retained for debugging if intentional
+
+    // Step 6: Validate Review Period Section
     await page.getByRole('button', { name: 'NO' }).nth(1).click();
     await page.getByRole('button', { name: 'Next' }).click();
     await expect(page.getByText('Review Period Duration is required')).toBeVisible();
     await expect(page.getByText('Prior Reminder is required')).toBeVisible();
     await expect(page.getByText('Reminder Recurrence Schedule is required')).toBeVisible();
-    console.log('🔹 Step 8: Providing valid review duration details');
+
+    // Step 7: Provide valid duration and recurrence
     await page.getByRole('textbox', { name: 'Months' }).fill('2');
     await page.getByRole('textbox', { name: 'Days' }).fill('2');
     await page.getByRole('textbox', { name: 'Monthly' }).fill('2');
     await page.getByRole('button', { name: 'Next' }).click();
-    console.log('🔹 Step 9: Testing notification validations');
+
+    // Step 8: Notification validation
     await page.getByRole('button', { name: 'Add', exact: true }).click();
     await expect(page.getByText('Notification Activity is required')).toBeVisible();
     await expect(
       page.getByText('Please provide a valid mail list, separated by commas, or select at least one system user.')
     ).toBeVisible();
-    await page.getByRole('button', {name: 'Create'}).click();
+
+    await page.getByRole('button', { name: 'Create' }).click();
     await expect(page.getByText('At least one record should be')).toBeVisible();
-    console.log('✅ [TEST PASS] Validation messages appeared correctly for all required sections');
+    console.log('✅ Validation messages verified successfully');
   });
 });

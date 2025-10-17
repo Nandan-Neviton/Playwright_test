@@ -5,7 +5,7 @@ import { login } from '../utils/login.js';
 import { goToModule, filterAndSearch, filterAndDownload, toggleAndCheck, goToAdminSection } from '../utils/commonActions.js';
 
 // Force desktop viewport to avoid responsive issues in GitHub Actions
-test.use({ viewport: { width: 1920, height: 1080 } });
+
 
 test.describe.serial('Admin - Site Management Tests', () => {
   // Shared test data (persist across serial tests)

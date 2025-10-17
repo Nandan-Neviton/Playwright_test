@@ -5,17 +5,35 @@ export async function goToAdminSection(page) {
   const adminLink = page.locator('a[href="/admin"]');
   await expect(adminLink).toBeVisible({ timeout: 15000 }); // wait until link is visible
   await adminLink.click();
-  console.log(">>> Navigated to Admin section");
+  console.log('>>> Navigated to Admin section');
 }
 export async function goToConfigSection(page) {
   const configLink = page.locator('a[href="/configuration"]');
   await expect(configLink).toBeVisible({ timeout: 15000 }); // wait until link is visible
   await configLink.click();
-  console.log(">>> Navigated to Config section");
+  console.log('>>> Navigated to Config section');
+}
+export async function goToWorkflowSection(page) {
+  const configLink = page.locator('a[href="/workflow"]');
+  await expect(configLink).toBeVisible({ timeout: 15000 }); // wait until link is visible
+  await configLink.click();
+  console.log('>>> Navigated to Workflow section');
+}
+export async function goToTemplateSection(page) {
+  const configLink = page.locator('a[href="/template"]');
+  await expect(configLink).toBeVisible({ timeout: 15000 }); // wait until link is visible
+  await configLink.click();
+  console.log('>>> Navigated to Workflow section');
+}
+
+export async function goToDocumentSection(page) {
+  const documentLink = page.locator('a[href="/document"]');
+  await expect(documentLink).toBeVisible({ timeout: 15000 }); // wait until link is visible
+  await documentLink.click();
+  console.log('>>> Navigated to Document section');
 }
 
 export async function goToModule(page, moduleName) {
-
   const moduleLink = page.getByRole('link', { name: moduleName });
   await expect(moduleLink).toBeVisible({ timeout: 15000 });
   await moduleLink.click();
@@ -32,11 +50,9 @@ export async function toggleAndCheck(page, expectedAlert, expectedStatus) {
   const alert = page.getByRole('alert').last();
   await expect(alert).toContainText(expectedAlert);
   const statusCell = page.getByRole('cell', { name: expectedStatus }).first();
-  await expect(statusCell).toBeVisible({ timeout: 10000 })
+  await expect(statusCell).toBeVisible({ timeout: 10000 });
   console.log(`>>> Toggle checked, expected status: ${expectedStatus}`);
 }
-
-
 
 export async function filterAndDownload(page, filterBy, value) {
   await page.locator('#table-search-option').click();
@@ -65,9 +81,7 @@ export async function filterAndSearch(page, filterBy, value) {
 }
 
 export async function clickRandomButton(page, buttonConfigs) {
-  const locators = buttonConfigs.map(({ options, index = 0 }) =>
-    page.getByRole('button', options).nth(index)
-  );
+  const locators = buttonConfigs.map(({ options, index = 0 }) => page.getByRole('button', options).nth(index));
 
   const randomIndex = Math.floor(Math.random() * locators.length);
   const chosenLocator = locators[randomIndex];
