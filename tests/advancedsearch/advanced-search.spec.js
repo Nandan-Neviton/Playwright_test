@@ -85,13 +85,20 @@ test.describe.serial('CI Tests — Advanced Search', () => {
 
     // Search with Contains condition
     console.log(`🔸 Searching documents containing: ${searchData.partialTitle}`);
+    await page.waitForTimeout(1000); // Allow page to stabilize
+    
     await page.getByLabel('').nth(2).click();
+    await page.waitForTimeout(500);
     await page.getByRole('option', { name: 'Document', exact: true }).click();
+    await page.waitForTimeout(500);
     
     await page.getByLabel('').nth(3).click();
+    await page.waitForTimeout(500);
     await page.getByRole('option', { name: 'Document Title' }).click();
+    await page.waitForTimeout(500);
     
     await page.getByLabel('').nth(4).click();
+    await page.waitForTimeout(500);
     await page.getByRole('option', { name: 'Contains', exact: true }).click();
     
     await page.locator('input[name="searchValue"]').fill(searchData.partialTitle);

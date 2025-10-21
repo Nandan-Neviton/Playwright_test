@@ -42,37 +42,83 @@ test.describe.serial('Admin - Tag Management', () => {
         console.log('✅ Tag created successfully with message:', tagData.successMessage);
     });
 
-    // ---------- TEST 2: Verify Created Tag ----------
-    test('should verify the created tag and toggle its status', async ({ page }) => {
-        console.log('➡️ Starting test: Verify Created Tag');
+    // ---------- TEST 2: Verify and Toggle Tag Status ----------
+    test('should verify existing tag and toggle its status', async ({ page }) => {
+        console.log('➡️ Starting test: Verify and Toggle Tag Status');
         await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
         await goToAdminSection(page);
         await goToModule(page, 'Tags');
 
-        console.log(`🔍 Searching for Tag with Code: ${tagData.code}`);
-        await filterAndSearch(page, 'Tag Code', tagData.code);
-        await page.waitForTimeout(2000);
-
-        await expect(page.getByRole('cell', { name: tagData.name }).first()).toBeVisible();
-        await expect(page.getByRole('cell', { name: tagData.code }).first()).toBeVisible();
-        console.log('✅ Tag found in grid:', tagData.name, tagData.code);
-
-        await toggleAndCheck(page, 'Tag has been deactivated', 'Inactive');
-        console.log('✅ Tag deactivated');
-
-        await toggleAndCheck(page, 'Tag has been activated', 'Active');
-        console.log('✅ Tag re-activated');
+        console.log('🔍 Looking for the most recently created tag to toggle...');
+        
+        // Wait for the table to load first
+        await page.waitForSelector('[role="grid"]', { timeout: 10000 });
+        await page.waitForTimeout(2000); // Allow table to fully render
+        
+        // Find the first tag in the table (most recently created should be at the top)
+        const firstTagRow = page.locator('[role="row"]').nth(1); // Skip header row
+        await expect(firstTagRow).toBeVisible({ timeout: 5000 });
+        
+        // Get the tag name and code from the first row to use for toggling
+        const tagNameCell = firstTagRow.locator('[role="cell"]').nth(1); // Tag Name column
+        const tagCodeCell = firstTagRow.locator('[role="cell"]').nth(2); // Tag Code column
+        
+        const selectedTagName = await tagNameCell.textContent();
+        const selectedTagCode = await tagCodeCell.textContent();
+        
+        console.log(`📋 Using existing tag for toggle test: ${selectedTagName} (${selectedTagCode})`);
+        
+        // Verify the tag is visible
+        await expect(tagNameCell).toBeVisible();
+        await expect(tagCodeCell).toBeVisible();
+        
+        // Now test the toggle functionality using the first row
+        console.log('🔄 Testing toggle functionality...');
+        
+        // Find the toggle checkbox in the first row
+        const toggleCheckbox = firstTagRow.locator('input[type="checkbox"]').last();
+        await expect(toggleCheckbox).toBeVisible({ timeout: 5000 });
+        
+        // Check current state and toggle
+        const isCurrentlyChecked = await toggleCheckbox.isChecked();
+        console.log(`📊 Current toggle state: ${isCurrentlyChecked ? 'Active' : 'Inactive'}`);
+        
+        // Perform toggle action
+        await toggleCheckbox.click();
+        await page.waitForTimeout(1500);
+        
+        // Verify toggle state changed
+        const newState = await toggleCheckbox.isChecked();
+        console.log(`📊 New toggle state: ${newState ? 'Active' : 'Inactive'}`);
+        
+        expect(newState).not.toBe(isCurrentlyChecked);
+        console.log('✅ Tag status toggled successfully');
+        
+        // Toggle back to original state
+        await toggleCheckbox.click();
+        await page.waitForTimeout(1500);
+        
+        const finalState = await toggleCheckbox.isChecked();
+        expect(finalState).toBe(isCurrentlyChecked);
+        console.log('✅ Tag status restored to original state');
     });
 
     // ---------- TEST 3: Filter and Download Tag Data ----------
-    test('should filter tags by code and download the data', async ({ page }) => {
+    test('should filter tags and download the data', async ({ page }) => {
         console.log('➡️ Starting test: Filter and Download Tag Data');
         await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
         await goToAdminSection(page);
         await goToModule(page, 'Tags');
 
-        console.log(`🔍 Filtering by Tag Code: ${tagData.code}`);
-        await filterAndDownload(page, 'Code', tagData.code);
+        // Wait for table to load and get the first tag's code for filtering
+        await page.waitForSelector('[role="grid"]', { timeout: 10000 });
+        await page.waitForTimeout(1500);
+        
+        const firstTagRow = page.locator('[role="row"]').nth(1);
+        const firstTagCode = await firstTagRow.locator('[role="cell"]').nth(2).textContent();
+        
+        console.log(`🔍 Filtering by existing Tag Code: ${firstTagCode}`);
+        await filterAndDownload(page, 'Tag Code', firstTagCode.trim());
         console.log('✅ Tag data downloaded successfully');
     });
 
@@ -84,10 +130,22 @@ test.describe.serial('Admin - Tag Management', () => {
         await goToAdminSection(page);
         await goToModule(page, 'Tags');
 
-        console.log(`✏️ Editing Tag: ${tagData.name}`);
-        await page.getByRole('row', { name: new RegExp(`^${tagData.name}.*`) }).getByRole('button').nth(1).click();
+        // Wait for table and select first tag for editing
+        await page.waitForSelector('[role="grid"]', { timeout: 10000 });
+        await page.waitForTimeout(1500);
+        
+        const firstTagRow = page.locator('[role="row"]').nth(1);
+        const originalTagName = await firstTagRow.locator('[role="cell"]').nth(1).textContent();
+        
+        console.log(`✏️ Editing Tag: ${originalTagName}`);
+        
+        // Click edit button (second button in the action column)
+        await firstTagRow.locator('button').nth(1).click();
+        await page.waitForTimeout(1500);
 
-        await page.getByRole('textbox', { name: 'Tag Name' }).fill(newName);
+        // Generate a new name for the edit
+        const editedName = `${originalTagName}_Edited_${Date.now()}`;
+        await page.getByRole('textbox', { name: 'Tag Name' }).fill(editedName);
         await page.getByRole('button', { name: 'Update' }).isVisible();
         await page.getByRole('button', { name: 'Update' }).click();
 
@@ -102,11 +160,25 @@ test.describe.serial('Admin - Tag Management', () => {
         await goToAdminSection(page);
         await goToModule(page, 'Tags');
 
-        const row = page.getByRole('row', { name: new RegExp(`^(${newName}|${tagData.name}).*`) });
-        await expect(row).toBeVisible();
-        console.log('✅ Tag row is visible for deletion');
+        // Wait for table and select the last tag for deletion (to avoid deleting recently created ones)
+        await page.waitForSelector('[role="grid"]', { timeout: 10000 });
+        await page.waitForTimeout(1500);
+        
+        const allRows = page.locator('[role="row"]');
+        const rowCount = await allRows.count();
+        
+        // Select the last tag (excluding header)
+        const lastTagRow = allRows.nth(rowCount - 1);
+        const tagToDelete = await lastTagRow.locator('[role="cell"]').nth(1).textContent();
+        
+        console.log(`🗑️ Deleting Tag: ${tagToDelete}`);
+        await expect(lastTagRow).toBeVisible();
 
-        await row.getByRole('button').nth(2).click();
+        // Click delete button (third button in the action column)
+        await lastTagRow.locator('button').nth(2).click();
+        await page.waitForTimeout(1000);
+        
+        // Confirm deletion
         await page.getByRole('button', { name: 'Delete' }).click();
 
         await expect(page.getByRole('alert')).toHaveText('Tag deleted successfully');

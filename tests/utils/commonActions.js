@@ -2,7 +2,11 @@
 import { expect } from '@playwright/test';
 
 export async function goToAdminSection(page) {
-  const adminLink = page.locator('a[href="/admin"]');
+  // Wait a bit for page to stabilize after login
+  await page.waitForTimeout(1500);
+  
+  // More flexible admin link selector
+  const adminLink = page.locator('a[href="/admin"]').or(page.getByRole('link').filter({ hasText: 'Admin' }));
   await expect(adminLink).toBeVisible({ timeout: 15000 }); // wait until link is visible
   await adminLink.click();
   console.log('>>> Navigated to Admin section');
@@ -55,7 +59,18 @@ export async function toggleAndCheck(page, expectedAlert, expectedStatus) {
 }
 
 export async function filterAndDownload(page, filterBy, value) {
-  await page.locator('#table-search-option').click();
+  // Try multiple possible selectors for the search option dropdown
+  try {
+    await page.locator('#table-search-option').click({ timeout: 5000 });
+  } catch (error) {
+    // Fallback selector - try combobox approach
+    try {
+      await page.getByRole('combobox').first().click({ timeout: 5000 });
+    } catch (fallbackError) {
+      // Last resort - look for filter dropdown by text
+      await page.getByText('Filter By').click({ timeout: 5000 });
+    }
+  }
   await page.getByRole('option', { name: filterBy }).click();
   await page.getByRole('textbox', { name: 'Search', exact: true }).fill(value);
 

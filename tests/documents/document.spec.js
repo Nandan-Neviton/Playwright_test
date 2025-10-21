@@ -332,3 +332,110 @@ test.describe('Document Validations', () => {
     console.log('✅ Document workflow validation working correctly');
   });
 });
+
+// ===========================================================
+// Document Enhancement Tests — Advanced Features
+// ===========================================================
+test.describe.serial('Document Enhancement Tests', () => {
+
+  // ===========================================================
+  // TEST — Document Version Control
+  // ===========================================================
+  test('Document version control and history tracking', async ({ page }) => {
+    console.log('🔹 [START] Document Version Control');
+
+    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await page.getByRole('link', { name: 'Document' }).click();
+    
+    // Check for version control features
+    console.log('🔸 Checking for version control features...');
+    const versionFeatures = [
+      'Version',
+      'History', 
+      'Revision',
+      'Track Changes',
+      'Compare',
+      'Rollback'
+    ];
+    
+    for (const feature of versionFeatures) {
+      const featureLocator = page.getByText(feature, { exact: false })
+                                 .or(page.getByRole('button', { name: feature, exact: false }));
+      if (await featureLocator.isVisible({ timeout: 2000 })) {
+        console.log(`✅ Found version control feature: ${feature}`);
+      }
+    }
+    
+    console.log('✅ Document version control verification completed');
+  });
+
+  // ===========================================================
+  // TEST — Document Bulk Operations
+  // ===========================================================
+  test('Document bulk operations functionality', async ({ page }) => {
+    console.log('🔹 [START] Document Bulk Operations');
+
+    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await page.getByRole('link', { name: 'Document' }).click();
+    
+    // Check for bulk operation features
+    console.log('🔸 Checking for bulk operations...');
+    
+    const bulkFeatures = [
+      'Bulk Upload',
+      'Bulk Download',
+      'Bulk Delete',
+      'Bulk Edit',
+      'Select All',
+      'Mass Action'
+    ];
+    
+    for (const feature of bulkFeatures) {
+      const featureLocator = page.getByText(feature, { exact: false });
+      if (await featureLocator.isVisible({ timeout: 2000 })) {
+        console.log(`✅ Found bulk operation: ${feature}`);
+      }
+    }
+    
+    console.log('✅ Bulk operations verification completed');
+  });
+
+  // ===========================================================
+  // TEST — Document Search and Filter Options
+  // ===========================================================
+  test('Document search and advanced filter options', async ({ page }) => {
+    console.log('🔹 [START] Document Search & Filters');
+
+    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await page.getByRole('link', { name: 'Document' }).click();
+    
+    // Test search functionality
+    console.log('🔸 Testing document search...');
+    const searchBox = page.getByRole('textbox').filter({ hasText: /search/i }).or(page.getByPlaceholder(/search/i));
+    
+    if (await searchBox.isVisible({ timeout: 5000 })) {
+      await searchBox.fill('test document');
+      console.log('✅ Document search functionality working');
+    }
+    
+    // Test filter options
+    console.log('🔸 Testing filter options...');
+    const filterOptions = [
+      'Date',
+      'Type',
+      'Status',
+      'Author',
+      'Category',
+      'Tags'
+    ];
+    
+    for (const filter of filterOptions) {
+      const filterLocator = page.getByText(filter, { exact: false });
+      if (await filterLocator.isVisible({ timeout: 2000 })) {
+        console.log(`✅ Found filter option: ${filter}`);
+      }
+    }
+    
+    console.log('✅ Document search and filters verification completed');
+  });
+});

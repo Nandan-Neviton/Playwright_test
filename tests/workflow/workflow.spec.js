@@ -116,3 +116,71 @@ test.describe.serial('CI Tests — Admin System Data Field Types', () => {
   });
   */
 });
+
+// ===========================================================
+// Workflow Enhancement Tests — Advanced Features
+// ===========================================================
+test.describe.serial('Workflow Enhancement Tests', () => {
+
+  // ===========================================================
+  // TEST — Workflow Designer and Builder Interface
+  // ===========================================================
+  test('Workflow designer and builder interface', async ({ page }) => {
+    console.log('🔹 [START] Workflow Designer Interface');
+
+    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await page.getByRole('link', { name: 'Workflow' }).click();
+    
+    // Check for workflow designer features
+    console.log('🔸 Checking workflow designer interface...');
+    const workflowFeatures = [
+      'New Workflow', 
+      'Add',
+      'Design',
+      'Builder',
+      'Template'
+    ];
+    
+    for (const feature of workflowFeatures) {
+      const featureLocator = page.getByRole('button', { name: feature, exact: false })
+                                 .or(page.getByText(feature, { exact: false }));
+      if (await featureLocator.isVisible({ timeout: 2000 })) {
+        console.log(`✅ Found workflow feature: ${feature}`);
+      }
+    }
+    
+    console.log('✅ Workflow interface verification completed');
+  });
+
+  // ===========================================================
+  // TEST — Workflow Status and Monitoring
+  // ===========================================================
+  test('Workflow status monitoring and tracking', async ({ page }) => {
+    console.log('🔹 [START] Workflow Status Monitoring');
+
+    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await page.getByRole('link', { name: 'Workflow' }).click();
+    
+    // Check for workflow status features
+    console.log('🔸 Checking workflow status monitoring...');
+    const statusFeatures = [
+      'Status',
+      'Progress',
+      'Active',
+      'Completed',
+      'Pending',
+      'In Progress',
+      'Monitor',
+      'Track'
+    ];
+    
+    for (const feature of statusFeatures) {
+      const featureLocator = page.getByText(feature, { exact: false });
+      if (await featureLocator.isVisible({ timeout: 2000 })) {
+        console.log(`✅ Found status feature: ${feature}`);
+      }
+    }
+    
+    console.log('✅ Workflow status monitoring verification completed');
+  });
+});

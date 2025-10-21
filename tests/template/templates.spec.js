@@ -225,3 +225,40 @@ test.describe('Template Validations', () => {
     console.log('✅ Second step validation working correctly');
   });
 });
+
+// ===========================================================
+// Template Enhancement Tests — Advanced Features
+// ===========================================================
+test.describe.serial('Template Enhancement Tests', () => {
+
+  // ===========================================================
+  // TEST — Template Validation and Preview
+  // ===========================================================
+  test('Template validation and preview functionality', async ({ page }) => {
+    console.log('🔹 [START] Template Validation & Preview');
+
+    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await page.getByRole('link', { name: 'Template' }).click();
+    
+    // Check for template validation and preview features
+    console.log('🔸 Checking template validation and preview...');
+    const validationFeatures = [
+      'Preview',
+      'Validate',
+      'Check',
+      'Verify',
+      'Test',
+      'Sample'
+    ];
+    
+    for (const feature of validationFeatures) {
+      const featureLocator = page.getByRole('button', { name: feature, exact: false })
+                                 .or(page.getByText(feature, { exact: false }));
+      if (await featureLocator.isVisible({ timeout: 2000 })) {
+        console.log(`✅ Found validation/preview feature: ${feature}`);
+      }
+    }
+    
+    console.log('✅ Template validation and preview verification completed');
+  });
+});

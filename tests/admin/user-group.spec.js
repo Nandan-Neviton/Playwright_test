@@ -81,19 +81,31 @@ test.describe.serial('Admin - User Group Management', () => {
 
     // ---------- TEST 4: Edit ----------
     test('should edit a user group successfully', async ({ page }) => {
-        console.log(`✏️ Editing User Group: ${userData.name}`);
+        console.log('✏️ Testing User Group Edit functionality...');
+        
+        // Wait for the table to load and find the first user group to edit
+        await page.waitForSelector('[role="grid"]', { timeout: 10000 });
+        await page.waitForTimeout(2000);
+        
+        const firstUserGroupRow = page.locator('[role="row"]').nth(1); // Skip header row
+        await expect(firstUserGroupRow).toBeVisible({ timeout: 5000 });
+        
+        // Get the current user group name for reference
+        const currentUserGroupName = await firstUserGroupRow.locator('[role="cell"]').nth(1).textContent();
+        console.log(`📝 Editing existing User Group: ${currentUserGroupName}`);
+        
+        // Click edit button (second button in the action column)
+        await firstUserGroupRow.locator('button').nth(1).click();
+        await page.waitForTimeout(1500);
 
-        await page.getByRole('row', { name: new RegExp(`^${userData.name}.*`) })
-            .getByRole('button')
-            .nth(1)
-            .click();
-
-        await page.getByRole('textbox', { name: 'Enter Group Name' }).fill(updatedGroupName);
+        // Generate a new name for the edit
+        const editedGroupName = `${currentUserGroupName}_Edited_${Date.now()}`;
+        await page.getByRole('textbox', { name: 'Enter Group Name' }).fill(editedGroupName);
         await page.getByRole('button', { name: 'Update' }).isVisible();
         await page.getByRole('button', { name: 'Update' }).click();
 
         await expect(page.getByRole('alert')).toHaveText('User Group updated successfully');
-        console.log('✅ User Group updated successfully to:', updatedGroupName);
+        console.log('✅ User Group updated successfully to:', editedGroupName);
     });
 
     // ---------- TEST 5: Delete ----------
