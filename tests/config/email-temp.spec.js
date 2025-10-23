@@ -6,11 +6,7 @@ import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import { login } from '../utils/login.js';
 import { goToModule, goToConfigSection, filterAndSearch, toggleAndCheck, filterAndDownload } from '../utils/commonActions.js';
-import { ai } from '../../playwright.config.js';
 
-if (ai.heal) {
-  console.log('AI healing is enabled');
-}
 // Describe block runs tests serially to avoid test interference when manipulating shared data
 test.describe.serial('CI Tests — Admin Email Template', () => {
     // Test data setup using faker to generate realistic, unique values

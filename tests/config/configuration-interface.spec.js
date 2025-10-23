@@ -1,11 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { login } from '../utils/login.js';
 import { goToConfigSection } from '../utils/commonActions.js';
-import { ai } from '../../playwright.config.js';
 
-if (ai.heal) {
-  console.log('AI healing is enabled');
-}
 // ===========================================================
 // Configuration Module — Interface and Navigation Tests
 // ===========================================================

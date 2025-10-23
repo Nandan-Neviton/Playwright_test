@@ -1,11 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { login } from '../utils/login.js';
 import { goToAdminSection } from '../utils/commonActions.js';
-import { ai } from '../../playwright.config.js';
 
-if (ai.heal) {
-  console.log('AI healing is enabled');
-}
 // ===========================================================
 // User Management Enhancement Tests — Advanced Features
 // ===========================================================

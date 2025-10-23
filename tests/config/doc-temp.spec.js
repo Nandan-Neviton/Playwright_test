@@ -9,11 +9,7 @@ import {
   toggleAndCheck,
   clickRandomButton,
 } from '../utils/commonActions.js';
-import { ai } from '../../playwright.config.js';
 
-if (ai.heal) {
-  console.log('AI healing is enabled');
-}
 // ==========================================================
 // 🧩 Test Suite: Admin — Document Types
 // ==========================================================

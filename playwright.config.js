@@ -1,31 +1,7 @@
-// @ts-check
 import { defineConfig, devices } from '@playwright/test';
-import path from 'path';
-import fs from 'fs';
 
 const date = new Date();
-const timestamp = date.toISOString().replace(/[:.]/g, '-'); // safe folder name
-const reportFolder = path.join('allure-reports', timestamp);
-
-export const ai = {
-  heal: true,
-};
-
-// Ensure allure report folder exists
-if (!fs.existsSync(reportFolder)) {
-  fs.mkdirSync(reportFolder, { recursive: true });
-}
-
-// Write date-time to environment.properties for Allure
-const envPropsPath = path.join('allure-results', 'environment.properties');
-if (!fs.existsSync('allure-results')) {
-  fs.mkdirSync('allure-results');
-}
-fs.writeFileSync(envPropsPath, `TestRun=${date.toISOString()}`);
-
-// Store timestamp for later use
-process.env.ALLURE_REPORT_FOLDER = reportFolder;
-process.env.ALLURE_RUN_TIMESTAMP = date.toISOString();
+const timestamp = date.toISOString().replace(/[:.]/g, '-');
 
 export default defineConfig({
   testDir: './tests',
@@ -39,16 +15,8 @@ export default defineConfig({
   reporter: [
     ['line'],
     ['html', { open: 'never' }],
-    [
-      'allure-playwright',
-      {
-        outputFolder: 'allure-results',
-        detail: true,
-      },
-    ],
+    ['allure-playwright', { outputFolder: 'allure-results', detail: true }],
   ],
-  // ------------------------
-  // ▶️ Default Test Options
 
   use: {
     baseURL: process.env.UAT_BASE_URL || 'https://uat.note-iq.com',
@@ -62,10 +30,11 @@ export default defineConfig({
     ignoreHTTPSErrors: true,
   },
 
-  projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    // { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
-    // { name: 'webkit', use: { ...devices['Desktop Safari'] } },
-  ],
+  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+
+  ai: {
+    heal: true, // enables Healer for VS Code/Agents
+  },
+
   globalTeardown: require.resolve('./global-teardown'),
 });

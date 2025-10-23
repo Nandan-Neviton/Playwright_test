@@ -2,11 +2,7 @@ import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import { login } from '../utils/login.js';
 import { goToModule, goToConfigSection, filterAndDownload, filterAndSearch, toggleAndCheck } from '../utils/commonActions.js';
-import { ai } from '../../playwright.config.js';
 
-if (ai.heal) {
-  console.log('AI healing is enabled');
-}
 test.describe.serial('🧩 CI Tests — Admin Checklist', () => {
   // ✅ Test Data Setup — Using Faker for realistic random data
   const checklistData = {
