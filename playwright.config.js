@@ -7,6 +7,10 @@ const date = new Date();
 const timestamp = date.toISOString().replace(/[:.]/g, '-'); // safe folder name
 const reportFolder = path.join('allure-reports', timestamp);
 
+export const ai = {
+  heal: true,
+};
+
 // Ensure allure report folder exists
 if (!fs.existsSync(reportFolder)) {
   fs.mkdirSync(reportFolder, { recursive: true });
@@ -43,6 +47,8 @@ export default defineConfig({
       },
     ],
   ],
+  // ------------------------
+  // ▶️ Default Test Options
 
   use: {
     baseURL: process.env.UAT_BASE_URL || 'https://uat.note-iq.com',
@@ -61,4 +67,5 @@ export default defineConfig({
     // { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
     // { name: 'webkit', use: { ...devices['Desktop Safari'] } },
   ],
+  globalTeardown: require.resolve('./global-teardown'),
 });

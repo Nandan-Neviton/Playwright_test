@@ -3,7 +3,11 @@ import { test, expect } from '@playwright/test';
 import { login } from '../utils/login.js';
 import { faker } from '@faker-js/faker';
 import { goToModule, toggleAndCheck, filterAndDownload, filterAndSearch, goToAdminSection } from '../utils/commonActions.js';
+import { ai } from '../../playwright.config.js';
 
+if (ai.heal) {
+  console.log('AI healing is enabled');
+}
 // ---------------- USER GROUP MANAGEMENT TESTS ----------------
 test.describe.serial('Admin - User Group Management', () => {
     // Shared test data

@@ -1,7 +1,11 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import { login } from '../utils/login.js';
+import { ai } from '../../playwright.config.js';
 
+if (ai.heal) {
+  console.log('AI healing is enabled');
+}
 // ===========================================================
 // CI TEST SUITE — Dashboard Functionality
 // ===========================================================
@@ -88,7 +92,7 @@ test.describe.serial('CI Tests — Dashboard', () => {
 
     // Test Overall Task Status filter
     console.log('🔸 Testing Overall Task Status filter...');
-    const overallTaskFilter = page.locator('div').filter({ hasText: /^Overall Task Status.*Filter By.*$/ });
+    const overallTaskFilter = page.locator('div').filter({ hasText: /^Overall Task Status.*Filter By.*$/ }).first();
     await expect(overallTaskFilter).toBeVisible();
     
     // Click filter button for Overall Task Status

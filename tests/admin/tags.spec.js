@@ -2,7 +2,11 @@ import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import { login } from '../utils/login.js';
 import { goToModule, filterAndDownload, toggleAndCheck, filterAndSearch, goToAdminSection } from '../utils/commonActions.js';
+import { ai } from '../../playwright.config.js';
 
+if (ai.heal) {
+  console.log('AI healing is enabled');
+}
 // Test suite for Admin - Tag Management
 test.describe.serial('Admin - Tag Management', () => {
     // Shared test data

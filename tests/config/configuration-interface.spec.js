@@ -1,6 +1,11 @@
 import { test, expect } from '@playwright/test';
 import { login } from '../utils/login.js';
+import { goToConfigSection } from '../utils/commonActions.js';
+import { ai } from '../../playwright.config.js';
 
+if (ai.heal) {
+  console.log('AI healing is enabled');
+}
 // ===========================================================
 // Configuration Module — Interface and Navigation Tests
 // ===========================================================
@@ -14,9 +19,9 @@ test.describe.serial('Configuration Module — Interface Tests', () => {
 
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
     
-    // Navigate to Configuration
+    // Navigate to Configuration using the common action
     console.log('🔸 Navigating to Configuration module...');
-    await page.getByRole('link', { name: 'Config' }).click();
+    await goToConfigSection(page);
     
     // Verify Configuration module interface
     await expect(page.locator('text=Config')).toBeVisible();
@@ -30,7 +35,7 @@ test.describe.serial('Configuration Module — Interface Tests', () => {
     console.log('🔹 [START] Life Cycle States');
 
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-    await page.getByRole('link', { name: 'Config' }).click();
+    await goToConfigSection(page);
     
     // Look for Life Cycle States option
     console.log('🔸 Checking Life Cycle States option...');
@@ -51,7 +56,7 @@ test.describe.serial('Configuration Module — Interface Tests', () => {
     console.log('🔹 [START] Numbering System');
 
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-    await page.getByRole('link', { name: 'Config' }).click();
+    await goToConfigSection(page);
     
     // Look for Numbering System option
     console.log('🔸 Checking Numbering System option...');
@@ -72,7 +77,7 @@ test.describe.serial('Configuration Module — Interface Tests', () => {
     console.log('🔹 [START] Configuration Options Verification');
 
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-    await page.getByRole('link', { name: 'Config' }).click();
+    await goToConfigSection(page);
     
     // List of expected configuration options
     const configOptions = [

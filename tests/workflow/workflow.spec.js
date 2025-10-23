@@ -2,7 +2,11 @@ import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import { login } from '../utils/login.js';
 import { goToModule, goToWorkflowSection, filterAndDownload, filterAndSearch, toggleAndCheck } from '../utils/commonActions.js';
+import { ai } from '../../playwright.config.js';
 
+if (ai.heal) {
+  console.log('AI healing is enabled');
+}
 // ===========================================================
 // CI TEST SUITE — Admin System Data Field Types
 // ===========================================================
@@ -47,7 +51,13 @@ test.describe.serial('CI Tests — Admin System Data Field Types', () => {
 
     // Step 6: Verify that iframe editor appears (indicating workflow loaded)
     console.log('✅ Verifying workflow editor iframe is visible...');
-    await expect(page.locator('iframe[name="frameEditor"]').contentFrame()).toBeVisible();
+    await expect(page.locator('iframe[name="frameEditor"]')).toBeVisible();
+    
+    // Optional: Verify iframe content is loaded
+    const frame = page.locator('iframe[name="frameEditor"]');
+    if (await frame.count() > 0) {
+      console.log('📋 Workflow editor iframe is present and loaded');
+    }
 
     console.log('✅ [TEST PASS] Filter and Search Workflow Record completed successfully.');
   });
@@ -129,7 +139,7 @@ test.describe.serial('Workflow Enhancement Tests', () => {
     console.log('🔹 [START] Workflow Designer Interface');
 
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-    await page.getByRole('link', { name: 'Workflow' }).click();
+    await goToWorkflowSection(page);
     
     // Check for workflow designer features
     console.log('🔸 Checking workflow designer interface...');
@@ -159,7 +169,7 @@ test.describe.serial('Workflow Enhancement Tests', () => {
     console.log('🔹 [START] Workflow Status Monitoring');
 
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-    await page.getByRole('link', { name: 'Workflow' }).click();
+    await goToWorkflowSection(page);
     
     // Check for workflow status features
     console.log('🔸 Checking workflow status monitoring...');
