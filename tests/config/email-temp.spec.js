@@ -227,7 +227,7 @@ test.describe.serial('CI Tests — Admin Email Template', () => {
 
         // Step 4: Apply filter and download using shared helper
         console.log(`>>> Step 4: Filtering results by Template Name: ${emailData.name}`);
-        await filterAndDownload(page, 'Name', emailData.name);
+        await filterAndDownload(page, 'Title', emailData.name);
 
         console.log('✅ [END] Test 03: Filter and download of Email Template completed successfully');
     });

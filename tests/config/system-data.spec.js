@@ -160,12 +160,12 @@ test.describe.serial('CI Tests — Admin System Data Field Types', () => {
     await goToModule(page, 'System Data Field Types');
 
     // Step 2: Filter by record before deletion
-    console.log(`🔹 Searching for: ${systemData.name}`);
-    await filterAndSearch(page, 'Name', systemData.name);
+    console.log(`🔹 Searching for: ${newName}`);
+    await filterAndSearch(page, 'Name', newName);
     await page.waitForTimeout(2000);
 
     // Step 3: Perform delete and confirm
-    console.log(`🗑 Deleting System Data Field Type: ${systemData.name}`);
+    console.log(`🗑 Deleting System Data Field Type: ${newName}`);
     await page.getByRole('button', { name: 'Delete' }).click();
     await page.getByRole('button', { name: 'Delete' }).click();
 

@@ -60,21 +60,21 @@ test.describe.serial('CI Tests — Advanced Search', () => {
     
     try {
       // Select search type (Document)
-      const searchTypeDropdown = page.locator('[role="combobox"]').nth(2);
+      const searchTypeDropdown = page.getByLabel('').nth(2);
       await searchTypeDropdown.click();
       await page.waitForTimeout(500);
       await page.getByRole('option', { name: 'Document', exact: true }).click();
       await page.waitForTimeout(1000);
       
       // Select field (Document Title)
-      const fieldDropdown = page.locator('[role="combobox"]').nth(3);
+      const fieldDropdown = page.getByLabel('').nth(3)
       await fieldDropdown.click();
       await page.waitForTimeout(500);
       await page.getByRole('option', { name: 'Document Title' }).click();
       await page.waitForTimeout(1000);
       
       // Select condition (Contains)
-      const conditionDropdown = page.locator('[role="combobox"]').nth(4);
+      const conditionDropdown = page.getByLabel('').nth(4);
       await conditionDropdown.click();
       await page.waitForTimeout(500);
       await page.getByRole('option', { name: 'Contains', exact: true }).click();
@@ -107,21 +107,21 @@ test.describe.serial('CI Tests — Advanced Search', () => {
     
     try {
       // Select search type (Document)
-      const searchTypeDropdown = page.locator('[role="combobox"]').nth(2);
+      const searchTypeDropdown = page.getByLabel('').nth(2);
       await searchTypeDropdown.click();
       await page.waitForTimeout(500);
       await page.getByRole('option', { name: 'Document', exact: true }).click();
       await page.waitForTimeout(500);
       
       // Select field (Document Title)
-      const fieldDropdown = page.locator('[role="combobox"]').nth(3);
+      const fieldDropdown = page.getByLabel('').nth(3)
       await fieldDropdown.click();
       await page.waitForTimeout(500);
       await page.getByRole('option', { name: 'Document Title' }).click();
       await page.waitForTimeout(500);
       
       // Select condition (Contains)
-      const conditionDropdown = page.locator('[role="combobox"]').nth(4);
+      const conditionDropdown = page.getByLabel('').nth(4);
       await conditionDropdown.click();
       await page.waitForTimeout(500);
       await page.getByRole('option', { name: 'Contains', exact: true }).click();
@@ -151,17 +151,17 @@ test.describe.serial('CI Tests — Advanced Search', () => {
     
     try {
       // Select search type (Document)
-      const searchTypeDropdown = page.locator('[role="combobox"]').nth(2);
+      const searchTypeDropdown = page.getByLabel('').nth(2);
       await searchTypeDropdown.click();
       await page.getByRole('option', { name: 'Document', exact: true }).click();
       
       // Select field (Author)
-      const fieldDropdown = page.locator('[role="combobox"]').nth(3);
+      const fieldDropdown = page.getByLabel('').nth(3)
       await fieldDropdown.click();
       await page.getByRole('option', { name: 'Author' }).click();
       
       // Select condition (Contains)
-      const conditionDropdown = page.locator('[role="combobox"]').nth(4);
+      const conditionDropdown = page.getByLabel('').nth(4);
       await conditionDropdown.click();
       await page.getByRole('option', { name: 'Contains', exact: true }).click();
       
@@ -190,17 +190,17 @@ test.describe.serial('CI Tests — Advanced Search', () => {
     
     try {
       // Select search type (Document)
-      const searchTypeDropdown = page.locator('[role="combobox"]').nth(2);
+      const searchTypeDropdown = page.getByLabel('').nth(2);
       await searchTypeDropdown.click();
       await page.getByRole('option', { name: 'Document', exact: true }).click();
       
       // Select field (Content)
-      const fieldDropdown = page.locator('[role="combobox"]').nth(3);
+      const fieldDropdown = page.getByLabel('').nth(3)
       await fieldDropdown.click();
       await page.getByRole('option', { name: 'Content' }).click();
       
       // Select condition (Contains Phrase)
-      const conditionDropdown = page.locator('[role="combobox"]').nth(4);
+      const conditionDropdown = page.getByLabel('').nth(4);
       await conditionDropdown.click();
       await page.getByRole('option', { name: 'Contains Phrase' }).click();
       
@@ -229,7 +229,7 @@ test.describe.serial('CI Tests — Advanced Search', () => {
     
     try {
       // Select search type (Document Type)
-      const searchTypeDropdown = page.locator('[role="combobox"]').nth(2);
+      const searchTypeDropdown = page.getByLabel('').nth(2);
       await searchTypeDropdown.click();
       await page.getByRole('option', { name: 'Document Type' }).click();
       
@@ -267,7 +267,7 @@ test.describe.serial('CI Tests — Advanced Search', () => {
       console.log('🔸 Searching by Template Type');
       
       // Select search type (Template Type)
-      const searchTypeDropdown = page.locator('[role="combobox"]').nth(2);
+      const searchTypeDropdown = page.getByLabel('').nth(2);
       await searchTypeDropdown.click();
       await page.getByRole('option', { name: 'Template Type' }).click();
       
@@ -309,7 +309,7 @@ test.describe.serial('CI Tests — Advanced Search', () => {
     
     try {
       // Select search type (Workflow)
-      const searchTypeDropdown = page.locator('[role="combobox"]').nth(2);
+      const searchTypeDropdown = page.getByLabel('').nth(2);
       await searchTypeDropdown.click();
       await page.getByRole('option', { name: 'Workflow' }).click();
       
@@ -424,19 +424,19 @@ test.describe.serial('CI Tests — Advanced Search', () => {
         }
 
         // Set up search criteria using consistent selectors
-        const searchTypeDropdown = page.locator('[role="combobox"]').nth(2);
+        const searchTypeDropdown = page.getByLabel('').nth(2);
         await searchTypeDropdown.click();
         await page.waitForTimeout(500);
         await page.getByRole('option', { name: 'Document', exact: true }).click();
         await page.waitForTimeout(500);
         
-        const fieldDropdown = page.locator('[role="combobox"]').nth(3);
+        const fieldDropdown = page.getByLabel('').nth(3)
         await fieldDropdown.click();
         await page.waitForTimeout(500);
         await page.getByRole('option', { name: 'Document Title' }).click();
         await page.waitForTimeout(500);
         
-        const conditionDropdown = page.locator('[role="combobox"]').nth(4);
+        const conditionDropdown = page.getByLabel('').nth(4);
         await conditionDropdown.click();
         await page.waitForTimeout(500);
         await page.getByRole('option', { name: condition, exact: true }).click();
@@ -483,19 +483,19 @@ test.describe.serial('CI Tests — Advanced Search', () => {
     try {
       // Create a search criteria using consistent selectors
       console.log('🔸 Creating search criteria to save');
-      const searchTypeDropdown = page.locator('[role="combobox"]').nth(2);
+      const searchTypeDropdown = page.getByLabel('').nth(2);
       await searchTypeDropdown.click();
       await page.waitForTimeout(500);
       await page.getByRole('option', { name: 'Document', exact: true }).click();
       await page.waitForTimeout(500);
       
-      const fieldDropdown = page.locator('[role="combobox"]').nth(3);
+      const fieldDropdown = page.getByLabel('').nth(3)
       await fieldDropdown.click();
       await page.waitForTimeout(500);
       await page.getByRole('option', { name: 'Document Title' }).click();
       await page.waitForTimeout(500);
       
-      const conditionDropdown = page.locator('[role="combobox"]').nth(4);
+      const conditionDropdown = page.getByLabel('').nth(4);
       await conditionDropdown.click();
       await page.waitForTimeout(500);
       await page.getByRole('option', { name: 'Contains', exact: true }).click();
@@ -548,19 +548,19 @@ test.describe.serial('CI Tests — Advanced Search', () => {
     try {
       // Create search criteria that will return results using consistent selectors
       console.log('🔸 Creating search criteria for download test');
-      const searchTypeDropdown = page.locator('[role="combobox"]').nth(2);
+      const searchTypeDropdown = page.getByLabel('').nth(2);
       await searchTypeDropdown.click();
       await page.waitForTimeout(500);
       await page.getByRole('option', { name: 'Document', exact: true }).click();
       await page.waitForTimeout(500);
       
-      const fieldDropdown = page.locator('[role="combobox"]').nth(3);
+      const fieldDropdown = page.getByLabel('').nth(3)
       await fieldDropdown.click();
       await page.waitForTimeout(500);
       await page.getByRole('option', { name: 'Author' }).click();
       await page.waitForTimeout(500);
       
-      const conditionDropdown = page.locator('[role="combobox"]').nth(4);
+      const conditionDropdown = page.getByLabel('').nth(4);
       await conditionDropdown.click();
       await page.waitForTimeout(500);
       await page.getByRole('option', { name: 'Contains', exact: true }).click();
@@ -645,17 +645,17 @@ test.describe('Advanced Search Validations', () => {
     
     try {
       // Select search type (Document)
-      const searchTypeDropdown = page.locator('[role="combobox"]').nth(2);
+      const searchTypeDropdown = page.getByLabel('').nth(2);
       await searchTypeDropdown.click();
       await page.getByRole('option', { name: 'Document', exact: true }).click();
       
       // Select field (Document Title)
-      const fieldDropdown = page.locator('[role="combobox"]').nth(3);
+      const fieldDropdown = page.getByLabel('').nth(3)
       await fieldDropdown.click();
       await page.getByRole('option', { name: 'Document Title' }).click();
       
       // Select condition (Contains)
-      const conditionDropdown = page.locator('[role="combobox"]').nth(4);
+      const conditionDropdown = page.getByLabel('').nth(4);
       await conditionDropdown.click();
       await page.getByRole('option', { name: 'Contains', exact: true }).click();
       
@@ -687,17 +687,17 @@ test.describe('Advanced Search Validations', () => {
     
     try {
       // Select search type (Document)
-      const searchTypeDropdown = page.locator('[role="combobox"]').nth(2);
+      const searchTypeDropdown = page.getByLabel('').nth(2);
       await searchTypeDropdown.click();
       await page.getByRole('option', { name: 'Document', exact: true }).click();
       
       // Select field (Document Title)
-      const fieldDropdown = page.locator('[role="combobox"]').nth(3);
+      const fieldDropdown = page.getByLabel('').nth(3)
       await fieldDropdown.click();
       await page.getByRole('option', { name: 'Document Title' }).click();
       
       // Select condition (Contains)
-      const conditionDropdown = page.locator('[role="combobox"]').nth(4);
+      const conditionDropdown = page.getByLabel('').nth(4);
       await conditionDropdown.click();
       await page.getByRole('option', { name: 'Contains', exact: true }).click();
       
@@ -744,7 +744,7 @@ test.describe('Advanced Search Validations', () => {
         await page.waitForTimeout(1000);
       }
       
-      const fieldDropdown = page.locator('[role="combobox"]').nth(3);
+      const fieldDropdown = page.getByLabel('').nth(3)
       if (await fieldDropdown.isVisible({ timeout: 5000 })) {
         await fieldDropdown.click();
         await page.waitForTimeout(500);

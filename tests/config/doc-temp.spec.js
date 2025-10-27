@@ -62,7 +62,7 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
     // Select document format
     console.log('📄 Selecting document format...');
     try {
-      const formatDropdown = page.getByRole('tabpanel', { name: 'Document Type Template Type' }).locator('div[role="combobox"]').first();
+      const formatDropdown = page.getByRole('tabpanel', { name: 'Document Type Template Type' }).getByLabel('', { exact: true });
       await formatDropdown.click();
       await page.getByRole('option', { name: docData.docFormat }).click();
     } catch (error) {
@@ -412,7 +412,7 @@ test.describe('🧾 Document/Template Validations', () => {
     
     // Select document format with improved selector
     try {
-      const formatDropdown = page.getByRole('tabpanel', { name: 'Document Type Template Type' }).locator('div[role="combobox"]').first();
+      const formatDropdown = page.getByRole('tabpanel', { name: 'Document Type Template Type' }).getByLabel('', { exact: true })
       await formatDropdown.click();
       await page.getByRole('option', { name: 'Word Document (DOCX)' }).click();
     } catch (error) {

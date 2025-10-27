@@ -20,9 +20,9 @@ export default defineConfig({
 
   use: {
     baseURL: process.env.UAT_BASE_URL || 'https://uat.note-iq.com',
-    trace: 'retain-on-failure',
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    trace: 'on',
+    screenshot: 'on',
+    video: 'on',
     actionTimeout: 30000,
     navigationTimeout: 60000,
     viewport: { width: 1280, height: 720 },
