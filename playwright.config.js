@@ -1,3 +1,4 @@
+// @ts-check
 import { defineConfig, devices } from '@playwright/test';
 
 const date = new Date();
@@ -15,6 +16,7 @@ export default defineConfig({
   reporter: [
     ['line'],
     ['html', { open: 'never' }],
+    ['json', { outputFile: 'playwright-report/.last-run.json' }], // ✅ added for rerun script
     ['allure-playwright', { outputFolder: 'allure-results', detail: true }],
   ],
 
@@ -30,11 +32,9 @@ export default defineConfig({
     ignoreHTTPSErrors: true,
   },
 
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
-
-  ai: {
-    heal: true, // enables Healer for VS Code/Agents
-  },
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+  ],
 
   globalTeardown: require.resolve('./global-teardown'),
 });

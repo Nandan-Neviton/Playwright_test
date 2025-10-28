@@ -167,10 +167,10 @@ test.describe.serial('CI Tests — Admin Numbering System Management', () => {
     await goToModule(page, 'Numbering System');
 
     // Search for record before deletion
-    await filterAndSearch(page, 'Name', numberData.name);
+    await filterAndSearch(page, 'Name', newName);
     await page.waitForTimeout(2000);
 
-    console.log(`🗑 Deleting numbering system: ${numberData.name}`);
+    console.log(`🗑 Deleting numbering system: ${newName}`);
 
     // Delete confirmation
     await page.getByRole('button', { name: 'Delete' }).click();

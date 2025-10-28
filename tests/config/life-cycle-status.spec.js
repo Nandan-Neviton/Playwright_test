@@ -139,12 +139,12 @@ test.describe.serial('CI Tests — Admin: Life Cycle States', () => {
     await goToModule(page, 'Life Cycle States');
 
     // Step 2: Search and prepare for deletion
-    console.log(`🗑 Filtering for deletion: ${lifeData.name}`);
-    await filterAndSearch(page, 'Name', lifeData.name);
+    console.log(`🗑 Filtering for deletion: ${newName}`);
+    await filterAndSearch(page, 'Name', newName);
     await page.waitForTimeout(2000);
 
     // Step 3: Click delete and confirm
-    console.log(`⚠️ Deleting Life Cycle State: ${lifeData.name}`);
+    console.log(`⚠️ Deleting Life Cycle State: ${newName}`);
     await page.getByRole('button', { name: 'Delete' }).click();
     await page.getByRole('button', { name: 'Delete' }).click();
 

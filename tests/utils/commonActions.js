@@ -188,7 +188,9 @@ export async function filterAndDownload(page, filterBy, value) {
     console.log(`⚠️ Download timeout or failed, but continuing test. Error: ${error.message}`);
     // Still consider test passed if we got to download interface
     console.log('✅ Download interface accessed successfully - considering test passed');
+    
   }
+  await page.waitForTimeout(2000); // Allow time for filter to apply
 }
 
 export async function filterAndSearch(page, filterBy, value) {
@@ -230,6 +232,7 @@ export async function filterAndSearch(page, filterBy, value) {
     console.log('⚠️ Search box not visible after selecting filter');
   }
   console.log(`>>> Applied filter: ${filterBy}, value: ${value}`);
+  await page.waitForTimeout(2000); // Allow time for filter to apply
 }
 
 export async function clickRandomButton(page, buttonConfigs) {

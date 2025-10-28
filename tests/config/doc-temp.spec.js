@@ -469,6 +469,7 @@ test.describe('🧾 Document/Template Validations', () => {
     }
 
     // Step 7: Provide valid duration and recurrence
+    await page.getByRole('button', { name: 'NO' }).nth(1).click();
     await page.getByRole('textbox', { name: 'Months' }).fill('2');
     await page.getByRole('textbox', { name: 'Days' }).fill('2');
     await page.getByRole('textbox', { name: 'Monthly' }).fill('2');

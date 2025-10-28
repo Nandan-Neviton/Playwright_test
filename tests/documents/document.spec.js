@@ -7,14 +7,22 @@ import { goToModule, goToDocumentSection, filterAndDownload, filterAndSearch, to
 async function waitForDocumentShell(page) {
   const navSelector = 'a[href="/document"],a[href*="/document"]';
   for (let attempt = 0; attempt < 5; attempt++) {
-    const found = await page.locator(navSelector).first().isVisible().catch(() => false);
+    const found = await page
+      .locator(navSelector)
+      .first()
+      .isVisible()
+      .catch(() => false);
     if (found) return;
     await page.waitForTimeout(1000);
   }
   // Final extended wait (do not throw hard — downstream will retry via goToDocumentSection)
-  await page.locator(navSelector).first().waitFor({ state: 'visible', timeout: 8000 }).catch(() => {
-    console.log('ℹ️ Document navigation link not confirmed after extended wait; continuing to attempt navigation');
-  });
+  await page
+    .locator(navSelector)
+    .first()
+    .waitFor({ state: 'visible', timeout: 8000 })
+    .catch(() => {
+      console.log('ℹ️ Document navigation link not confirmed after extended wait; continuing to attempt navigation');
+    });
 }
 
 // ===========================================================
@@ -83,8 +91,8 @@ test.describe.serial('CI Tests — Document Management', () => {
 
     // Step 1: Login and navigate
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-  await waitForDocumentShell(page);
-  await goToDocumentSection(page);
+    await waitForDocumentShell(page);
+    await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
 
     // Step 2: Open new document form
@@ -111,7 +119,7 @@ test.describe.serial('CI Tests — Document Management', () => {
     await page.getByRole('tab', { name: 'System Data Field' }).click();
 
     // Handle radio buttons
-  const radioButtons = page.getByRole('radio');
+    const radioButtons = page.getByRole('radio');
     const radioCount = await radioButtons.count();
     if (radioCount > 0) {
       console.log(`Found ${radioCount} radio buttons, selecting randomly...`);
@@ -130,7 +138,7 @@ test.describe.serial('CI Tests — Document Management', () => {
             if (attempt === 2) {
               console.log(`ℹ️ Radio check failed after retries: ${e.message} - continuing`);
             } else {
-              await chosen.click({ timeout: 3000 }).catch(()=>{});
+              await chosen.click({ timeout: 3000 }).catch(() => {});
               await page.waitForTimeout(350);
             }
           }
@@ -203,8 +211,8 @@ test.describe.serial('CI Tests — Document Management', () => {
 
     // Step 1: Login and navigate
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-  await waitForDocumentShell(page);
-  await goToDocumentSection(page);
+    await waitForDocumentShell(page);
+    await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
 
     // Step 2: Go to My Documents tab
@@ -229,8 +237,8 @@ test.describe.serial('CI Tests — Document Management', () => {
 
     // Step 1: Login and navigate
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-  await waitForDocumentShell(page);
-  await goToDocumentSection(page);
+    await waitForDocumentShell(page);
+    await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
     await page.getByRole('tab', { name: 'My Documents' }).click();
 
@@ -251,7 +259,7 @@ test.describe.serial('CI Tests — Document Management', () => {
       await page.waitForTimeout(1000);
       // Go back to list
       await expect(page.locator('#doc_gen_doc_type')).toBeVisible();
-      await expect(page.getByRole('option', { name: '@NA_DocType(Default)' })).toBeVisible();
+      await expect(page.getByText('@NA_DocType(Default)' )).toBeVisible();
       await expect(page.getByRole('textbox', { name: 'Enter Document Title' })).toBeVisible();
     }
 
@@ -266,8 +274,8 @@ test.describe.serial('CI Tests — Document Management', () => {
 
     // Step 1: Login and navigate
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-  await waitForDocumentShell(page);
-  await goToDocumentSection(page);
+    await waitForDocumentShell(page);
+    await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
     await page.getByRole('tab', { name: 'My Documents' }).click();
 
@@ -291,8 +299,8 @@ test.describe.serial('Document Validations', () => {
 
     // Step 1: Login and navigate
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-  await waitForDocumentShell(page);
-  await goToDocumentSection(page);
+    await waitForDocumentShell(page);
+    await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
 
     // Step 2: Try creating without filling required fields
@@ -320,8 +328,8 @@ test.describe.serial('Document Validations', () => {
 
     // Step 1: Login and navigate
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-  await waitForDocumentShell(page);
-  await goToDocumentSection(page);
+    await waitForDocumentShell(page);
+    await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
 
     // Step 2: Fill partial data and attempt to submit
@@ -351,8 +359,8 @@ test.describe.serial('Document Validations', () => {
 
     // Step 1: Login and navigate
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-  await waitForDocumentShell(page);
-  await goToDocumentSection(page);
+    await waitForDocumentShell(page);
+    await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
 
     // Step 2: Fill complete form but try to create without going to next step
@@ -388,8 +396,8 @@ test.describe.serial('Document Enhancement Tests', () => {
     console.log('🔹 [START] Document Version Control');
 
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-  await waitForDocumentShell(page);
-  await goToDocumentSection(page);
+    await waitForDocumentShell(page);
+    await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
 
     // Check for version control features
@@ -413,8 +421,8 @@ test.describe.serial('Document Enhancement Tests', () => {
     console.log('🔹 [START] Document Bulk Operations');
 
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-  await waitForDocumentShell(page);
-  await goToDocumentSection(page);
+    await waitForDocumentShell(page);
+    await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
 
     // Check for bulk operation features
@@ -439,15 +447,15 @@ test.describe.serial('Document Enhancement Tests', () => {
     console.log('🔹 [START] Document Search & Filters');
 
     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-  await waitForDocumentShell(page);
-  await goToDocumentSection(page);
+    await waitForDocumentShell(page);
+    await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
 
     // Test search functionality
     console.log('🔸 Testing document search...');
     // Disambiguate search input: prefer table-specific then global search documents field
     let searchInput = page.locator('#table-search');
-    if (await searchInput.count() === 0) {
+    if ((await searchInput.count()) === 0) {
       const exactSearch = page.getByRole('textbox', { name: 'Search', exact: true });
       if (await exactSearch.count()) {
         searchInput = exactSearch.first();
@@ -459,7 +467,7 @@ test.describe.serial('Document Enhancement Tests', () => {
         }
       }
     }
-    if (await searchInput.isVisible().catch(()=>false)) {
+    if (await searchInput.isVisible().catch(() => false)) {
       await searchInput.fill('test document');
       console.log('✅ Document search functionality working');
     } else {
