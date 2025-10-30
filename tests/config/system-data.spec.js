@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import { login } from '../utils/login.js';
-import { goToModule, goToConfigSection, filterAndDownload, filterAndSearch, toggleAndCheck } from '../utils/commonActions.js';
+import { goToModule, goToConfigSection, filterAndDownload, filterAndSearch, toggleAndCheck, goToDMS } from '../utils/commonActions.js';
 
 test.describe.serial('CI Tests — Admin System Data Field Types', () => {
 
@@ -23,7 +23,8 @@ test.describe.serial('CI Tests — Admin System Data Field Types', () => {
     console.log('🔹 [START] Create System Data Field Type');
 
     // Step 1: Login and navigate to System Data Field Types
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'System Data Field Types');
 
@@ -82,14 +83,17 @@ test.describe.serial('CI Tests — Admin System Data Field Types', () => {
     console.log('🔹 [START] Verify and Toggle System Data Field Type');
 
     // Step 1: Login and navigate
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'System Data Field Types');
 
     // Step 2: Filter by created field name
     console.log(`🔹 Filtering by name: ${systemData.name}`);
     await filterAndSearch(page, 'Name', systemData.name);
-    await page.waitForTimeout(2000);
+    
+    // Wait for search results to load
+    await page.waitForLoadState('networkidle');
 
     // Step 3: Verify created record details
     await expect(page.getByRole('cell', { name: systemData.name })).toBeVisible();
@@ -110,7 +114,8 @@ test.describe.serial('CI Tests — Admin System Data Field Types', () => {
     console.log('🔹 [START] Filter and Download System Data Field Types');
 
     // Step 1: Login and navigate
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'System Data Field Types');
 
@@ -128,7 +133,8 @@ test.describe.serial('CI Tests — Admin System Data Field Types', () => {
     console.log('🔹 [START] Edit System Data Field Type');
 
     // Step 1: Login and navigate
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'System Data Field Types');
 
@@ -155,14 +161,17 @@ test.describe.serial('CI Tests — Admin System Data Field Types', () => {
     console.log('🔹 [START] Delete System Data Field Type');
 
     // Step 1: Login and navigate
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'System Data Field Types');
 
     // Step 2: Filter by record before deletion
     console.log(`🔹 Searching for: ${newName}`);
     await filterAndSearch(page, 'Name', newName);
-    await page.waitForTimeout(2000);
+    
+    // Wait for search results to load
+    await page.waitForLoadState('networkidle');
 
     // Step 3: Perform delete and confirm
     console.log(`🗑 Deleting System Data Field Type: ${newName}`);
@@ -184,7 +193,8 @@ test.describe('System Data Field Type Validations', () => {
     console.log('🔹 [START] Validate empty System Data Field Type creation');
 
     // Step 1: Login and navigate
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'System Data Field Types');
 

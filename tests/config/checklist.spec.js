@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import { login } from '../utils/login.js';
-import { goToModule, goToConfigSection, filterAndDownload, filterAndSearch, toggleAndCheck } from '../utils/commonActions.js';
+import { goToModule, goToConfigSection, filterAndDownload, filterAndSearch, toggleAndCheck, goToDMS } from '../utils/commonActions.js';
 
 test.describe.serial('🧩 CI Tests — Admin Checklist', () => {
   // ✅ Test Data Setup — Using Faker for realistic random data
@@ -20,7 +20,7 @@ test.describe.serial('🧩 CI Tests — Admin Checklist', () => {
     console.log('🔹 [TEST START] Create Checklist');
 
     // Step 1: Login to the application
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
 
     // Step 2: Navigate to Config → Checklist module
     await goToConfigSection(page);
@@ -63,14 +63,17 @@ test.describe.serial('🧩 CI Tests — Admin Checklist', () => {
   test('02 - Should verify created Checklist and toggle its status', async ({ page }) => {
     console.log('🔹 [TEST START] Verify and Toggle Checklist');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Checklist');
 
     // Step 1: Search for the created checklist
     console.log(`🔹 Filtering by Name: ${checklistData.name}`);
     await filterAndSearch(page, 'Name', checklistData.name);
-    await page.waitForTimeout(2000);
+    
+    // Wait for search results to load
+    await page.waitForLoadState('networkidle');
 
     // Step 2: Validate visibility
     await expect(page.getByRole('cell', { name: checklistData.name })).toBeVisible();
@@ -89,7 +92,8 @@ test.describe.serial('🧩 CI Tests — Admin Checklist', () => {
   test('03 - Should filter Checklist and download search results', async ({ page }) => {
     console.log('🔹 [TEST START] Filter & Download Checklist');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Checklist');
 
@@ -106,7 +110,8 @@ test.describe.serial('🧩 CI Tests — Admin Checklist', () => {
   test('04 - Should edit an existing Checklist successfully', async ({ page }) => {
     console.log('🔹 [TEST START] Edit Checklist');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Checklist');
 
@@ -134,14 +139,17 @@ test.describe.serial('🧩 CI Tests — Admin Checklist', () => {
   test('05 - Should delete Checklist successfully', async ({ page }) => {
     console.log('🔹 [TEST START] Delete Checklist');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Checklist');
 
     // Step 1: Search for checklist to delete
     console.log(`🔹 Filtering for deletion: ${newName}`);
     await filterAndSearch(page, 'Name', newName);
-    await page.waitForTimeout(2000);
+    
+    // Wait for search results to load
+    await page.waitForLoadState('networkidle');
 
     // Step 2: Perform delete
     console.log(`🗑 Deleting Checklist: ${newName}`);
@@ -161,7 +169,8 @@ test.describe('⚠️ Checklist Validations', () => {
   test('Validation - Should show messages for empty fields on new Checklist creation', async ({ page }) => {
     console.log('🔹 [TEST START] Validate empty Checklist fields');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Checklist');
 

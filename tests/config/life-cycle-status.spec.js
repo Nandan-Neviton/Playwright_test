@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import { login } from '../utils/login.js';
-import { goToModule, goToConfigSection, filterAndDownload, filterAndSearch, toggleAndCheck } from '../utils/commonActions.js';
+import { goToModule, goToConfigSection, filterAndDownload, filterAndSearch, toggleAndCheck, goToDMS } from '../utils/commonActions.js';
 
 // =====================================
 // 🧩 Test Suite: Admin - Life Cycle States
@@ -24,7 +24,7 @@ test.describe.serial('CI Tests — Admin: Life Cycle States', () => {
     console.log('🚀 [TEST START] Create Life Cycle State');
 
     // Step 1: Login
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
 
     // Step 2: Navigate to Configuration → Life Cycle States
     await goToConfigSection(page);
@@ -53,7 +53,8 @@ test.describe.serial('CI Tests — Admin: Life Cycle States', () => {
     console.log('🚀 [TEST START] Verify Life Cycle State and Toggle Status');
 
     // Step 1: Login and navigate to module
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Life Cycle States');
 
@@ -79,7 +80,8 @@ test.describe.serial('CI Tests — Admin: Life Cycle States', () => {
     console.log('🚀 [TEST START] Filter and Download Life Cycle States');
 
     // Step 1: Login and navigate
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Life Cycle States');
 
@@ -98,7 +100,8 @@ test.describe.serial('CI Tests — Admin: Life Cycle States', () => {
     console.log('🚀 [TEST START] Edit Life Cycle State');
 
     // Step 1: Login and navigate
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Life Cycle States');
 
@@ -134,7 +137,8 @@ test.describe.serial('CI Tests — Admin: Life Cycle States', () => {
     console.log('🚀 [TEST START] Delete Life Cycle State');
 
     // Step 1: Login and navigate
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Life Cycle States');
 
@@ -165,7 +169,8 @@ test.describe('Validation Tests — Life Cycle States', () => {
     console.log('🚀 [TEST START] Validate Empty Field Warnings');
 
     // Step 1: Login and navigate
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Life Cycle States');
 

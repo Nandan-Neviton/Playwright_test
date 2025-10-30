@@ -1,22 +1,33 @@
-import { test, expect } from '@playwright/test';
-import { login } from '../utils/login.js';
-import { goToAdminSection } from '../utils/commonActions.js';
+﻿import { test, expect } from '@playwright/test';
 
 // ===========================================================
-// User Management Enhancement Tests — Advanced Features
+// User Management Enhancement Tests â€” Advanced Features
 // ===========================================================
-test.describe.serial('User Management — Enhanced Test Cases', () => {
+test.describe.serial('User Management â€” Enhanced Test Cases', () => {
 
   // ===========================================================
-  // TEST — User Profile and Settings
+  // TEST â€” User Profile and Settings
   // ===========================================================
   test('User profile and settings management', async ({ page }) => {
     console.log('🔹 [START] User Profile Management');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    // Login and navigate to admin section
+    await page.goto('https://sqa.note-iq.com/');
+    await page.getByRole('textbox', { name: 'Enter email address' }).fill('swetha.kulkarni@neviton.com');
+    await page.getByRole('textbox', { name: 'Enter password' }).fill('Jaishriram@2025');
+    await page.getByRole('button', { name: 'LOGIN', exact: true }).click();
+    
+    // Wait for login completion
+    await page.waitForLoadState('networkidle');
+    
+    // Click Configure button to access admin section
+    await page.getByRole('button', { name: 'Configure' }).click();
+    
+    // Wait for admin section to load
+    await page.waitForLoadState('networkidle');
     
     // Click on user profile area - use more specific selector to avoid strict mode issues
-    console.log('🔸 Accessing user profile...');
+    console.log('ðŸ”¸ Accessing user profile...');
     
     // Try different approaches to access user profile menu
     let profileClicked = false;
@@ -30,11 +41,15 @@ test.describe.serial('User Management — Enhanced Test Cases', () => {
       
       if (await profileElement.isVisible({ timeout: 5000 })) {
         await profileElement.click();
+        
+        // Wait for profile menu to load
+        await page.waitForLoadState('networkidle');
+        
         profileClicked = true;
         console.log('✅ Profile accessed');
       }
     } catch (error) {
-      console.log('ℹ️ User profile menu not accessible - continuing test');
+      console.log('â„¹ï¸ User profile menu not accessible - continuing test');
     }
     
     if (profileClicked) {
@@ -52,24 +67,38 @@ test.describe.serial('User Management — Enhanced Test Cases', () => {
       for (const option of profileOptions) {
         const optionLocator = page.getByText(option, { exact: false });
         if (await optionLocator.isVisible({ timeout: 2000 })) {
-          console.log(`✅ Found profile option: ${option}`);
+          console.log(`âœ… Found profile option: ${option}`);
         }
       }
     }
     
-    console.log('✅ User profile management verification completed');
+    console.log('âœ… User profile management verification completed');
   });
 
   // ===========================================================
-  // TEST — Notification System
+  // TEST â€” Notification System
   // ===========================================================
   test('Notification system functionality', async ({ page }) => {
     console.log('🔹 [START] Notification System');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    // Login and navigate to admin section
+    await page.goto('https://sqa.note-iq.com/');
+    await page.getByRole('textbox', { name: 'Enter email address' }).fill('swetha.kulkarni@neviton.com');
+    await page.getByRole('textbox', { name: 'Enter password' }).fill('Jaishriram@2025');
+    await page.getByRole('button', { name: 'LOGIN', exact: true }).click();
+    
+    // Wait for login completion
+    await page.waitForLoadState('networkidle');
+    
+    // Click Configure button to access admin section
+    await page.getByRole('button', { name: 'Configure' }).click();
+    
+    // Wait for admin section to load
+    await page.waitForLoadState('networkidle');
+    await page.getByRole('button', { name: 'Configure' }).click();
     
     // Check for notification elements
-    console.log('🔸 Checking notification system...');
+    console.log('ðŸ”¸ Checking notification system...');
     
     try {
       const notificationButton = page.locator('[data-testid*="notification"]').first()
@@ -79,6 +108,10 @@ test.describe.serial('User Management — Enhanced Test Cases', () => {
       
       if (await notificationButton.isVisible({ timeout: 5000 })) {
         await notificationButton.click();
+        
+        // Wait for notification panel to load
+        await page.waitForLoadState('networkidle');
+        
         console.log('✅ Notification system accessed');
         
         // Look for notification features
@@ -92,32 +125,42 @@ test.describe.serial('User Management — Enhanced Test Cases', () => {
         for (const feature of notificationFeatures) {
           const featureLocator = page.getByText(feature, { exact: false });
           if (await featureLocator.isVisible({ timeout: 2000 })) {
-            console.log(`✅ Found notification feature: ${feature}`);
+            console.log(`âœ… Found notification feature: ${feature}`);
           }
         }
       } else {
-        console.log('ℹ️ No notifications or notification system not visible');
+        console.log('â„¹ï¸ No notifications or notification system not visible');
       }
     } catch (error) {
-      console.log('ℹ️ Notification system check failed - continuing test');
+      console.log('â„¹ï¸ Notification system check failed - continuing test');
     }
     
-    console.log('✅ Notification system verification completed');
+    console.log('âœ… Notification system verification completed');
   });
 
   // ===========================================================
-  // TEST — User Role and Permission Management
+  // TEST â€” User Role and Permission Management
   // ===========================================================
   test('User role and permission management verification', async ({ page }) => {
     console.log('🔹 [START] Role & Permission Management');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    // Login and navigate to admin section
+    await page.goto('https://sqa.note-iq.com/');
+    await page.getByRole('textbox', { name: 'Enter email address' }).fill('swetha.kulkarni@neviton.com');
+    await page.getByRole('textbox', { name: 'Enter password' }).fill('Jaishriram@2025');
+    await page.getByRole('button', { name: 'LOGIN', exact: true }).click();
     
-    // Navigate to admin section for role management
-    await goToAdminSection(page);
+    // Wait for login completion
+    await page.waitForLoadState('networkidle');
+    
+    // Click Configure button to access admin section
+    await page.getByRole('button', { name: 'Configure' }).click();
+
+    // Wait for admin section to load
+    await page.waitForLoadState('networkidle');
     
     // Check for role management features
-    console.log('🔸 Checking role management features...');
+    console.log('ðŸ”¸ Checking role management features...');
     const roleFeatures = [
       'Role',
       'Permission',
@@ -130,10 +173,10 @@ test.describe.serial('User Management — Enhanced Test Cases', () => {
     for (const feature of roleFeatures) {
       const featureLocator = page.getByText(feature, { exact: false });
       if (await featureLocator.isVisible({ timeout: 2000 })) {
-        console.log(`✅ Found role management feature: ${feature}`);
+        console.log(`âœ… Found role management feature: ${feature}`);
       }
     }
     
-    console.log('✅ Role and permission management verification completed');
+    console.log('âœ… Role and permission management verification completed');
   });
 });

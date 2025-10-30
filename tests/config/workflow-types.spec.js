@@ -3,7 +3,7 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import { login } from '../utils/login.js';
-import { goToModule, goToConfigSection, filterAndDownload, filterAndSearch, toggleAndCheck } from '../utils/commonActions.js';
+import { goToModule, goToConfigSection, filterAndDownload, filterAndSearch, toggleAndCheck, goToDMS } from '../utils/commonActions.js';
 
 // =======================
 // Test Suite: Workflow Types (Admin Configuration)
@@ -39,7 +39,8 @@ test.describe.serial('CI Tests — Admin: Workflow Types', () => {
     console.log('🚀 [START] Creating new Workflow Type');
 
     // Login and navigate to Workflow Type module
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Workflow Type');
 
@@ -113,16 +114,19 @@ test.describe.serial('CI Tests — Admin: Workflow Types', () => {
     console.log('🔍 [START] Verifying and toggling Workflow Type');
 
     // Login and navigate again
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Workflow Type');
 
     // Search for the workflow type using filter
     await filterAndSearch(page, 'Name', workflowData.name);
-    await page.waitForTimeout(2000);
+    
+    // Wait for search results to load
+    await page.waitForLoadState('networkidle');
 
     // Verify visibility of created data
-    await expect(page.getByRole('cell', { name: workflowData.name })).toBeVisible();
+    await expect(page.getByRole('cell', { name: workflowData.name })).toBeVisible({ timeout: 10000 });
     await expect(page.getByRole('cell', { name: workflowData.description })).toBeVisible();
 
     // Toggle status between Active and Inactive
@@ -139,7 +143,8 @@ test.describe.serial('CI Tests — Admin: Workflow Types', () => {
   test('03 - Filter & Download Workflow Type', async ({ page }) => {
     console.log('📂 [START] Filtering and downloading Workflow Type');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Workflow Type');
 
@@ -155,7 +160,8 @@ test.describe.serial('CI Tests — Admin: Workflow Types', () => {
   test('04 - Edit Workflow Type', async ({ page }) => {
     console.log('✏️ [START] Editing Workflow Type');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Workflow Type');
 
@@ -167,10 +173,15 @@ test.describe.serial('CI Tests — Admin: Workflow Types', () => {
       .click();
 
     // Update the name and save
+    await expect(page.getByRole('textbox', { name: 'Name' })).toBeVisible();
     await page.getByRole('textbox', { name: 'Name' }).fill(updatedName);
-    await page.waitForTimeout(3000); // Small delay for UI stabilization
-    await page.getByRole('button', { name: 'Update' }).isVisible();
+    
+    // Wait for form to be ready and update button to be available
+    await expect(page.getByRole('button', { name: 'Update' })).toBeVisible();
     await page.getByRole('button', { name: 'Update' }).click();
+    
+    // Wait for update to complete
+    await page.waitForLoadState('networkidle');
 
     // Validate update success message
     await expect(page.getByRole('alert')).toHaveText('Workflow Type updated successfully');
@@ -183,13 +194,16 @@ test.describe.serial('CI Tests — Admin: Workflow Types', () => {
   test('05 - Delete Workflow Type', async ({ page }) => {
     console.log('🗑 [START] Deleting Workflow Type');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Workflow Type');
 
     // Filter and delete created workflow
     await filterAndSearch(page, 'Name', updatedName);
-    await page.waitForTimeout(2000);
+    
+    // Wait for search results to load
+    await page.waitForLoadState('networkidle');
 
     // Confirm deletion twice (modal confirmation)
     await page.getByRole('button', { name: 'Delete' }).click();
@@ -210,7 +224,8 @@ test.describe('CI Tests — Validations: Workflow Types', () => {
   test('Validation: Empty field submission should show error messages', async ({ page }) => {
     console.log('⚠️ [START] Validating required field errors on empty form submission');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Workflow Type');
 

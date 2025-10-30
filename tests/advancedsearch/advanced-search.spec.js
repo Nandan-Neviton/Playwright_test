@@ -27,7 +27,7 @@ test.describe.serial('CI Tests — Advanced Search', () => {
 
     // Step 1: Login to application
     console.log('🔸 Logging into the application...');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
 
     // Step 2: Navigate to Advanced Search
     console.log('🔸 Opening Advanced Search...');
@@ -52,7 +52,7 @@ test.describe.serial('CI Tests — Advanced Search', () => {
   test('02 - Document search with various field types', async ({ page }) => {
     console.log('🔹 [START] Document Field Search');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
     await page.getByRole('button', { name: 'Advanced Search' }).click();
 
     // Test Document Title search
@@ -98,12 +98,14 @@ test.describe.serial('CI Tests — Advanced Search', () => {
   test('03 - Document search using Contains condition', async ({ page }) => {
     console.log('🔹 [START] Contains Search');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
     await page.getByRole('button', { name: 'Advanced Search' }).click();
 
     // Search with Contains condition
     console.log(`🔸 Searching documents containing: ${searchData.partialTitle}`);
-    await page.waitForTimeout(1000); // Allow page to stabilize
+    
+    // Wait for advanced search page to load
+    await page.waitForLoadState('networkidle');
     
     try {
       // Select search type (Document)
@@ -143,7 +145,7 @@ test.describe.serial('CI Tests — Advanced Search', () => {
   test('04 - Document search by Author field', async ({ page }) => {
     console.log('🔹 [START] Author Search');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
     await page.getByRole('button', { name: 'Advanced Search' }).click();
 
     // Search by Author
@@ -182,7 +184,7 @@ test.describe.serial('CI Tests — Advanced Search', () => {
   test('05 - Document search by Content field', async ({ page }) => {
     console.log('🔹 [START] Content Search');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
     await page.getByRole('button', { name: 'Advanced Search' }).click();
 
     // Search by Content
@@ -221,7 +223,7 @@ test.describe.serial('CI Tests — Advanced Search', () => {
   test('06 - Document Type search functionality', async ({ page }) => {
     console.log('🔹 [START] Document Type Search');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
     await page.getByRole('button', { name: 'Advanced Search' }).click();
 
     // Search by Document Type
@@ -257,7 +259,7 @@ test.describe.serial('CI Tests — Advanced Search', () => {
     console.log('🔹 [START] Template Type Search');
 
     try {
-      await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+      await login(page);
       
       // Wait for Advanced Search button with retry logic
       await page.waitForSelector('button[name="Advanced Search"], [role="button"]:has-text("Advanced Search")', { timeout: 30000 });
@@ -298,7 +300,7 @@ test.describe.serial('CI Tests — Advanced Search', () => {
     console.log('🔹 [START] Workflow Search');
 
     try {
-      await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+      await login(page);
       
       // Wait for Advanced Search button
       await page.waitForSelector('button[name="Advanced Search"], [role="button"]:has-text("Advanced Search")', { timeout: 30000 });
@@ -343,7 +345,7 @@ test.describe.serial('CI Tests — Advanced Search', () => {
     console.log('🔹 [START] Multiple Criteria Search');
 
     try {
-      await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+      await login(page);
       
       // Wait for Advanced Search button
       await page.waitForSelector('button[name="Advanced Search"], [role="button"]:has-text("Advanced Search")', { timeout: 30000 });
@@ -404,7 +406,7 @@ test.describe.serial('CI Tests — Advanced Search', () => {
     console.log('🔹 [START] All Condition Types Test');
 
     try {
-      await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+      await login(page);
       
       // Wait for Advanced Search button
       await page.waitForSelector('button[name="Advanced Search"], [role="button"]:has-text("Advanced Search")', { timeout: 30000 });
@@ -474,7 +476,7 @@ test.describe.serial('CI Tests — Advanced Search', () => {
     console.log('🔹 [START] Save/Load Search Parameters');
 
     try {
-      await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+      await login(page);
       
       // Wait for Advanced Search button
       await page.waitForSelector('button[name="Advanced Search"], [role="button"]:has-text("Advanced Search")', { timeout: 30000 });
@@ -538,7 +540,7 @@ test.describe.serial('CI Tests — Advanced Search', () => {
     console.log('🔹 [START] Download Search Results');
 
     try {
-      await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+      await login(page);
       
       // Wait for Advanced Search button
       await page.waitForSelector('button[name="Advanced Search"], [role="button"]:has-text("Advanced Search")', { timeout: 30000 });
@@ -601,7 +603,7 @@ test.describe('Advanced Search Validations', () => {
   test('Validation: Empty search criteria should show validation errors', async ({ page }) => {
     console.log('🔹 [START] Validate empty search submission');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
     await page.getByRole('button', { name: 'Advanced Search' }).click();
 
     // Try to generate without any criteria
@@ -619,7 +621,7 @@ test.describe('Advanced Search Validations', () => {
   test('Validation: Incomplete search criteria validation', async ({ page }) => {
     console.log('🔹 [START] Validate incomplete search criteria');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
     await page.getByRole('button', { name: 'Advanced Search' }).click();
 
     // Verify initial state - Generate should be disabled with no criteria
@@ -637,7 +639,7 @@ test.describe('Advanced Search Validations', () => {
   test('Validation: Search text field validation', async ({ page }) => {
     console.log('🔹 [START] Validate search text requirements');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
     await page.getByRole('button', { name: 'Advanced Search' }).click();
 
     // Fill search criteria and add it, then verify Generate becomes enabled
@@ -679,7 +681,7 @@ test.describe('Advanced Search Validations', () => {
   test('Validation: Reset functionality clears all criteria', async ({ page }) => {
     console.log('🔹 [START] Validate reset functionality');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
     await page.getByRole('button', { name: 'Advanced Search' }).click();
 
     // Add search criteria
@@ -728,7 +730,7 @@ test.describe('Advanced Search Validations', () => {
   test('Validation: No search results handling', async ({ page }) => {
     console.log('🔹 [START] Validate no results scenario');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
     await page.getByRole('button', { name: 'Advanced Search' }).click();
 
     // Search for something that doesn't exist

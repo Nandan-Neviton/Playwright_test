@@ -35,7 +35,8 @@ async function clickNavLink(page, href, labelRegex) {
         }
       }
     }
-    await page.waitForTimeout(800);
+    // Wait for DOM to settle instead of arbitrary timeout
+    await page.waitForLoadState('networkidle');
   }
   // Last resort explicit wait on alt selector then click
   await page.waitForSelector(`${primarySelector},${altSelector}`, { timeout: 8000 });
@@ -51,13 +52,18 @@ async function waitForAppShell(page) {
     'a[href="/template"]',
     'a[href="/document"]',
     'button:has-text("Advanced Search")',
-    '[role="button"]:has-text("Advanced Search")'
+    '[role="button"]:has-text("Advanced Search")',
   ];
   const selectorUnion = anchors.join(',');
   for (let attempt = 0; attempt < 3; attempt++) {
-    const anyVisible = await page.locator(selectorUnion).first().isVisible().catch(()=>false);
+    const anyVisible = await page
+      .locator(selectorUnion)
+      .first()
+      .isVisible()
+      .catch(() => false);
     if (anyVisible) return;
-    await page.waitForTimeout(1000);
+    // Wait for DOM to stabilize
+    await page.waitForLoadState('networkidle');
   }
   // Do not throw hard error; proceed and let downstream navigation retry logic handle
 }
@@ -86,7 +92,10 @@ export async function goToTemplateSection(page) {
     console.log('>>> Template section URL (direct link path): ' + page.url());
     return;
   } catch (e) {
-    console.log('⚠️ Primary /template nav link not found or not clickable, attempting fallback via /configuration. Error: ' + e.message);
+    console.log(
+      '⚠️ Primary /template nav link not found or not clickable, attempting fallback via /configuration. Error: ' +
+        e.message
+    );
   }
 
   // Fallback: navigate to configuration first then locate any Template link/button
@@ -96,22 +105,24 @@ export async function goToTemplateSection(page) {
     const templateLocator = page.getByRole('link', { name: /template/i }).first();
     if (await templateLocator.count()) {
       await templateLocator.waitFor({ state: 'visible', timeout: 7000 });
-      await templateLocator.click({ timeout: 5000 }).catch(()=>{});
+      await templateLocator.click({ timeout: 5000 }).catch(() => {});
       console.log('>>> Navigated to Template section via configuration link');
       console.log('>>> Template section URL (config path): ' + page.url());
       return;
     }
     // Broader CSS-based fallback (covers buttons/spans styled as navigation)
-    const cssFallback = page.locator('a:has-text("Template"), button:has-text("Template"), [role="button"]:has-text("Template")').first();
+    const cssFallback = page
+      .locator('a:has-text("Template"), button:has-text("Template"), [role="button"]:has-text("Template")')
+      .first();
     if (await cssFallback.count()) {
-      await cssFallback.scrollIntoViewIfNeeded().catch(()=>{});
-      await cssFallback.click({ timeout: 5000 }).catch(()=>{});
+      await cssFallback.scrollIntoViewIfNeeded().catch(() => {});
+      await cssFallback.click({ timeout: 5000 }).catch(() => {});
       console.log('>>> Navigated to Template section via generic fallback');
       console.log('>>> Template section URL (generic fallback): ' + page.url());
       return;
     }
     // Direct navigation last resort attempts (possible route variants)
-    const directCandidates = ['/template','/templates','/configuration/template'];
+    const directCandidates = ['/template', '/templates', '/configuration/template'];
     for (const path of directCandidates) {
       try {
         await page.goto(path, { waitUntil: 'domcontentloaded' });
@@ -119,9 +130,13 @@ export async function goToTemplateSection(page) {
           console.log('>>> Directly navigated to Template via path: ' + path);
           return;
         }
-      } catch { /* ignore */ }
+      } catch {
+        /* ignore */
+      }
     }
-    console.log('⚠️ Could not positively locate Template section using fallbacks; proceeding (subsequent module navigation may still succeed)');
+    console.log(
+      '⚠️ Could not positively locate Template section using fallbacks; proceeding (subsequent module navigation may still succeed)'
+    );
   } catch (inner) {
     console.log('⚠️ Fallback navigation sequence to Template failed: ' + inner.message);
   }
@@ -174,7 +189,7 @@ export async function filterAndDownload(page, filterBy, value) {
   console.log(`>>> Chosen download format: ${choice}`);
 
   await page.getByRole('button', { name: 'Download' }).click();
-  
+
   try {
     const [download] = await Promise.all([
       page.waitForEvent('download', { timeout: 60000 }), // Increased timeout to 60 seconds
@@ -188,9 +203,10 @@ export async function filterAndDownload(page, filterBy, value) {
     console.log(`⚠️ Download timeout or failed, but continuing test. Error: ${error.message}`);
     // Still consider test passed if we got to download interface
     console.log('✅ Download interface accessed successfully - considering test passed');
-    
   }
-  await page.waitForTimeout(2000); // Allow time for filter to apply
+  
+  // Wait for download operation to complete
+  await page.waitForLoadState('networkidle');
 }
 
 export async function filterAndSearch(page, filterBy, value) {
@@ -200,10 +216,7 @@ export async function filterAndSearch(page, filterBy, value) {
   } catch (e) {
     // Fallback sequence similar to filterAndDownload
     let opened = false;
-    const candidates = [
-      () => page.getByRole('combobox').first(),
-      () => page.getByText('Filter By', { exact: false })
-    ];
+    const candidates = [() => page.getByRole('combobox').first(), () => page.getByText('Filter By', { exact: false })];
     for (const fn of candidates) {
       try {
         const loc = fn();
@@ -212,7 +225,9 @@ export async function filterAndSearch(page, filterBy, value) {
           opened = true;
           break;
         }
-      } catch { /* ignore */ }
+      } catch {
+        /* ignore */
+      }
     }
     if (!opened) {
       console.log('⚠️ Could not open filter dropdown; proceeding without filtering');
@@ -226,13 +241,15 @@ export async function filterAndSearch(page, filterBy, value) {
     return;
   }
   const searchBox = page.getByRole('textbox', { name: 'Search', exact: true });
-  if (await searchBox.isVisible().catch(()=>false)) {
+  if (await searchBox.isVisible().catch(() => false)) {
     await searchBox.fill(value);
   } else {
     console.log('⚠️ Search box not visible after selecting filter');
   }
   console.log(`>>> Applied filter: ${filterBy}, value: ${value}`);
-  await page.waitForTimeout(2000); // Allow time for filter to apply
+  
+  // Wait for filter to apply and results to load
+  await page.waitForLoadState('networkidle');
 }
 
 export async function clickRandomButton(page, buttonConfigs) {
@@ -263,5 +280,91 @@ export async function clickRandomButton(page, buttonConfigs) {
     await chosenLocator.click();
   } catch (error) {
     console.log(`>>> Could not click button: ${error.message}`);
+  }
+}
+export async function goToDMS(page) {
+  const currentUrl = page.url();
+  console.log(`Current URL after login: ${currentUrl}`);
+
+  // Wait for page to fully load before proceeding
+  await page.waitForLoadState('networkidle');
+  
+  // If we're not on the platform page, try to navigate back or directly to platform
+  if (!currentUrl.includes('/platform')) {
+    console.log('Not on platform page, checking for white screen...');
+
+    // Check if platform selection content is visible
+    const platformContent = page.locator('text=Choose your application system to continue');
+    const isContentVisible = await platformContent.isVisible({ timeout: 3000 }).catch(() => false);
+
+    if (!isContentVisible) {
+      console.log('White screen detected, trying to navigate back...');
+      await page.goBack();
+      await page.waitForLoadState('networkidle', { timeout: 10000 });
+
+      // If still not on platform page, retry login process
+      if (!page.url().includes('/platform')) {
+        console.log('Still not on platform page, retrying login...');
+        await page.goto('https://sqa.note-iq.com/');
+        await page.waitForLoadState('networkidle', { timeout: 10000 });
+
+        // Re-enter credentials
+        console.log('Re-entering login credentials...');
+        await page.getByRole('textbox', { name: 'Enter email address' }).fill('swetha.kulkarni@neviton.com');
+        await page.getByRole('textbox', { name: 'Enter password' }).fill('Jaishriram@2025');
+
+        console.log('Clicking LOGIN button again...');
+        await page.getByRole('button', { name: 'LOGIN', exact: true }).click();
+        await page.waitForLoadState('networkidle', { timeout: 15000 });
+
+        // Check if login retry was successful
+        if (!page.url().includes('/platform')) {
+          throw new Error('Login failed after retry - unable to reach platform page. Current URL: ' + page.url());
+        }
+      }
+    }
+  }
+
+  // Now click on DMS option and verify navigation to dashboard
+  console.log('Clicking on DMS option...');
+  
+  // Multiple selector strategies for DMS button
+  const dmsSelectors = [
+    'text=DMS Document Management System',
+    '[data-testid="dms-card"]',
+    'text=DMS',
+    '.dms-card',
+    'text=Document Management System'
+  ];
+
+  let dmsClicked = false;
+  for (const selector of dmsSelectors) {
+    try {
+      const dmsElement = page.locator(selector).first();
+      if (await dmsElement.isVisible({ timeout: 3000 })) {
+        await dmsElement.click({ timeout: 5000 });
+        dmsClicked = true;
+        console.log(`>>> Successfully clicked DMS using selector: ${selector}`);
+        break;
+      }
+    } catch (error) {
+      console.log(`⚠️ Failed to click DMS with selector "${selector}": ${error.message}`);
+    }
+  }
+
+  if (!dmsClicked) {
+    throw new Error('Could not locate or click DMS navigation element');
+  }
+
+  // Wait for navigation to DMS dashboard
+  console.log('Waiting for DMS dashboard to load...');
+  await page.waitForLoadState('networkidle', { timeout: 15000 });
+  
+  // Verify we're on the DMS dashboard
+  const finalUrl = page.url();
+  if (finalUrl.includes('/dms/dashboard')) {
+    console.log(`>>> Successfully navigated to DMS dashboard: ${finalUrl}`);
+  } else {
+    console.log(`⚠️ Expected /dms/dashboard but got: ${finalUrl}`);
   }
 }

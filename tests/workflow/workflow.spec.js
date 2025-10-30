@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import { login } from '../utils/login.js';
-import { goToModule, goToWorkflowSection, filterAndDownload, filterAndSearch, toggleAndCheck } from '../utils/commonActions.js';
+import { goToModule, goToWorkflowSection, filterAndDownload, filterAndSearch, toggleAndCheck, goToDMS } from '../utils/commonActions.js';
 
 // ===========================================================
 // CI TEST SUITE — Admin System Data Field Types
@@ -26,7 +26,8 @@ test.describe.serial('CI Tests — Admin System Data Field Types', () => {
 
     // Step 1: Login to application
     console.log('🔸 Logging into the application...');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
 
     // Step 2: Navigate to Workflow section
     console.log('🔸 Navigating to Workflow Section...');
@@ -42,7 +43,9 @@ test.describe.serial('CI Tests — Admin System Data Field Types', () => {
 
     // Step 5: Wait for table to update and click 'View' link
     console.log('🔸 Selecting the "View" link for filtered workflow...');
-    await page.waitForTimeout(2000);
+    
+    // Wait for filter results to load
+    await page.waitForLoadState('networkidle');
     await page.getByRole('cell', { name: 'View' }).getByRole('link').click();
 
     // Step 6: Verify that iframe editor appears (indicating workflow loaded)
@@ -66,7 +69,7 @@ test.describe.serial('CI Tests — Admin System Data Field Types', () => {
 
   //   // Step 1: Login to application
   //   console.log('🔸 Logging into the application...');
-  //   await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+  //   await login(page);
 
   //   // Step 2: Navigate to Workflow section
   //   console.log('🔸 Navigating to Workflow Section...');
@@ -92,7 +95,7 @@ test.describe.serial('CI Tests — Admin System Data Field Types', () => {
 
     // Step 1: Login to application
     console.log('🔸 Logging into the application...');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
 
     // Step 2: Navigate to Workflow section
     console.log('🔸 Navigating to Workflow Section...');
@@ -134,7 +137,8 @@ test.describe.serial('Workflow Enhancement Tests', () => {
   test('Workflow designer and builder interface', async ({ page }) => {
     console.log('🔹 [START] Workflow Designer Interface');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToWorkflowSection(page);
     
     // Check for workflow designer features
@@ -164,7 +168,8 @@ test.describe.serial('Workflow Enhancement Tests', () => {
   test('Workflow status monitoring and tracking', async ({ page }) => {
     console.log('🔹 [START] Workflow Status Monitoring');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToWorkflowSection(page);
     
     // Check for workflow status features
@@ -205,7 +210,8 @@ test.describe.serial('CSV Imported Tests — Workflow Validation and Security', 
 
     // Step 1: Login to application
     console.log('🔸 Logging into the application...');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
 
     // Step 2: Navigate to Workflow section
     console.log('🔸 Navigating to Workflow Section...');
@@ -240,7 +246,8 @@ test.describe.serial('CSV Imported Tests — Workflow Validation and Security', 
 
     // Step 1: Login to application
     console.log('🔸 Logging into the application...');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
 
     // Step 2: Navigate to Workflow section
     console.log('🔸 Navigating to Workflow Section...');
@@ -272,7 +279,8 @@ test.describe.serial('CSV Imported Tests — Workflow Validation and Security', 
 
     // Step 1: Login as restricted user (using main credentials for demo, ideally use restricted user)
     console.log('🔸 Logging in as user with limited permissions...');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
 
     // Step 2: Navigate to Workflow section
     console.log('🔸 Navigating to Workflow Section...');
@@ -312,7 +320,7 @@ test.describe.serial('CSV Imported Tests — Workflow Validation and Security', 
 
     // Step 1: Login to application
     console.log('🔸 Logging into the application...');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
 
     // Step 2: Navigate to Workflow section
     console.log('🔸 Navigating to Workflow Section...');
@@ -366,7 +374,7 @@ test.describe.serial('CSV Imported Tests — Workflow Validation and Security', 
 
     // Step 1: Login to application
     console.log('🔸 Logging into the application...');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
 
     // Step 2: Navigate to Workflow section
     console.log('🔸 Navigating to Workflow Section...');
@@ -424,7 +432,7 @@ test.describe.serial('CSV Imported Tests — Workflow Validation and Security', 
 
     // Step 1: Login to application
     console.log('🔸 Logging into the application...');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
 
     // Step 2: Navigate to Workflow section
     console.log('🔸 Navigating to Workflow Section...');
@@ -477,7 +485,7 @@ test.describe.serial('CSV Imported Tests — Workflow Validation and Security', 
 
     // Step 1: Login to application
     console.log('🔸 Logging into the application...');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
 
     // Step 2: Navigate to Workflow section
     console.log('🔸 Navigating to Workflow Section...');

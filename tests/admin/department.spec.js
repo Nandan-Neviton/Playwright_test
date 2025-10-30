@@ -20,13 +20,37 @@ test.describe.serial('Admin - Department creation and verification', () => {
 
   // ---------- TEST 1: Create a New Department ----------
   test('should create a new department successfully', async ({ page }) => {
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-    await goToAdminSection(page);
+    // Login and navigate to admin section
+    await page.goto('https://sqa.note-iq.com/');
+    
+    // Wait for login form to be fully loaded
+    await expect(page.getByRole('textbox', { name: 'Enter email address' })).toBeVisible();
+    await expect(page.getByRole('textbox', { name: 'Enter password' })).toBeVisible();
+    
+    await page.getByRole('textbox', { name: 'Enter email address' }).fill('swetha.kulkarni@neviton.com');
+    await page.getByRole('textbox', { name: 'Enter password' }).fill('Jaishriram@2025');
+    await page.getByRole('button', { name: 'LOGIN', exact: true }).click();
+    
+    // Wait for platform page to load completely
+    await page.waitForLoadState('networkidle');
+    await expect(page.getByRole('button', { name: 'Configure' })).toBeVisible();
+    
+    // Click Configure button to access admin section
+    await page.getByRole('button', { name: 'Configure' }).click();
+    
+    // Wait for admin page to load with all modules visible
+    await page.waitForLoadState('networkidle');
+    await expect(page.getByRole('link', { name: 'Department' })).toBeVisible();
     await goToModule(page, 'Department');
 
-    // Wait for "New Department" tab to be visible
+    // Wait for department module to load completely
+    await page.waitForLoadState('networkidle');
     await expect(page.getByRole('tab', { name: 'New Department' })).toBeVisible();
     await page.getByRole('tab', { name: 'New Department' }).click();
+    
+    // Wait for form to be fully loaded
+    await expect(page.locator('#dept_name')).toBeVisible();
+    await expect(page.locator('#dept_code')).toBeVisible();
 
     // Fill out department creation form
     await expect(page.getByRole('textbox', { name: 'Name' })).toBeVisible();
@@ -69,20 +93,44 @@ test.describe.serial('Admin - Department creation and verification', () => {
     // Submit form
     await page.getByRole('button', { name: 'Create' }).click();
 
-    // Verify success message (use toContainText for safer check)
-    await expect(page.getByRole('alert')).toContainText(deptData.successMessage);
+    // Wait for form submission to complete and verify success message
+    await page.waitForLoadState('networkidle');
+    await expect(page.getByRole('alert')).toContainText(deptData.successMessage, { timeout: 10000 });
   });
 
   // ---------- TEST 2: Verify Created Department ----------
   test('should verify the created department and toggle its status', async ({ page }) => {
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-    await goToAdminSection(page);
+    // Login and navigate to admin section
+    await page.goto('https://sqa.note-iq.com/');
+    
+    // Wait for login form to be fully loaded
+    await expect(page.getByRole('textbox', { name: 'Enter email address' })).toBeVisible();
+    await expect(page.getByRole('textbox', { name: 'Enter password' })).toBeVisible();
+    
+    await page.getByRole('textbox', { name: 'Enter email address' }).fill('swetha.kulkarni@neviton.com');
+    await page.getByRole('textbox', { name: 'Enter password' }).fill('Jaishriram@2025');
+    await page.getByRole('button', { name: 'LOGIN', exact: true }).click();
+    
+    // Wait for platform page to load completely
+    await page.waitForLoadState('networkidle');
+    await expect(page.getByRole('button', { name: 'Configure' })).toBeVisible();
+    
+    // Click Configure button to access admin section
+    await page.getByRole('button', { name: 'Configure' }).click();
+    
+    // Wait for admin page to load
+    await page.waitForLoadState('networkidle');
     await goToModule(page, 'Department');
 
+    // Wait for department list to load
+    await page.waitForLoadState('networkidle');
+    await expect(page.locator('grid, table, [role="grid"]')).toBeVisible();
+    
     await filterAndSearch(page, 'Department Code', deptData.code);
 
-    // Wait until row with department appears (instead of timeout)
-    await expect(page.getByRole('cell', { name: deptData.name }).first()).toBeVisible();
+    // Wait for search results to load and verify department appears
+    await page.waitForLoadState('networkidle');
+    await expect(page.getByRole('cell', { name: deptData.name }).first()).toBeVisible({ timeout: 10000 });
     await expect(page.getByRole('cell', { name: deptData.code })).toBeVisible();
 
     // Use reusable toggle function
@@ -92,8 +140,14 @@ test.describe.serial('Admin - Department creation and verification', () => {
 
   // ---------- TEST 3: Filtering + Download ----------
   test('should filter departments by code and download results', async ({ page }) => {
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-    await goToAdminSection(page);
+    // Login and navigate to admin section
+    await page.goto('https://sqa.note-iq.com/');
+    await page.getByRole('textbox', { name: 'Enter email address' }).fill('swetha.kulkarni@neviton.com');
+    await page.getByRole('textbox', { name: 'Enter password' }).fill('Jaishriram@2025');
+    await page.getByRole('button', { name: 'LOGIN', exact: true }).click();
+    
+    // Click Configure button to access admin section
+    await page.getByRole('button', { name: 'Configure' }).click();
     await goToModule(page, 'Department');
 
     // Reusable filter + download
@@ -101,7 +155,7 @@ test.describe.serial('Admin - Department creation and verification', () => {
   });
   //NOTE: Edit test commented out as the Edit functionality is currently not working
   // test('Edit action button working', async ({ page }) => {
-  //     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+  // await login(page);
   //     await goToModule(page, 'Department');
 
   //     // Click Edit action
@@ -117,28 +171,75 @@ test.describe.serial('Admin - Department creation and verification', () => {
 
   // ---------- TEST 4: Delete Action ----------
   test('Delete action button working', async ({ page }) => {
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-    await goToAdminSection(page);
+    // Login and navigate to admin section
+    await page.goto('https://sqa.note-iq.com/');
+    
+    // Wait for login form to be fully loaded
+    await expect(page.getByRole('textbox', { name: 'Enter email address' })).toBeVisible();
+    await expect(page.getByRole('textbox', { name: 'Enter password' })).toBeVisible();
+    
+    await page.getByRole('textbox', { name: 'Enter email address' }).fill('swetha.kulkarni@neviton.com');
+    await page.getByRole('textbox', { name: 'Enter password' }).fill('Jaishriram@2025');
+    await page.getByRole('button', { name: 'LOGIN', exact: true }).click();
+    
+    // Wait for platform page to load completely
+    await page.waitForLoadState('networkidle');
+    await expect(page.getByRole('button', { name: 'Configure' })).toBeVisible();
+    
+    // Click Configure button to access admin section
+    await page.getByRole('button', { name: 'Configure' }).click();
+    
+    // Wait for admin page to load
+    await page.waitForLoadState('networkidle');
     await goToModule(page, 'Department');
+
+    // Wait for department list to load
+    await page.waitForLoadState('networkidle');
+    await expect(page.locator('grid, table, [role="grid"]')).toBeVisible();
 
     const row = page.getByRole('row', { name: new RegExp(`^(${newName}|${deptData.name}).*`) });
 
     // Wait until row is visible
-    await expect(row).toBeVisible();
+    await expect(row).toBeVisible({ timeout: 10000 });
 
-    await row.getByRole('button').nth(2).click();
+    // Wait for delete confirmation dialog and confirm deletion
+    await expect(page.getByRole('button', { name: 'Delete' })).toBeVisible();
     await page.getByRole('button', { name: 'Delete' }).click();
 
-    await expect(page.getByRole('alert')).toHaveText('Department deleted successfully');
+    // Wait for deletion to complete and verify success message
+    await page.waitForLoadState('networkidle');
+    await expect(page.getByRole('alert')).toHaveText('Department deleted successfully', { timeout: 10000 });
   });
 });
 
 // ---------------- VALIDATIONS IN NEW DEPARTMENT CREATION ----------------
 test.describe('Admin - Department Verifications in User Creation', () => {
   test.beforeEach(async ({ page }) => {
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-    await goToAdminSection(page);
+    // Login and navigate to admin section
+    await page.goto('https://sqa.note-iq.com/');
+    
+    // Wait for login form to be fully loaded
+    await expect(page.getByRole('textbox', { name: 'Enter email address' })).toBeVisible();
+    await expect(page.getByRole('textbox', { name: 'Enter password' })).toBeVisible();
+    
+    await page.getByRole('textbox', { name: 'Enter email address' }).fill('swetha.kulkarni@neviton.com');
+    await page.getByRole('textbox', { name: 'Enter password' }).fill('Jaishriram@2025');
+    await page.getByRole('button', { name: 'LOGIN', exact: true }).click();
+    
+    // Wait for platform page to load completely
+    await page.waitForLoadState('networkidle');
+    await expect(page.getByRole('button', { name: 'Configure' })).toBeVisible();
+    
+    // Click Configure button to access admin section
+    await page.getByRole('button', { name: 'Configure' }).click();
+    
+    // Wait for admin page to load and navigate to Department module
+    await page.waitForLoadState('networkidle');
     await goToModule(page, 'Department');
+    
+    // Wait for department module to load
+    await page.waitForLoadState('networkidle');
+    await expect(page.getByRole('tab', { name: 'New Department' })).toBeVisible();
   });
 
   // ---------- TEST 5: Missing Required Fields ----------

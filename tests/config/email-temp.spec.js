@@ -5,7 +5,7 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import { login } from '../utils/login.js';
-import { goToModule, goToConfigSection, filterAndSearch, toggleAndCheck, filterAndDownload } from '../utils/commonActions.js';
+import { goToModule, goToConfigSection, filterAndSearch, toggleAndCheck, filterAndDownload, goToDMS } from '../utils/commonActions.js';
 
 // Describe block runs tests serially to avoid test interference when manipulating shared data
 test.describe.serial('CI Tests — Admin Email Template', () => {
@@ -31,7 +31,7 @@ test.describe.serial('CI Tests — Admin Email Template', () => {
 
         // Step 1: Authenticate as an admin user
         console.log('>>> Step 1: Logging in as Admin...');
-        await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+        await login(page);
 
         // Step 2: Navigate to Configuration section of the application
         console.log('>>> Step 2: Navigating to Configuration Section...');
@@ -170,7 +170,7 @@ test.describe.serial('CI Tests — Admin Email Template', () => {
 
         // Step 1: Login
         console.log('>>> Step 1: Logging in as Admin...');
-        await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+        await login(page);
 
         // Step 2: Go to Configuration
         console.log('>>> Step 2: Navigating to Configuration Section...');
@@ -215,7 +215,7 @@ test.describe.serial('CI Tests — Admin Email Template', () => {
 
         // Step 1: Login
         console.log('>>> Step 1: Logging in as Admin...');
-        await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+        await login(page);
 
         // Step 2: Navigate to Configuration
         console.log('>>> Step 2: Navigating to Configuration Section...');
@@ -247,7 +247,7 @@ test.describe.serial('CI Tests — Admin Email Template', () => {
 
         // Step 1: Login
         console.log('>>> Step 1: Logging in as Admin...');
-        await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+        await login(page);
 
         // Step 2: Navigate to Configuration
         console.log('>>> Step 2: Navigating to Configuration Section...');
@@ -303,7 +303,7 @@ test.describe('Email Template Validations', () => {
 
         // Step 1: Login
         console.log('>>> Step 1: Logging in as Admin...');
-        await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+        await login(page);
 
         // Step 2: Go to Configuration
         console.log('>>> Step 2: Navigating to Configuration Section...');

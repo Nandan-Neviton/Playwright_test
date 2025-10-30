@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import { login } from '../utils/login.js';
-import { goToModule, goToConfigSection, filterAndDownload, filterAndSearch, toggleAndCheck } from '../utils/commonActions.js';
+import { goToModule, goToConfigSection, filterAndDownload, filterAndSearch, toggleAndCheck, goToDMS } from '../utils/commonActions.js';
 
 test.describe.serial('CI Tests — Admin Numbering System Management', () => {
   // ---------- Test Data Setup ----------
@@ -25,7 +25,8 @@ test.describe.serial('CI Tests — Admin Numbering System Management', () => {
     console.log('🔹 [START] Create Numbering System');
 
     // Step 1: Login and navigate to module
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Numbering System');
 
@@ -91,7 +92,8 @@ test.describe.serial('CI Tests — Admin Numbering System Management', () => {
   test('02 - Verify Numbering System and Toggle Status', async ({ page }) => {
     console.log('🔹 [START] Verify and Toggle Numbering System Status');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Numbering System');
 
@@ -118,7 +120,8 @@ test.describe.serial('CI Tests — Admin Numbering System Management', () => {
   test('03 - Filter Numbering System and Download', async ({ page }) => {
     console.log('🔹 [START] Filter and Download Numbering System');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Numbering System');
 
@@ -133,7 +136,8 @@ test.describe.serial('CI Tests — Admin Numbering System Management', () => {
   test('04 - Edit Numbering System', async ({ page }) => {
     console.log('🔹 [START] Edit Numbering System');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Numbering System');
 
@@ -162,7 +166,8 @@ test.describe.serial('CI Tests — Admin Numbering System Management', () => {
   test('05 - Delete Numbering System', async ({ page }) => {
     console.log('🔹 [START] Delete Numbering System');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Numbering System');
 
@@ -188,7 +193,8 @@ test.describe('Numbering System Validations', () => {
   test('Validation: Empty Fields During Numbering System Creation', async ({ page }) => {
     console.log('🔹 [START] Validation Test for Empty Fields');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Numbering System');
 

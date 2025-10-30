@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import { login } from '../utils/login.js';
-import { goToModule, goToTemplateSection, filterAndDownload, filterAndSearch, toggleAndCheck } from '../utils/commonActions.js';
+import { goToModule, goToTemplateSection, filterAndDownload, filterAndSearch, toggleAndCheck, goToDMS } from '../utils/commonActions.js';
 
 // ===========================================================
 // CI TEST SUITE — Templates Management
@@ -32,7 +32,8 @@ test.describe.serial('CI Tests — Templates Management', () => {
 
     // Step 1: Login to application
     console.log('🔸 Logging into the application...');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
 
     // Step 2: Navigate to Template section
     console.log('🔸 Navigating to Template Section...');
@@ -74,7 +75,7 @@ test.describe.serial('CI Tests — Templates Management', () => {
             }
           } catch {/* try next */}
         }
-        await page.waitForTimeout(600); // small backoff
+        await page.waitForLoadState('networkidle'); // Wait for page to settle
       }
       // Final DOM text scan fallback
       try {
@@ -207,7 +208,8 @@ test.describe.serial('CI Tests — Templates Management', () => {
         if (await page.getByRole('cell', { name: verificationTitle }).isVisible({ timeout: 2000 }).catch(()=>false)) {
           found = true; break;
         }
-        await page.waitForTimeout(1000);
+        // Wait for table to update
+        await page.waitForLoadState('networkidle');
       }
       console.log(found ? '✅ Post-create verification: template row located' : '⚠️ Post-create verification: template row NOT located after retries');
     } catch (e) {
@@ -222,7 +224,8 @@ test.describe.serial('CI Tests — Templates Management', () => {
   test('02 - Verify Template', async ({ page }) => {
     console.log('🔹 [START] Verify Template Row Presence');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToTemplateSection(page);
     try { await goToModule(page, 'Templates'); } catch (e) { console.log('⚠️ Module link not found: ' + e.message); }
 
@@ -232,7 +235,8 @@ test.describe.serial('CI Tests — Templates Management', () => {
     // Helper to attempt filter on current tab
     async function attemptFilter() {
       await filterAndSearch(page, 'Title', title);
-      await page.waitForTimeout(1000);
+      // Wait for search results
+      await page.waitForLoadState('networkidle');
       return await page.getByRole('cell', { name: title }).isVisible().catch(()=>false);
     }
 
@@ -267,7 +271,8 @@ test.describe.serial('CI Tests — Templates Management', () => {
     console.log('🔹 [START] Filter & Download Templates');
 
     // Step 1: Login and navigate
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToTemplateSection(page);
     try {
       await goToModule(page, 'Templates');
@@ -290,7 +295,8 @@ test.describe.serial('CI Tests — Templates Management', () => {
     console.log('🔹 [START] Edit Template');
 
     // Step 1: Login and navigate
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToTemplateSection(page);
     try {
       await goToModule(page, 'Templates');
@@ -392,7 +398,8 @@ test.describe.serial('Template Validations', () => {
     console.log('🔹 [START] Validate empty Template creation');
 
     // Step 1: Login and navigate
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToTemplateSection(page);
     try {
       await goToModule(page, 'Templates');
@@ -427,7 +434,8 @@ test.describe.serial('Template Validations', () => {
     console.log('🔹 [START] Validate second step form requirements');
 
     // Step 1: Login and navigate
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToTemplateSection(page);
     await goToModule(page, 'Templates');
 
@@ -472,7 +480,7 @@ test.describe.serial('Template Enhancement Tests', () => {
   test('Template validation and preview functionality', async ({ page }) => {
     console.log('🔹 [START] Template Validation & Preview');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
     // Use the shared resilient navigation helper instead of direct link click
     await goToTemplateSection(page);
     try {
@@ -518,7 +526,7 @@ test.describe.serial('CSV Imported Tests — Template Edge Cases and Validation'
 
     // Step 1: Login to application
     console.log('🔸 Logging into the application...');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
 
     // Step 2: Navigate to Template section
     console.log('🔸 Navigating to Template Section...');
@@ -585,7 +593,7 @@ test.describe.serial('CSV Imported Tests — Template Edge Cases and Validation'
 
     // Step 1: Login to application
     console.log('🔸 Logging into the application...');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
 
     // Step 2: Navigate to Template section
     console.log('🔸 Navigating to Template Section...');
@@ -646,7 +654,7 @@ test.describe.serial('CSV Imported Tests — Template Edge Cases and Validation'
 
     // Step 1: Login to application
     console.log('🔸 Logging into the application...');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
 
     // Step 2: Navigate to Template section
     console.log('🔸 Navigating to Template Section...');
@@ -705,7 +713,7 @@ test.describe.serial('CSV Imported Tests — Template Edge Cases and Validation'
 
     // Step 1: Login to application
     console.log('🔸 Logging into the application...');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
 
     // Step 2: Navigate to Template section
     console.log('🔸 Navigating to Template Section...');

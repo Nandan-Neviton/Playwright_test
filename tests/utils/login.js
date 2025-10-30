@@ -2,7 +2,7 @@
 import { expect } from '@playwright/test';
 import fs from 'fs';
 
-export async function login(page, username, password) {
+export async function login(page, username = 'swetha.kulkarni@neviton.com', password = 'Jaishriram@2025') {
   console.log(">>> Navigating to login page...");
 
   await page.context().clearCookies(); // ensure fresh session
@@ -14,7 +14,7 @@ export async function login(page, username, password) {
 
   while (loadAttempt < maxLoadRetries && !pageLoaded) {
     try {
-      await page.goto("https://uat.note-iq.com/", {
+      await page.goto("https://sqa.note-iq.com/", {
         waitUntil: "load", // ensures full page load
         timeout: 120000,   // 2 minutes
       });

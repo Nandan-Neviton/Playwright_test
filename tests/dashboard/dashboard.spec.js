@@ -35,7 +35,7 @@ test.describe.serial('CI Tests — Dashboard', () => {
 
     // Step 1: Login to application
     console.log('🔸 Logging into the application...');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
 
     // Step 2: Navigate to Dashboard (should be default page)
     console.log('🔸 Verifying Dashboard interface...');
@@ -63,7 +63,7 @@ test.describe.serial('CI Tests — Dashboard', () => {
   test('02 - Verify dashboard widgets display data correctly', async ({ page }) => {
     console.log('🔹 [START] Dashboard Widgets Verification');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
     
     // Wait for dashboard to fully load
   await waitForDashboard(page);
@@ -107,7 +107,7 @@ test.describe.serial('CI Tests — Dashboard', () => {
   test('03 - Test dashboard filter functionality', async ({ page }) => {
     console.log('🔹 [START] Dashboard Filter Functionality');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
 
   // Ensure dashboard loaded before interacting with filters
   await waitForDashboard(page);
@@ -143,7 +143,7 @@ test.describe.serial('CI Tests — Dashboard', () => {
   // ===========================================================
   test('04 - Test dashboard tab navigation', async ({ page }) => {
     console.log('🔹 [START] Dashboard Tab Navigation');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
     await waitForDashboard(page);
 
     // Verify tab existence
@@ -156,13 +156,17 @@ test.describe.serial('CI Tests — Dashboard', () => {
     console.log('🔸 Testing Pending Task tab...');
     const pendingTaskTab = page.getByRole('tab').filter({ hasText: /Pending Task/ });
     await pendingTaskTab.click();
-    await page.waitForTimeout(2000);
+    
+    // Wait for pending tasks to load
+    await page.waitForLoadState('networkidle');
     console.log('✅ Pending Task tab clicked');
 
     // Test Completed Task tab
     console.log('🔸 Testing Completed Task tab...');
     await page.getByRole('tab', { name: 'Completed Task' }).click();
-    await page.waitForTimeout(2000);
+    
+    // Wait for completed tasks to load
+    await page.waitForLoadState('networkidle');
     console.log('✅ Completed Task tab clicked');
 
     // Return to All Task tab
@@ -179,7 +183,7 @@ test.describe.serial('CI Tests — Dashboard', () => {
   // ===========================================================
   test('05 - Test dashboard task table and interactions', async ({ page }) => {
     console.log('🔹 [START] Dashboard Task Table');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
     await waitForDashboard(page);
 
     // Verify task table headers
@@ -238,7 +242,7 @@ test.describe.serial('CI Tests — Dashboard', () => {
   // ===========================================================
   test('06 - Test task ID link functionality', async ({ page }) => {
     console.log('🔹 [START] Dashboard Task Links');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
     await waitForDashboard(page);
 
     // Find and verify task ID buttons are clickable
@@ -270,7 +274,7 @@ test.describe.serial('CI Tests — Dashboard', () => {
   // ===========================================================
   test('07 - Test dashboard table pagination', async ({ page }) => {
     console.log('🔹 [START] Dashboard Pagination');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
     await waitForDashboard(page);
 
     // Verify pagination elements with resilient locators
@@ -333,7 +337,7 @@ test.describe('Dashboard Performance & Responsive Tests', () => {
     console.log('🔹 [START] Dashboard Load Performance');
 
     const startTime = Date.now();
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
     
   // Wait for dashboard reliably
   await waitForDashboard(page);
@@ -355,7 +359,7 @@ test.describe('Dashboard Performance & Responsive Tests', () => {
   test('Functionality: Dashboard widgets show consistent data', async ({ page }) => {
     console.log('🔹 [START] Dashboard Data Consistency');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
 
   // Ensure dashboard loaded
   await waitForDashboard(page);

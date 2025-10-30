@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import { login } from '../utils/login.js';
-import { goToModule, goToConfigSection, filterAndDownload, filterAndSearch, toggleAndCheck } from '../utils/commonActions.js';
+import { goToModule, goToConfigSection, filterAndDownload, filterAndSearch, toggleAndCheck, goToDMS } from '../utils/commonActions.js';
 
 test.describe.serial('CI Tests — Admin List Manager', () => {
   // -------------------- TEST DATA SETUP --------------------
@@ -20,7 +20,8 @@ test.describe.serial('CI Tests — Admin List Manager', () => {
     console.log('🔹 Test Start: Create Pick List');
 
     // Step 1: Login and navigate to List Manager module
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'List Manager');
 
@@ -60,7 +61,8 @@ test.describe.serial('CI Tests — Admin List Manager', () => {
     console.log('🔹 Test Start: Verify Pick List and Toggle Status');
 
     // Step 1: Login and go to List Manager
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'List Manager');
 
@@ -89,7 +91,8 @@ test.describe.serial('CI Tests — Admin List Manager', () => {
     console.log('🔹 Test Start: Filter Pick List and Download');
 
     // Step 1: Login and navigate to module
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'List Manager');
 
@@ -107,7 +110,8 @@ test.describe.serial('CI Tests — Admin List Manager', () => {
     console.log('🔹 Test Start: Edit Pick List');
 
     // Step 1: Login and go to List Manager
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'List Manager');
 
@@ -137,7 +141,8 @@ test.describe.serial('CI Tests — Admin List Manager', () => {
     console.log('🔹 Test Start: Delete Pick List');
 
     // Step 1: Login and navigate to List Manager
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'List Manager');
 
@@ -170,7 +175,8 @@ test.describe('List Manager Validations', () => {
   test('Validation: Empty Pick List creation', async ({ page }) => {
     console.log('🔹 Test Start: Validate Pick List creation with empty fields');
 
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'List Manager');
     await page.getByRole('tab', { name: 'New Pick List' }).click();

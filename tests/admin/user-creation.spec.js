@@ -1,6 +1,5 @@
-// import { test, expect } from '@playwright/test';
-// import { login } from '../utils/login.js';
-// import { faker } from '@faker-js/faker';
+﻿// import { test, expect } from '@playwright/test';
+// // import { faker } from '@faker-js/faker';
 
 // test.describe.serial('Admin - Department creation and verification', () => {
 //     const employeeName = faker.person.fullName(); // random full name
@@ -19,7 +18,7 @@
 
 //     test('Create a new user with random data', async ({ page }) => {
 //         // Log in as admin
-//         await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+//         await login(page);
 
 //         // Navigate to Role Management
 //         await page.locator('a:nth-child(2)').click();
@@ -62,7 +61,7 @@
 //             await option.click();
 //             console.log(`Selected Authentication Type: ${userData.authenticationType}`);
 //         } else {
-//             console.warn("⚠️ No authentication type options available!");
+//             console.warn("âš ï¸ No authentication type options available!");
 //         }
 
 //         // Randomly select Yes or No for System Admin
@@ -122,7 +121,7 @@
 //             const roleOptions = page.locator('ul[role="listbox"] li input[type="checkbox"]');
 //             const roleCount = await roleOptions.count();
 //             if (roleCount === 0) {
-//                 console.log('⚠️ No roles available in the dropdown');
+//                 console.log('âš ï¸ No roles available in the dropdown');
 //             } else {
 //                 const rolesToSelect = faker.number.int({ min: 1, max: Math.min(roleCount, 5) });
 //                 const selectedRoleIndexes = faker.helpers.arrayElements(
@@ -133,12 +132,12 @@
 //                     const checkbox = roleOptions.nth(idx);
 //                     const label = await checkbox.locator('..').textContent();
 //                     await checkbox.check();
-//                     console.log(`✅ Selected Role: ${label?.trim()}`);
+//                     console.log(`âœ… Selected Role: ${label?.trim()}`);
 //                 }
 //             }
 //             await page.keyboard.press('Escape');
 //         } else {
-//             console.log('⚠️ Select Roles combobox not found, skipping...');
+//             console.log('âš ï¸ Select Roles combobox not found, skipping...');
 //         }
 
 //         // Randomly select user groups
@@ -170,7 +169,7 @@
 // test.describe('Admin - Verifications in User Creation', () => {
 //     test.beforeEach(async ({ page }) => {
 //         // Log in and navigate to User Creation
-//         await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+//         await login(page);
 //         await page.locator('a:nth-child(2)').click();
 //         await page.getByRole('link', { name: 'User Creation' }).click();
 //     });
@@ -218,3 +217,4 @@
 //         await expect(page.getByText('User Employee Number must be')).toBeVisible();
 //     });
 // });
+

@@ -37,7 +37,8 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
     console.log('🚀 [START] Creating new Document Type');
 
     // Step 1: Login and navigate to module
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Document Type/ Template Type');
 
@@ -93,7 +94,9 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
     console.log('📊 Selecting random System Data Fields...');
     try {
       await page.getByRole('combobox', { name: 'Select System Data Field' }).click();
-      await page.waitForSelector('[role="option"]', { timeout: 5000 });
+      
+      // Wait for dropdown options to load
+      await expect(page.locator('[role="option"]').first()).toBeVisible({ timeout: 5000 });
 
       const checkboxes = page.getByRole('checkbox');
       const count = await checkboxes.count();
@@ -139,7 +142,9 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
     console.log('🔄 Selecting Workflow Types...');
     try {
       await page.getByRole('combobox', { name: 'Workflow Type' }).click();
-      await page.waitForSelector('[role="option"], [role="checkbox"]', { timeout: 5000 });
+      
+      // Wait for workflow options to load
+      await expect(page.locator('[role="option"], [role="checkbox"]').first()).toBeVisible({ timeout: 5000 });
 
       const dropdown = page.locator('[role="listbox"]');
       const options = dropdown.locator('[role="option"]');
@@ -249,7 +254,8 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
   // --------------------------------------------------------
   test('02 - Should verify Document Type and toggle its status', async ({ page }) => {
     console.log('🔹 [TEST START] Verify and Toggle Document Type');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Document Type/ Template Type');
 
@@ -288,7 +294,8 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
   // --------------------------------------------------------
   test('03 - Should filter Document Type and download results', async ({ page }) => {
     console.log('🔹 [TEST START] Filter & Download Document Type');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Document Type/ Template Type');
 
@@ -301,7 +308,8 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
   // --------------------------------------------------------
   test('04 - Should edit existing Document Type successfully', async ({ page }) => {
     console.log('✏️ [TEST START] Edit Document Type');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Document Type/ Template Type');
 
@@ -340,7 +348,8 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
   // --------------------------------------------------------
   test('05 - Should delete Document Type successfully', async ({ page }) => {
     console.log('🗑 [TEST START] Delete Document Type');
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Document Type/ Template Type');
 
@@ -382,7 +391,8 @@ test.describe('🧾 Document/Template Validations', () => {
     console.log('🚦 [TEST START] Validation Checks for Empty Fields & Workflow');
 
     // Step 1: Login and open module
-    await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+    await login(page);
+    await goToDMS(page);
     await goToConfigSection(page);
     await goToModule(page, 'Document Type/ Template Type');
     await page.getByRole('tab', { name: 'New Document Type/Template' }).click();

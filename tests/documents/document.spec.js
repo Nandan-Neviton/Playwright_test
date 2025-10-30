@@ -1,7 +1,7 @@
 // import { test, expect } from '@playwright/test';
 // import { faker } from '@faker-js/faker';
 // import { login } from '../utils/login.js';
-// import { goToModule, goToDocumentSection, filterAndDownload, filterAndSearch, toggleAndCheck } from '../utils/commonActions.js';
+// import { goToModule, goToDocumentSection, filterAndDownload, filterAndSearch, toggleAndCheck, goToDMS } from '../utils/commonActions.js';
 
 // // Lightweight internal helper (no external utility) to ensure Document nav is ready before actions
 // async function waitForDocumentShell(page) {
@@ -53,7 +53,7 @@
 
 //     // Step 1: Login to application
 //     console.log('🔸 Logging into the application...');
-//     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+//     await login(page);
 
 //     // Step 2: Navigate to Document section
 //     console.log('🔸 Navigating to Document Section...');
@@ -90,7 +90,7 @@
 //     console.log('🔹 [START] Create New Document');
 
 //     // Step 1: Login and navigate
-//     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+//     await login(page);
 //     await waitForDocumentShell(page);
 //     await goToDocumentSection(page);
 //     await goToModule(page, 'DMS Document');
@@ -210,7 +210,7 @@
 //     console.log('🔹 [START] Verify Document in My Documents');
 
 //     // Step 1: Login and navigate
-//     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+//     await login(page);
 //     await waitForDocumentShell(page);
 //     await goToDocumentSection(page);
 //     await goToModule(page, 'DMS Document');
@@ -236,7 +236,7 @@
 //     console.log('🔹 [START] Testing Action Buttons');
 
 //     // Step 1: Login and navigate
-//     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+//     await login(page);
 //     await waitForDocumentShell(page);
 //     await goToDocumentSection(page);
 //     await goToModule(page, 'DMS Document');
@@ -273,7 +273,7 @@
 //     console.log('🔹 [START] Filter and Download Document');
 
 //     // Step 1: Login and navigate
-//     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+//     await login(page);
 //     await waitForDocumentShell(page);
 //     await goToDocumentSection(page);
 //     await goToModule(page, 'DMS Document');
@@ -298,7 +298,7 @@
 //     console.log('🔹 [START] Validate empty Document creation');
 
 //     // Step 1: Login and navigate
-//     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+//     await login(page);
 //     await waitForDocumentShell(page);
 //     await goToDocumentSection(page);
 //     await goToModule(page, 'DMS Document');
@@ -327,7 +327,7 @@
 //     console.log('🔹 [START] Validate partial Document form');
 
 //     // Step 1: Login and navigate
-//     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+//     await login(page);
 //     await waitForDocumentShell(page);
 //     await goToDocumentSection(page);
 //     await goToModule(page, 'DMS Document');
@@ -358,7 +358,7 @@
 //     console.log('🔹 [START] Validate complete document workflow');
 
 //     // Step 1: Login and navigate
-//     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+//     await login(page);
 //     await waitForDocumentShell(page);
 //     await goToDocumentSection(page);
 //     await goToModule(page, 'DMS Document');
@@ -395,7 +395,7 @@
 //   test('Document version control and history tracking', async ({ page }) => {
 //     console.log('🔹 [START] Document Version Control');
 
-//     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+//     await login(page);
 //     await waitForDocumentShell(page);
 //     await goToDocumentSection(page);
 //     await goToModule(page, 'DMS Document');
@@ -420,7 +420,7 @@
 //   test('Document bulk operations functionality', async ({ page }) => {
 //     console.log('🔹 [START] Document Bulk Operations');
 
-//     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+//     await login(page);
 //     await waitForDocumentShell(page);
 //     await goToDocumentSection(page);
 //     await goToModule(page, 'DMS Document');
@@ -446,7 +446,7 @@
 //   test('Document search and advanced filter options', async ({ page }) => {
 //     console.log('🔹 [START] Document Search & Filters');
 
-//     await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+//     await login(page);
 //     await waitForDocumentShell(page);
 //     await goToDocumentSection(page);
 //     await goToModule(page, 'DMS Document');

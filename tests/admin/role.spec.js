@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
-import { login } from '../utils/login.js';
-import { goToModule, toggleAndCheck, filterAndDownload, filterAndSearch, goToAdminSection } from '../utils/commonActions.js';
+import { goToModule, toggleAndCheck, filterAndDownload, filterAndSearch } from '../utils/commonActions.js';
 
 test.describe.serial('Admin - Roles creation and verification', () => {
     // Shared test data
@@ -22,20 +21,50 @@ test.describe.serial('Admin - Roles creation and verification', () => {
     // ---------- TEST 1: Create a New Role ----------
     test('role-creation', async ({ page }) => {
         console.log('➡️ Starting test: Create a New Role');
-        await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+        // Login and navigate to admin section
+        await page.goto('https://sqa.note-iq.com/');
+        
+        // Wait for login form to be fully loaded
+        await expect(page.getByRole('textbox', { name: 'Enter email address' })).toBeVisible();
+        await expect(page.getByRole('textbox', { name: 'Enter password' })).toBeVisible();
+        
+        await page.getByRole('textbox', { name: 'Enter email address' }).fill('swetha.kulkarni@neviton.com');
+        await page.getByRole('textbox', { name: 'Enter password' }).fill('Jaishriram@2025');
+        await page.getByRole('button', { name: 'LOGIN', exact: true }).click();
+        
+        // Wait for platform page to load completely
+        await page.waitForLoadState('networkidle');
+        await expect(page.getByRole('button', { name: 'Configure' })).toBeVisible();
+        
+        // Click Configure button to access admin section
+        await page.getByRole('button', { name: 'Configure' }).click();
         console.log('✅ Logged in successfully');
-        await goToAdminSection(page);
+        
+        // Wait for admin page to load
+        await page.waitForLoadState('networkidle');
         await goToModule(page, 'Role');
         console.log('✅ Navigated to Role module');
 
+        // Wait for role module to load completely
+        await page.waitForLoadState('networkidle');
+        await expect(page.getByRole('tab', { name: 'New Role' })).toBeVisible();
         await page.getByRole('tab', { name: 'New Role' }).click();
         console.log('📝 Filling role creation form...');
+
+        // Wait for form to be fully loaded
+        await expect(page.getByRole('textbox', { name: 'Enter Role Name' })).toBeVisible();
+        await expect(page.getByRole('textbox', { name: 'Enter Description' })).toBeVisible();
 
         await page.getByRole('textbox', { name: 'Enter Role Name' }).fill(roleData.name);
         await page.getByRole('textbox', { name: 'Enter Description' }).fill(roleData.description);
 
         // Select random Access Level (guard zero-count to avoid faker max -1 errors)
         await page.locator('#role-access-level').click();
+        
+        // Wait for dropdown to open and options to load
+        await page.waitForLoadState('networkidle');
+        await expect(page.locator('ul[role="listbox"] li').first()).toBeVisible({ timeout: 3000 }).catch(() => {});
+        
         const accessOptions = page.locator('ul[role="listbox"] li');
         const accessCount = await accessOptions.count();
         if (accessCount === 0) {
@@ -130,15 +159,23 @@ test.describe.serial('Admin - Roles creation and verification', () => {
     // ---------- TEST 2: Verify Created Role ----------
     test('role-verification', async ({ page }) => {
         console.log('➡️ Starting test: Verify Created Role');
-        await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-        await goToAdminSection(page);
+        // Login and navigate to admin section
+        await page.goto('https://sqa.note-iq.com/');
+        await page.getByRole('textbox', { name: 'Enter email address' }).fill('swetha.kulkarni@neviton.com');
+        await page.getByRole('textbox', { name: 'Enter password' }).fill('Jaishriram@2025');
+        await page.getByRole('button', { name: 'LOGIN', exact: true }).click();
+        
+        // Click Configure button to access admin section
+        await page.getByRole('button', { name: 'Configure' }).click();
         await goToModule(page, 'Role');
 
         console.log(`🔍 Searching for Role by Name: ${roleData.name}`);
         await filterAndSearch(page, 'Name', roleData.name);
-        await page.waitForTimeout(2000);
+        
+        // Wait for search results to load
+        await page.waitForLoadState('networkidle');
 
-        await expect(page.getByRole('cell', { name: roleData.name }).last()).toBeVisible();
+        await expect(page.getByRole('cell', { name: roleData.name }).last()).toBeVisible({ timeout: 10000 });
         console.log('✅ Role found in table:', roleData.name);
 
         await toggleAndCheck(page, 'Role has been deactivated', 'Inactive');
@@ -151,8 +188,14 @@ test.describe.serial('Admin - Roles creation and verification', () => {
     // ---------- TEST 3: Filtering + Download ----------
     test('should filter roles by name and download results', async ({ page }) => {
         console.log('➡️ Starting test: Filter & Download Role Data');
-        await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-        await goToAdminSection(page);
+        // Login and navigate to admin section
+        await page.goto('https://sqa.note-iq.com/');
+        await page.getByRole('textbox', { name: 'Enter email address' }).fill('swetha.kulkarni@neviton.com');
+        await page.getByRole('textbox', { name: 'Enter password' }).fill('Jaishriram@2025');
+        await page.getByRole('button', { name: 'LOGIN', exact: true }).click();
+        
+        // Click Configure button to access admin section
+        await page.getByRole('button', { name: 'Configure' }).click();
         await goToModule(page, 'Role');
 
         console.log(`🔍 Filtering by Role Name: ${roleData.name}`);
@@ -163,8 +206,14 @@ test.describe.serial('Admin - Roles creation and verification', () => {
     // ---------- TEST 4: Edit Action ----------
     test('Edit action button working', async ({ page }) => {
         console.log('➡️ Starting test: Edit Role');
-        await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-        await goToAdminSection(page);
+        // Login and navigate to admin section
+        await page.goto('https://sqa.note-iq.com/');
+        await page.getByRole('textbox', { name: 'Enter email address' }).fill('swetha.kulkarni@neviton.com');
+        await page.getByRole('textbox', { name: 'Enter password' }).fill('Jaishriram@2025');
+        await page.getByRole('button', { name: 'LOGIN', exact: true }).click();
+        
+        // Click Configure button to access admin section
+        await page.getByRole('button', { name: 'Configure' }).click();
         await goToModule(page, 'Role');
 
         console.log(`✏️ Editing Role: ${roleData.name}`);
@@ -189,7 +238,8 @@ test.describe.serial('Admin - Roles creation and verification', () => {
                     updated = true; break;
                 }
             }
-            await page.waitForTimeout(600);
+            // Wait for next iteration
+            await page.waitForLoadState('networkidle');
         }
         expect(updated, 'Role update did not produce success alert after retries').toBeTruthy();
         if (updated) console.log('✅ Role updated successfully (alert confirmed)');
@@ -198,8 +248,14 @@ test.describe.serial('Admin - Roles creation and verification', () => {
     // ---------- TEST 5: Delete Action ----------
     test('Delete action button working', async ({ page }) => {
         console.log('➡️ Starting test: Delete Role');
-        await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
-        await goToAdminSection(page);
+        // Login and navigate to admin section
+        await page.goto('https://sqa.note-iq.com/');
+        await page.getByRole('textbox', { name: 'Enter email address' }).fill('swetha.kulkarni@neviton.com');
+        await page.getByRole('textbox', { name: 'Enter password' }).fill('Jaishriram@2025');
+        await page.getByRole('button', { name: 'LOGIN', exact: true }).click();
+        
+        // Click Configure button to access admin section
+        await page.getByRole('button', { name: 'Configure' }).click();
         await goToModule(page, 'Role');
 
         const row = page.getByRole('row', { name: new RegExp(`^(${newName}|${roleData.name}).*`) });
@@ -222,10 +278,16 @@ test.describe.serial('Admin - Roles creation and verification', () => {
 
         // Test Admin Role Access
         console.log('🔸 Testing admin role access...');
-        await login(page, 'Nameera.Alam@adms.com', 'Adms@123');
+        // Login and navigate to admin section
+        await page.goto('https://sqa.note-iq.com/');
+        await page.getByRole('textbox', { name: 'Enter email address' }).fill('swetha.kulkarni@neviton.com');
+        await page.getByRole('textbox', { name: 'Enter password' }).fill('Jaishriram@2025');
+        await page.getByRole('button', { name: 'LOGIN', exact: true }).click();
+        
+        // Click Configure button to access admin section
+        await page.getByRole('button', { name: 'Configure' }).click();
         
         // Navigate to different modules and verify admin has full access
-        await goToAdminSection(page);
         await goToModule(page, 'Role');
         
         // Verify admin can see Create/Edit/Delete buttons
