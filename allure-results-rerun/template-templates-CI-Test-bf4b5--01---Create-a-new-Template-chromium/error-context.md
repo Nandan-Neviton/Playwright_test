@@ -1,0 +1,152 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - img
+      - img [ref=e7] [cursor=pointer]
+      - generic [ref=e9]:
+        - link [ref=e10] [cursor=pointer]:
+          - /url: /dashboard
+          - img [ref=e12]
+        - link [ref=e14] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e16]
+        - link [ref=e18] [cursor=pointer]:
+          - /url: /configuration
+          - img [ref=e20]
+        - link [ref=e22] [cursor=pointer]:
+          - /url: /workflow
+          - img [ref=e24]
+        - link [ref=e26] [cursor=pointer]:
+          - /url: /template
+          - img [ref=e28]
+        - link [ref=e30] [cursor=pointer]:
+          - /url: /document
+          - img [ref=e32]
+        - link [ref=e34] [cursor=pointer]:
+          - /url: /report
+          - img [ref=e36]
+        - link [ref=e38] [cursor=pointer]:
+          - /url: /print
+          - img [ref=e40]
+        - link "Print Manager" [ref=e43] [cursor=pointer]:
+          - /url: /print-manager
+          - img "Print Manager" [ref=e45]
+        - link [ref=e47] [cursor=pointer]:
+          - /url: /virtual-data-room
+          - img [ref=e49]
+        - link [ref=e51] [cursor=pointer]:
+          - /url: /repository
+          - img [ref=e53]
+        - link [ref=e55] [cursor=pointer]:
+          - /url: /system
+          - img [ref=e57]
+    - generic [ref=e61]:
+      - generic [ref=e65]:
+        - img [ref=e66]
+        - textbox "search documents" [ref=e69]:
+          - /placeholder: Search for Documents or Templates
+        - button "Advanced Search" [ref=e70] [cursor=pointer]: Advanced Search
+      - button "10" [ref=e72] [cursor=pointer]:
+        - generic [ref=e73]:
+          - img [ref=e74]
+          - generic [ref=e76]: "10"
+      - generic [ref=e80]:
+        - img [ref=e82]
+        - combobox "Neviton USA" [ref=e84] [cursor=pointer]
+        - textbox: ba69edcf-27f6-476f-bcbb-07c8bde5b1a0
+        - img
+        - group
+      - generic [ref=e87] [cursor=pointer]:
+        - img "Bruce Wayne" [ref=e90]
+        - generic [ref=e91]:
+          - paragraph [ref=e92]:
+            - text: Nameera Alam
+            - img [ref=e93]
+          - paragraph [ref=e95]: Nameera.Alam@neviton.com
+    - generic [ref=e97]:
+      - link "Templates" [ref=e101] [cursor=pointer]:
+        - /url: /template/template
+        - img [ref=e103]
+        - paragraph [ref=e105]: Templates
+      - generic [ref=e108]:
+        - tablist [ref=e111]:
+          - tab "Template List" [ref=e112] [cursor=pointer]
+          - tab "New Template" [selected] [ref=e113] [cursor=pointer]:
+            - img [ref=e114]
+            - text: New Template
+        - generic [ref=e117]:
+          - generic [ref=e118]:
+            - generic [ref=e119]:
+              - tablist [ref=e124]:
+                - tab "General Details" [selected] [ref=e125] [cursor=pointer]: General Details
+                - tab "System Data Field" [ref=e126] [cursor=pointer]: System Data Field
+              - 'tabpanel "Select Template Type* @NA_TempType(Default) Open Template Title* Awesome Metal Fish Description Cogo tenetur abduco admoneo debilito decumbo. Changes Incorporated* Combibo creber calco vilitas pectus. Initial Version: 1 Content Type: Default Format (Word Document - DOCX) Select Template Owner* Nameera Alam Open Revision Reference* REV-306 Reason for Revision* varius subiungo verbera" [ref=e129]':
+                - generic [ref=e131]:
+                  - generic [ref=e132]:
+                    - paragraph [ref=e133]: Select Template Type*
+                    - generic [ref=e136]:
+                      - combobox [ref=e137]: "@NA_TempType(Default)"
+                      - button "Open" [ref=e139] [cursor=pointer]:
+                        - img [ref=e140]
+                      - group
+                  - generic [ref=e142]:
+                    - paragraph [ref=e143]: Template Title*
+                    - generic [ref=e145]:
+                      - textbox "Enter Template Title" [ref=e146]: Awesome Metal Fish
+                      - group
+                  - generic [ref=e147]:
+                    - paragraph [ref=e148]: Description
+                    - generic [ref=e150]:
+                      - textbox "Enter Description" [ref=e151]: Cogo tenetur abduco admoneo debilito decumbo.
+                      - group
+                  - generic [ref=e152]:
+                    - paragraph [ref=e153]: Changes Incorporated*
+                    - generic [ref=e155]:
+                      - textbox "Enter Description" [ref=e156]: Combibo creber calco vilitas pectus.
+                      - group
+                  - generic [ref=e157]:
+                    - paragraph [ref=e158]: "Initial Version:"
+                    - paragraph [ref=e159]: "1"
+                  - generic [ref=e160]:
+                    - paragraph [ref=e161]: "Content Type:"
+                    - paragraph [ref=e162]: Default Format (Word Document - DOCX)
+                  - generic [ref=e163]:
+                    - paragraph [ref=e164]: Select Template Owner*
+                    - generic [ref=e167]:
+                      - combobox [ref=e168]: Nameera Alam
+                      - button "Open" [ref=e170] [cursor=pointer]:
+                        - img [ref=e171]
+                      - group
+                  - generic [ref=e173]:
+                    - paragraph [ref=e174]: Revision Reference*
+                    - generic [ref=e176]:
+                      - textbox "Enter Revision Reference" [ref=e177]: REV-306
+                      - group
+                  - generic [ref=e178]:
+                    - paragraph [ref=e179]: Reason for Revision*
+                    - generic [ref=e181]:
+                      - textbox "Enter Reason" [ref=e182]: varius subiungo verbera
+                      - group
+            - button "Next" [active] [ref=e185] [cursor=pointer]: Next
+          - generic [ref=e186]:
+            - button "Cancel" [ref=e188] [cursor=pointer]: Cancel
+            - generic [ref=e189]:
+              - button "Create" [disabled]
+  - generic:
+    - iframe [ref=e190]:
+      - generic [ref=f1e1] [cursor=pointer]:
+        - img "Help" [ref=f1e2]
+        - generic [ref=f1e4]: Help
+    - iframe [ref=e191]:
+      - generic [ref=f2e1] [cursor=pointer]:
+        - img "Help" [ref=f2e2]
+        - generic [ref=f2e4]: Help
+    - iframe [ref=e192]:
+      - generic [ref=f3e1] [cursor=pointer]:
+        - img "Help" [ref=f3e2]
+        - generic [ref=f3e4]: Help
+```

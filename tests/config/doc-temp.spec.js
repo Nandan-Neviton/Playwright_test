@@ -344,8 +344,8 @@ test.describe.serial('CI Tests — Admin: Document Types', () => {
     await goToConfigSection(page);
     await goToModule(page, 'Document Type/ Template Type');
 
-    console.log(`🔹 Searching for deletion target: ${docData.name}`);
-    await filterAndSearch(page, 'Name', docData.name);
+    console.log(`🔹 Searching for deletion target: ${updatedName}`);
+    await filterAndSearch(page, 'Name', updatedName);
     
     try {
       await page.waitForTimeout(2000);

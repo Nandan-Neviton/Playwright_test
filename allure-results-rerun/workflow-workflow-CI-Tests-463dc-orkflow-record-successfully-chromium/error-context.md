@@ -1,0 +1,108 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - img
+      - img [ref=e7] [cursor=pointer]
+      - generic [ref=e9]:
+        - link [ref=e10] [cursor=pointer]:
+          - /url: /dashboard
+          - img [ref=e12]
+        - link [ref=e14] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e16]
+        - link [ref=e18] [cursor=pointer]:
+          - /url: /configuration
+          - img [ref=e20]
+        - link [ref=e22] [cursor=pointer]:
+          - /url: /workflow
+          - img [ref=e24]
+        - link [ref=e26] [cursor=pointer]:
+          - /url: /template
+          - img [ref=e28]
+        - link [ref=e30] [cursor=pointer]:
+          - /url: /document
+          - img [ref=e32]
+        - link [ref=e34] [cursor=pointer]:
+          - /url: /report
+          - img [ref=e36]
+        - link [ref=e38] [cursor=pointer]:
+          - /url: /print
+          - img [ref=e40]
+        - link "Print Manager" [ref=e43] [cursor=pointer]:
+          - /url: /print-manager
+          - img "Print Manager" [ref=e45]
+        - link [ref=e47] [cursor=pointer]:
+          - /url: /virtual-data-room
+          - img [ref=e49]
+        - link [ref=e51] [cursor=pointer]:
+          - /url: /repository
+          - img [ref=e53]
+        - link [ref=e55] [cursor=pointer]:
+          - /url: /system
+          - img [ref=e57]
+    - generic [ref=e61]:
+      - generic [ref=e65]:
+        - img [ref=e66]
+        - textbox "search documents" [ref=e69]:
+          - /placeholder: Search for Documents or Templates
+        - button "Advanced Search" [ref=e70] [cursor=pointer]: Advanced Search
+      - button "10" [ref=e72] [cursor=pointer]:
+        - generic [ref=e73]:
+          - img [ref=e74]
+          - generic [ref=e76]: "10"
+      - generic [ref=e80]:
+        - img [ref=e82]
+        - combobox "Neviton USA" [ref=e84] [cursor=pointer]
+        - textbox: ba69edcf-27f6-476f-bcbb-07c8bde5b1a0
+        - img
+        - group
+      - generic [ref=e87] [cursor=pointer]:
+        - img "Bruce Wayne" [ref=e90]
+        - generic [ref=e91]:
+          - paragraph [ref=e92]:
+            - text: Nameera Alam
+            - img [ref=e93]
+          - paragraph [ref=e95]: Nameera.Alam@neviton.com
+    - generic [ref=e97]:
+      - link "DMS Document" [ref=e102] [cursor=pointer]:
+        - /url: /document/document
+        - img [ref=e104]
+        - paragraph [ref=e106]: DMS Document
+      - generic [ref=e108]:
+        - generic [ref=e111]:
+          - button [ref=e112] [cursor=pointer]:
+            - img [ref=e113]
+          - paragraph [ref=e115]: undefined - vundefined
+        - generic [ref=e116]:
+          - generic [ref=e118]:
+            - button "View document Detail" [ref=e120] [cursor=pointer]: View document Detail
+            - button "Show document details" [ref=e122] [cursor=pointer]: Show document details
+            - button "Show document history" [ref=e124] [cursor=pointer]: Show document history
+            - button "Print" [ref=e126] [cursor=pointer]: Print
+          - tabpanel [ref=e129]:
+            - paragraph [ref=e131]
+        - generic [ref=e134]:
+          - button "Cancel" [ref=e136] [cursor=pointer]: Cancel
+          - button "Update" [ref=e138] [cursor=pointer]: Update
+  - generic:
+    - iframe [ref=e139]:
+      - generic [ref=f1e1] [cursor=pointer]:
+        - img "Help" [ref=f1e2]
+        - generic [ref=f1e4]: Help
+    - iframe [ref=e140]:
+      - generic [ref=f2e1] [cursor=pointer]:
+        - img "Help" [ref=f2e2]
+        - generic [ref=f2e4]: Help
+    - iframe [ref=e141]:
+      - generic [ref=f3e1] [cursor=pointer]:
+        - img "Help" [ref=f3e2]
+        - generic [ref=f3e4]: Help
+    - iframe [ref=e142]:
+      - generic [ref=f4e1] [cursor=pointer]:
+        - img "Help" [ref=f4e2]
+        - generic [ref=f4e4]: Help
+```

@@ -188,7 +188,7 @@ test.describe.serial('CI Tests — Admin: Workflow Types', () => {
     await goToModule(page, 'Workflow Type');
 
     // Filter and delete created workflow
-    await filterAndSearch(page, 'Name', workflowData.name);
+    await filterAndSearch(page, 'Name', updatedName);
     await page.waitForTimeout(2000);
 
     // Confirm deletion twice (modal confirmation)
@@ -196,7 +196,7 @@ test.describe.serial('CI Tests — Admin: Workflow Types', () => {
     await page.getByRole('button', { name: 'Delete' }).click();
 
     await expect(page.getByRole('alert')).toHaveText('Workflow Type deleted successfully');
-    console.log(`✅ [SUCCESS] Workflow Type deleted: ${workflowData.name}`);
+    console.log(`✅ [SUCCESS] Workflow Type deleted: ${updatedName}`);
   });
 });
 

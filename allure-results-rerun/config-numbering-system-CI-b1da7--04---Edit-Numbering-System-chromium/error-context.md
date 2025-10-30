@@ -1,0 +1,191 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - img
+        - img [ref=e7] [cursor=pointer]
+        - generic [ref=e9]:
+          - link [ref=e10] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e12]
+          - link [ref=e14] [cursor=pointer]:
+            - /url: /admin
+            - img [ref=e16]
+          - link [ref=e18] [cursor=pointer]:
+            - /url: /configuration
+            - img [ref=e20]
+          - link [ref=e22] [cursor=pointer]:
+            - /url: /workflow
+            - img [ref=e24]
+          - link [ref=e26] [cursor=pointer]:
+            - /url: /template
+            - img [ref=e28]
+          - link [ref=e30] [cursor=pointer]:
+            - /url: /document
+            - img [ref=e32]
+          - link [ref=e34] [cursor=pointer]:
+            - /url: /report
+            - img [ref=e36]
+          - link [ref=e38] [cursor=pointer]:
+            - /url: /print
+            - img [ref=e40]
+          - link "Print Manager" [ref=e43] [cursor=pointer]:
+            - /url: /print-manager
+            - img "Print Manager" [ref=e45]
+          - link [ref=e47] [cursor=pointer]:
+            - /url: /virtual-data-room
+            - img [ref=e49]
+          - link [ref=e51] [cursor=pointer]:
+            - /url: /repository
+            - img [ref=e53]
+          - link [ref=e55] [cursor=pointer]:
+            - /url: /system
+            - img [ref=e57]
+      - generic [ref=e61]:
+        - generic [ref=e65]:
+          - img [ref=e66]
+          - textbox "search documents" [ref=e69]:
+            - /placeholder: Search for Documents or Templates
+          - button "Advanced Search" [ref=e70] [cursor=pointer]: Advanced Search
+        - button "10" [ref=e72] [cursor=pointer]:
+          - generic [ref=e73]:
+            - img [ref=e74]
+            - generic [ref=e76]: "10"
+        - generic [ref=e80]:
+          - img [ref=e82]
+          - combobox "Neviton USA" [ref=e84] [cursor=pointer]
+          - textbox: ba69edcf-27f6-476f-bcbb-07c8bde5b1a0
+          - img
+          - group
+        - generic [ref=e87] [cursor=pointer]:
+          - img "Bruce Wayne" [ref=e90]
+          - generic [ref=e91]:
+            - paragraph [ref=e92]:
+              - text: Nameera Alam
+              - img [ref=e93]
+            - paragraph [ref=e95]: Nameera.Alam@neviton.com
+      - generic [ref=e97]:
+        - generic [ref=e99]:
+          - link "Site Theme" [ref=e101] [cursor=pointer]:
+            - /url: /configuration/site-theme
+            - img [ref=e103]
+            - paragraph [ref=e105]: Site Theme
+          - link "List Manager" [ref=e107] [cursor=pointer]:
+            - /url: /configuration/list-manager
+            - img [ref=e109]
+            - paragraph [ref=e111]: List Manager
+          - link "System Data Field Types" [ref=e113] [cursor=pointer]:
+            - /url: /configuration/system-data-fields-types
+            - img [ref=e115]
+            - paragraph [ref=e117]: System Data Field Types
+          - link "Numbering System" [ref=e119] [cursor=pointer]:
+            - /url: /configuration/numbering-system
+            - img [ref=e121]
+            - paragraph [ref=e123]: Numbering System
+          - link "Life Cycle States" [ref=e125] [cursor=pointer]:
+            - /url: /configuration/life-cycle-states
+            - img [ref=e127]
+            - paragraph [ref=e129]: Life Cycle States
+          - link "Activities" [ref=e131] [cursor=pointer]:
+            - /url: /configuration/activities
+            - img [ref=e133]
+            - paragraph [ref=e135]: Activities
+          - link "Checklist" [ref=e137] [cursor=pointer]:
+            - /url: /configuration/checklist
+            - img [ref=e139]
+            - paragraph [ref=e141]: Checklist
+          - link "Workflow Type" [ref=e143] [cursor=pointer]:
+            - /url: /configuration/workflow-type
+            - img [ref=e145]
+            - paragraph [ref=e147]: Workflow Type
+          - link "Document Type/ Template Type" [ref=e149] [cursor=pointer]:
+            - /url: /configuration/document-type
+            - img [ref=e151]
+            - paragraph [ref=e153]: Document Type/ Template Type
+          - link "Email-Template" [ref=e155] [cursor=pointer]:
+            - /url: /configuration/email-template
+            - img [ref=e157]
+            - paragraph [ref=e159]: Email-Template
+        - generic [ref=e161]:
+          - generic [ref=e163]:
+            - button [ref=e165] [cursor=pointer]:
+              - img [ref=e166]
+            - paragraph [ref=e169]: Edit Numbering System
+          - generic [ref=e171]:
+            - generic [ref=e172]:
+              - paragraph [ref=e173]: Name *
+              - generic [ref=e175]:
+                - textbox "Name" [ref=e176]: Movi
+                - group
+            - generic [ref=e177]:
+              - paragraph [ref=e178]: Description
+              - generic [ref=e180]:
+                - textbox [ref=e181]: Discover the adolescent new Sausages with an exciting mix of Cotton ingredients
+                - group
+            - generic [ref=e183]:
+              - generic [ref=e184]:
+                - paragraph [ref=e185]: Maximum Digit *
+                - generic [ref=e187]:
+                  - textbox "Maximum Digit" [ref=e188]: "7"
+                  - group
+              - generic [ref=e189]:
+                - paragraph [ref=e190]: Starting Value *
+                - generic [ref=e192]:
+                  - textbox "Starting Value" [ref=e193]: "6"
+                  - group
+            - generic [ref=e196] [cursor=pointer]:
+              - generic [ref=e197]:
+                - checkbox "Display Leading Zero" [ref=e198]
+                - img [ref=e199]
+              - generic [ref=e201]: Display Leading Zero
+            - button "Add Field Type" [ref=e205] [cursor=pointer]:
+              - img [ref=e207]
+              - text: Add Field Type
+            - paragraph [ref=e210]: "Selected Numbering System:"
+            - generic [ref=e211]:
+              - generic [ref=e215]:
+                - button "drag" [ref=e218]:
+                  - img [ref=e219]
+                - paragraph [ref=e222]: random
+                - generic [ref=e223]:
+                  - button "edit" [ref=e224] [cursor=pointer]:
+                    - img [ref=e225]
+                  - button "Delete" [ref=e227] [cursor=pointer]:
+                    - img [ref=e228]
+              - paragraph [ref=e231]:
+                - text: "Numbering Format:"
+                - generic [ref=e232]: random
+          - generic [ref=e233]:
+            - button "Cancel" [ref=e235] [cursor=pointer]: Cancel
+            - button "Update" [ref=e238] [cursor=pointer]: Update
+    - alert [ref=e239]:
+      - img [ref=e241]
+      - generic [ref=e243]: Numbering System already exists
+      - button "Close" [ref=e245] [cursor=pointer]:
+        - img [ref=e246]
+  - generic:
+    - iframe [ref=e248]:
+      - generic [ref=f1e1] [cursor=pointer]:
+        - img "Help" [ref=f1e2]
+        - generic [ref=f1e4]: Help
+    - iframe [ref=e249]:
+      - generic [ref=f2e1] [cursor=pointer]:
+        - img "Help" [ref=f2e2]
+        - generic [ref=f2e4]: Help
+    - iframe [ref=e250]:
+      - generic [ref=f3e1] [cursor=pointer]:
+        - img "Help" [ref=f3e2]
+        - generic [ref=f3e4]: Help
+    - iframe [ref=e251]:
+      - generic [ref=f4e1] [cursor=pointer]:
+        - img "Help" [ref=f4e2]
+        - generic [ref=f4e4]: Help
+    - iframe [ref=e252]:
+      - generic [ref=f5e1] [cursor=pointer]:
+        - img "Help" [ref=f5e2]
+        - generic [ref=f5e4]: Help
+```

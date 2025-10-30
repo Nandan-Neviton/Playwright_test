@@ -1,0 +1,351 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - img
+      - img [ref=e7] [cursor=pointer]
+      - generic [ref=e9]:
+        - link [ref=e10] [cursor=pointer]:
+          - /url: /dashboard
+          - img [ref=e12]
+        - link [ref=e14] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e16]
+        - link [ref=e18] [cursor=pointer]:
+          - /url: /configuration
+          - img [ref=e20]
+        - link [ref=e22] [cursor=pointer]:
+          - /url: /workflow
+          - img [ref=e24]
+        - link [ref=e26] [cursor=pointer]:
+          - /url: /template
+          - img [ref=e28]
+        - link [ref=e30] [cursor=pointer]:
+          - /url: /document
+          - img [ref=e32]
+        - link [ref=e34] [cursor=pointer]:
+          - /url: /report
+          - img [ref=e36]
+        - link [ref=e38] [cursor=pointer]:
+          - /url: /print
+          - img [ref=e40]
+        - link "Print Manager" [ref=e43] [cursor=pointer]:
+          - /url: /print-manager
+          - img "Print Manager" [ref=e45]
+        - link [ref=e47] [cursor=pointer]:
+          - /url: /virtual-data-room
+          - img [ref=e49]
+        - link [ref=e51] [cursor=pointer]:
+          - /url: /repository
+          - img [ref=e53]
+        - link [ref=e55] [cursor=pointer]:
+          - /url: /system
+          - img [ref=e57]
+    - generic [ref=e61]:
+      - generic [ref=e65]:
+        - img [ref=e66]
+        - textbox "search documents" [ref=e69]:
+          - /placeholder: Search for Documents or Templates
+        - button "Advanced Search" [ref=e70] [cursor=pointer]: Advanced Search
+      - button "10" [ref=e72] [cursor=pointer]:
+        - generic [ref=e73]:
+          - img [ref=e74]
+          - generic [ref=e76]: "10"
+      - generic [ref=e80]:
+        - img [ref=e82]
+        - combobox "Neviton USA" [ref=e84] [cursor=pointer]
+        - textbox: ba69edcf-27f6-476f-bcbb-07c8bde5b1a0
+        - img
+        - group
+      - generic [ref=e87] [cursor=pointer]:
+        - img "Bruce Wayne" [ref=e90]
+        - generic [ref=e91]:
+          - paragraph [ref=e92]:
+            - text: Nameera Alam
+            - img [ref=e93]
+          - paragraph [ref=e95]: Nameera.Alam@neviton.com
+    - generic [ref=e97]:
+      - link "DMS Workflow" [active] [ref=e101] [cursor=pointer]:
+        - /url: /workflow/workflow-dms
+        - img [ref=e103]
+        - paragraph [ref=e105]: DMS Workflow
+      - generic [ref=e108]:
+        - tablist [ref=e111]:
+          - tab "Workflow" [selected] [ref=e112] [cursor=pointer]
+        - tabpanel [ref=e114]:
+          - generic [ref=e115]:
+            - generic [ref=e117]:
+              - generic [ref=e120]:
+                - combobox "All" [ref=e121] [cursor=pointer]
+                - textbox:
+                  - /placeholder: Filter
+                  - text: All
+                - img
+                - group
+              - generic [ref=e124]:
+                - img [ref=e126]
+                - textbox "Search" [ref=e128]
+                - group
+              - generic [ref=e131]:
+                - combobox "All" [ref=e132] [cursor=pointer]
+                - textbox:
+                  - /placeholder: Filter
+                  - text: All
+                - img
+                - group
+              - button "Reset Filter" [ref=e134] [cursor=pointer]:
+                - img [ref=e136]
+                - text: Reset Filter
+              - button "Download" [ref=e139] [cursor=pointer]:
+                - img [ref=e141]
+                - text: Download
+            - grid [ref=e144]:
+              - generic [ref=e145]:
+                - rowgroup [ref=e146]:
+                  - row "Action Name Description Created On Status Version Co-ordinator Document" [ref=e147]:
+                    - columnheader "Action" [ref=e148]:
+                      - generic [ref=e150]: Action
+                    - columnheader "Name" [ref=e151] [cursor=pointer]:
+                      - generic [ref=e153]: Name
+                    - columnheader "Description" [ref=e154] [cursor=pointer]:
+                      - generic [ref=e156]: Description
+                    - columnheader "Created On" [ref=e157] [cursor=pointer]:
+                      - generic [ref=e159]: Created On
+                    - columnheader "Status" [ref=e160] [cursor=pointer]:
+                      - generic [ref=e162]: Status
+                    - columnheader "Version" [ref=e163] [cursor=pointer]:
+                      - generic [ref=e165]: Version
+                    - columnheader "Co-ordinator" [ref=e166] [cursor=pointer]:
+                      - generic [ref=e168]: Co-ordinator
+                    - columnheader "Document" [ref=e169] [cursor=pointer]:
+                      - generic [ref=e171]: Document
+                - rowgroup [ref=e172]:
+                  - row "Test267Workflow gdwe September Do, 2025 17:31 Rejected 1 Nameera Alam View" [ref=e173]:
+                    - cell [ref=e174]:
+                      - generic [ref=e175]:
+                        - link "View" [ref=e176] [cursor=pointer]:
+                          - /url: /workflow/workflow/view-workflow/78fe9af7-cef0-4972-a558-70452dac0fea
+                          - img [ref=e177]
+                        - button "Edit" [ref=e179] [cursor=pointer]:
+                          - img [ref=e180]
+                    - cell "Test267Workflow" [ref=e182]
+                    - cell "gdwe" [ref=e183]
+                    - cell "September Do, 2025 17:31" [ref=e184]:
+                      - paragraph [ref=e185]: September Do, 2025 17:31
+                    - cell "Rejected" [ref=e186]:
+                      - paragraph [ref=e187]: Rejected
+                    - cell "1" [ref=e188]
+                    - cell "Nameera Alam" [ref=e189]
+                    - cell "View" [ref=e190]:
+                      - link "View" [ref=e191] [cursor=pointer]:
+                        - /url: https://uat.note-iq.com/document/document/document-view/a38c56a7-0acd-4021-aa03-0ce873d8b3b7?workflowId=78fe9af7-cef0-4972-a558-70452dac0fea
+                        - paragraph [ref=e192]: View
+                  - row "Test269Workflow test August Do, 2025 12:39 Approved 1 Nameera Alam View" [ref=e193]:
+                    - cell [ref=e194]:
+                      - generic [ref=e195]:
+                        - link "View" [ref=e196] [cursor=pointer]:
+                          - /url: /workflow/workflow/view-workflow/457ef2b0-4b04-4360-adc4-bbe9ae3ae46e
+                          - img [ref=e197]
+                        - button "Edit" [ref=e199] [cursor=pointer]:
+                          - img [ref=e200]
+                    - cell "Test269Workflow" [ref=e202]
+                    - cell "test" [ref=e203]
+                    - cell "August Do, 2025 12:39" [ref=e204]:
+                      - paragraph [ref=e205]: August Do, 2025 12:39
+                    - cell "Approved" [ref=e206]:
+                      - paragraph [ref=e207]: Approved
+                    - cell "1" [ref=e208]
+                    - cell "Nameera Alam" [ref=e209]
+                    - cell "View" [ref=e210]:
+                      - link "View" [ref=e211] [cursor=pointer]:
+                        - /url: https://uat.note-iq.com/document/document/document-view/14fcdfff-3ee0-445a-8bc5-5f469c5f8f09?workflowId=457ef2b0-4b04-4360-adc4-bbe9ae3ae46e
+                        - paragraph [ref=e212]: View
+                  - row "Test218Workflow test August Do, 2025 15:40 Approved 1 Nameera Alam View" [ref=e213]:
+                    - cell [ref=e214]:
+                      - generic [ref=e215]:
+                        - link "View" [ref=e216] [cursor=pointer]:
+                          - /url: /workflow/workflow/view-workflow/f7e7b98e-db61-49c7-a556-a3cf535abde2
+                          - img [ref=e217]
+                        - button "Edit" [ref=e219] [cursor=pointer]:
+                          - img [ref=e220]
+                    - cell "Test218Workflow" [ref=e222]
+                    - cell "test" [ref=e223]
+                    - cell "August Do, 2025 15:40" [ref=e224]:
+                      - paragraph [ref=e225]: August Do, 2025 15:40
+                    - cell "Approved" [ref=e226]:
+                      - paragraph [ref=e227]: Approved
+                    - cell "1" [ref=e228]
+                    - cell "Nameera Alam" [ref=e229]
+                    - cell "View" [ref=e230]:
+                      - link "View" [ref=e231] [cursor=pointer]:
+                        - /url: https://uat.note-iq.com/document/document/document-view/c2cd37ae-168a-4586-b511-b1304e1d7162?workflowId=f7e7b98e-db61-49c7-a556-a3cf535abde2
+                        - paragraph [ref=e232]: View
+                  - row "Test204Workflow test August Do, 2025 15:11 Approved 4 Nameera Alam View" [ref=e233]:
+                    - cell [ref=e234]:
+                      - generic [ref=e235]:
+                        - link "View" [ref=e236] [cursor=pointer]:
+                          - /url: /workflow/workflow/view-workflow/1b264966-fe87-47bf-ac6d-a33a59f474c8
+                          - img [ref=e237]
+                        - button "Edit" [ref=e239] [cursor=pointer]:
+                          - img [ref=e240]
+                    - cell "Test204Workflow" [ref=e242]
+                    - cell "test" [ref=e243]
+                    - cell "August Do, 2025 15:11" [ref=e244]:
+                      - paragraph [ref=e245]: August Do, 2025 15:11
+                    - cell "Approved" [ref=e246]:
+                      - paragraph [ref=e247]: Approved
+                    - cell "4" [ref=e248]
+                    - cell "Nameera Alam" [ref=e249]
+                    - cell "View" [ref=e250]:
+                      - link "View" [ref=e251] [cursor=pointer]:
+                        - /url: https://uat.note-iq.com/document/document/document-view/0c4a0a51-01c5-4554-b51b-420ea60235f1?workflowId=1b264966-fe87-47bf-ac6d-a33a59f474c8
+                        - paragraph [ref=e252]: View
+                  - row "Test152Workflow Test August Do, 2025 12:13 Cancelled 2 Nameera Alam View" [ref=e253]:
+                    - cell [ref=e254]:
+                      - generic [ref=e255]:
+                        - link "View" [ref=e256] [cursor=pointer]:
+                          - /url: /workflow/workflow/view-workflow/62e698b3-ff92-48a6-b707-3826d85b9afb
+                          - img [ref=e257]
+                        - button "Edit" [disabled]:
+                          - img
+                    - cell "Test152Workflow" [ref=e259]
+                    - cell "Test" [ref=e260]
+                    - cell "August Do, 2025 12:13" [ref=e261]:
+                      - paragraph [ref=e262]: August Do, 2025 12:13
+                    - cell "Cancelled" [ref=e263]:
+                      - paragraph [ref=e264]: Cancelled
+                    - cell "2" [ref=e265]
+                    - cell "Nameera Alam" [ref=e266]
+                    - cell "View" [ref=e267]:
+                      - link "View" [ref=e268] [cursor=pointer]:
+                        - /url: https://uat.note-iq.com/document/document/document-view/c2cd37ae-168a-4586-b511-b1304e1d7162?workflowId=62e698b3-ff92-48a6-b707-3826d85b9afb
+                        - paragraph [ref=e269]: View
+                  - row "TestAddWF2 jgsd August Do, 2025 12:13 Approved 1 Nameera Alam View" [ref=e270]:
+                    - cell [ref=e271]:
+                      - generic [ref=e272]:
+                        - link "View" [ref=e273] [cursor=pointer]:
+                          - /url: /workflow/workflow/view-workflow/f2c46424-2b18-4201-9768-5acf45721c2f
+                          - img [ref=e274]
+                        - button "Edit" [ref=e276] [cursor=pointer]:
+                          - img [ref=e277]
+                    - cell "TestAddWF2" [ref=e279]
+                    - cell "jgsd" [ref=e280]
+                    - cell "August Do, 2025 12:13" [ref=e281]:
+                      - paragraph [ref=e282]: August Do, 2025 12:13
+                    - cell "Approved" [ref=e283]:
+                      - paragraph [ref=e284]: Approved
+                    - cell "1" [ref=e285]
+                    - cell "Nameera Alam" [ref=e286]
+                    - cell "View" [ref=e287]:
+                      - link "View" [ref=e288] [cursor=pointer]:
+                        - /url: https://uat.note-iq.com/document/document/document-view/ddc22e6c-a280-4570-b3f2-bc8ed8396919?workflowId=f2c46424-2b18-4201-9768-5acf45721c2f
+                        - paragraph [ref=e289]: View
+                  - row "TestImmediateWF test August Do, 2025 12:01 Approved 1 Nameera Alam View" [ref=e290]:
+                    - cell [ref=e291]:
+                      - generic [ref=e292]:
+                        - link "View" [ref=e293] [cursor=pointer]:
+                          - /url: /workflow/workflow/view-workflow/a06307ab-7003-4e5b-83e2-766b626b2d01
+                          - img [ref=e294]
+                        - button "Edit" [ref=e296] [cursor=pointer]:
+                          - img [ref=e297]
+                    - cell "TestImmediateWF" [ref=e299]
+                    - cell "test" [ref=e300]
+                    - cell "August Do, 2025 12:01" [ref=e301]:
+                      - paragraph [ref=e302]: August Do, 2025 12:01
+                    - cell "Approved" [ref=e303]:
+                      - paragraph [ref=e304]: Approved
+                    - cell "1" [ref=e305]
+                    - cell "Nameera Alam" [ref=e306]
+                    - cell "View" [ref=e307]:
+                      - link "View" [ref=e308] [cursor=pointer]:
+                        - /url: https://uat.note-iq.com/document/document/document-view/c1b20d3e-46a0-43ec-a3b6-1249876f098d?workflowId=a06307ab-7003-4e5b-83e2-766b626b2d01
+                        - paragraph [ref=e309]: View
+                  - row "TestWF ghf August Do, 2025 11:34 Created 1 Nameera Alam View" [ref=e310]:
+                    - cell [ref=e311]:
+                      - generic [ref=e312]:
+                        - link "View" [ref=e313] [cursor=pointer]:
+                          - /url: /workflow/workflow/view-workflow/4e8442cf-db86-4566-b223-5567500b61a6
+                          - img [ref=e314]
+                        - button "Edit" [ref=e316] [cursor=pointer]:
+                          - img [ref=e317]
+                    - cell "TestWF" [ref=e319]
+                    - cell "ghf" [ref=e320]
+                    - cell "August Do, 2025 11:34" [ref=e321]:
+                      - paragraph [ref=e322]: August Do, 2025 11:34
+                    - cell "Created" [ref=e323]:
+                      - paragraph [ref=e324]: Created
+                    - cell "1" [ref=e325]
+                    - cell "Nameera Alam" [ref=e326]
+                    - cell "View" [ref=e327]:
+                      - link "View" [ref=e328] [cursor=pointer]:
+                        - /url: https://uat.note-iq.com/document/document/document-view/00f6dbe4-1e2f-4a7d-9c5b-55fb92b2fc59?workflowId=4e8442cf-db86-4566-b223-5567500b61a6
+                        - paragraph [ref=e329]: View
+                  - row "Test test July Do, 2025 10:24 Approved 1 Nameera Alam View" [ref=e330]:
+                    - cell [ref=e331]:
+                      - generic [ref=e332]:
+                        - link "View" [ref=e333] [cursor=pointer]:
+                          - /url: /workflow/workflow/view-workflow/49dfebf4-5a66-4f3c-9c85-13340ca6f59a
+                          - img [ref=e334]
+                        - button "Edit" [ref=e336] [cursor=pointer]:
+                          - img [ref=e337]
+                    - cell "Test" [ref=e339]
+                    - cell "test" [ref=e340]
+                    - cell "July Do, 2025 10:24" [ref=e341]:
+                      - paragraph [ref=e342]: July Do, 2025 10:24
+                    - cell "Approved" [ref=e343]:
+                      - paragraph [ref=e344]: Approved
+                    - cell "1" [ref=e345]
+                    - cell "Nameera Alam" [ref=e346]
+                    - cell "View" [ref=e347]:
+                      - link "View" [ref=e348] [cursor=pointer]:
+                        - /url: https://uat.note-iq.com/document/document/document-view/0175dfd4-1223-49e2-a910-5fb49eeb8239?workflowId=49dfebf4-5a66-4f3c-9c85-13340ca6f59a
+                        - paragraph [ref=e349]: View
+                  - row "Test195Workflow Test July Do, 2025 13:27 Created 1 Nameera Alam View" [ref=e350]:
+                    - cell [ref=e351]:
+                      - generic [ref=e352]:
+                        - link "View" [ref=e353] [cursor=pointer]:
+                          - /url: /workflow/workflow/view-workflow/21502ccd-7995-4154-8696-e681ee0c88e5
+                          - img [ref=e354]
+                        - button "Edit" [ref=e356] [cursor=pointer]:
+                          - img [ref=e357]
+                    - cell "Test195Workflow" [ref=e359]
+                    - cell "Test" [ref=e360]
+                    - cell "July Do, 2025 13:27" [ref=e361]:
+                      - paragraph [ref=e362]: July Do, 2025 13:27
+                    - cell "Created" [ref=e363]:
+                      - paragraph [ref=e364]: Created
+                    - cell "1" [ref=e365]
+                    - cell "Nameera Alam" [ref=e366]
+                    - cell "View" [ref=e367]:
+                      - link "View" [ref=e368] [cursor=pointer]:
+                        - /url: https://uat.note-iq.com/document/document/document-view/be9db777-e24e-496f-9eac-a28d3fcdf10a?workflowId=21502ccd-7995-4154-8696-e681ee0c88e5
+                        - paragraph [ref=e369]: View
+              - generic [ref=e372]:
+                - paragraph [ref=e373]: "Rows per page:"
+                - generic [ref=e374]:
+                  - 'combobox "Rows per page: 10" [ref=e375] [cursor=pointer]': "10"
+                  - textbox: "10"
+                  - img
+                - paragraph [ref=e376]: 1–10 of 15
+                - generic [ref=e377]:
+                  - button "Go to previous page" [disabled]:
+                    - img
+                  - button "Go to next page" [ref=e378] [cursor=pointer]:
+                    - img [ref=e379]
+  - generic:
+    - iframe [ref=e381]:
+      - generic [ref=f1e1] [cursor=pointer]:
+        - img "Help" [ref=f1e2]
+        - generic [ref=f1e4]: Help
+    - iframe [ref=e382]:
+      - generic [ref=f2e1] [cursor=pointer]:
+        - img "Help" [ref=f2e2]
+        - generic [ref=f2e4]: Help
+    - iframe [ref=e383]:
+      - generic [ref=f3e1] [cursor=pointer]:
+        - img "Help" [ref=f3e2]
+        - generic [ref=f3e4]: Help
+```

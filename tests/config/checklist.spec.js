@@ -139,12 +139,12 @@ test.describe.serial('🧩 CI Tests — Admin Checklist', () => {
     await goToModule(page, 'Checklist');
 
     // Step 1: Search for checklist to delete
-    console.log(`🔹 Filtering for deletion: ${checklistData.name}`);
-    await filterAndSearch(page, 'Name', checklistData.name);
+    console.log(`🔹 Filtering for deletion: ${newName}`);
+    await filterAndSearch(page, 'Name', newName);
     await page.waitForTimeout(2000);
 
     // Step 2: Perform delete
-    console.log(`🗑 Deleting Checklist: ${checklistData.name}`);
+    console.log(`🗑 Deleting Checklist: ${newName}`);
     await page.getByRole('button', { name: 'Delete' }).click();
     await page.getByRole('button', { name: 'Delete' }).click();
 

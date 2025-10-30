@@ -142,12 +142,12 @@ test.describe.serial('CI Tests — Admin List Manager', () => {
     await goToModule(page, 'List Manager');
 
     // Step 2: Filter and locate pick list to delete
-    console.log(`🔹 Filtering to find Pick List: ${listData.category}`);
-    await filterAndSearch(page, 'Pick List Category Name', listData.category);
+    console.log(`🔹 Filtering to find Pick List: ${newName}`);
+    await filterAndSearch(page, 'Pick List Category Name', newName);
     await page.waitForTimeout(2000);
 
     // Step 3: Delete pick list and confirm
-    console.log(`🗑 Deleting Pick List: ${listData.category}`);
+    console.log(`🗑 Deleting Pick List: ${newName}`);
     await page.getByRole('button', { name: 'Delete' }).click();
     await page.getByRole('button', { name: 'Delete' }).click();
 

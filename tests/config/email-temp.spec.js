@@ -258,8 +258,8 @@ test.describe.serial('CI Tests — Admin Email Template', () => {
         await goToModule(page, 'Email-Template');
 
         // Step 4: Filter by Title to locate the template and wait for results
-        console.log(`>>> Step 4: Filtering template by Title: ${emailData.name}`);
-        await filterAndSearch(page, 'Title', emailData.name);
+        console.log(`>>> Step 4: Filtering template by Title: ${newName}`);
+        await filterAndSearch(page, 'Title', newName);
         
         try {
             await page.waitForTimeout(2000);
