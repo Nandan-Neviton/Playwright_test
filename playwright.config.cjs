@@ -1,10 +1,10 @@
 // @ts-check
-import { defineConfig, devices } from '@playwright/test';
+const { defineConfig, devices } = require('@playwright/test');
 
 const date = new Date();
 const timestamp = date.toISOString().replace(/[:.]/g, '-');
 
-export default defineConfig({
+module.exports = defineConfig({
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
