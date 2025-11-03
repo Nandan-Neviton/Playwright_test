@@ -384,87 +384,47 @@ export async function goToDMS(page) {
   // Debug: Log current page content
   console.log('>>> Current page URL before DMS click:', page.url());
   console.log('>>> Page title:', await page.title());
-  
-  // Check if we can see any buttons or links
-  const allButtons = await page.locator('button, a, .card, [role="button"]').count();
-  console.log(`>>> Found ${allButtons} clickable elements on page`);
 
-  // Now click on DMS option and verify navigation to dashboard
+  // Now click on DMS option using the working strategy
   console.log('Clicking on DMS option...');
   
-  // Multiple selector strategies for DMS button
-  const dmsSelectors = [
-    'text=DMS Document Management System',
-    '[data-testid="dms-card"]',
-    'text=DMS',
-    '.dms-card',
-    'text=Document Management System',
-    '[data-cy="dms"]',
-    'button:has-text("DMS")',
-    'a:has-text("DMS")',
-    '.card:has-text("DMS")',
-    '.application-card:has-text("DMS")'
-  ];
-
-  let dmsClicked = false;
-  for (const selector of dmsSelectors) {
-    try {
-      const dmsElement = page.locator(selector).first();
-      await dmsElement.waitFor({ state: 'visible', timeout: 5000 });
-      if (await dmsElement.isVisible()) {
-        await dmsElement.click({ timeout: 5000 });
-        dmsClicked = true;
-        console.log(`>>> Successfully clicked DMS using selector: ${selector}`);
-        break;
-      }
-    } catch (error) {
-      console.log(`⚠️ Failed to click DMS with selector "${selector}": ${error.message}`);
+  try {
+    // Use the text=DMS strategy that works
+    const dmsElement = page.locator('text=DMS').first();
+    await dmsElement.waitFor({ state: 'visible', timeout: 10000 });
+    await dmsElement.click();
+    console.log('>>> Successfully clicked DMS using text=DMS strategy');
+    
+    // Wait for navigation to DMS dashboard
+    console.log('Waiting for DMS dashboard to load...');
+    await page.waitForLoadState('networkidle', { timeout: 15000 });
+    
+    // Verify we're on the DMS dashboard
+    const finalUrl = page.url();
+    if (finalUrl.includes('/dms/dashboard')) {
+      console.log(`>>> Successfully navigated to DMS dashboard: ${finalUrl}`);
+    } else {
+      console.log(`⚠️ Expected /dms/dashboard but got: ${finalUrl}`);
     }
-  }
-
-  if (!dmsClicked) {
-    // Try to find any element with "DMS" text and click it
-    console.log('Trying fallback DMS selection...');
-    try {
-      const dmsText = page.getByText('DMS', { exact: false }).first();
-      await dmsText.waitFor({ state: 'visible', timeout: 5000 });
-      await dmsText.click();
-      dmsClicked = true;
-      console.log('>>> Successfully clicked DMS using text fallback');
-    } catch (error) {
-      console.log(`⚠️ DMS text fallback failed: ${error.message}`);
-    }
-  }
-
-  if (!dmsClicked) {
-    // Last resort: Try direct navigation to DMS
+    return;
+    
+  } catch (error) {
+    console.log(`⚠️ Failed to click DMS with text=DMS strategy: ${error.message}`);
+    
+    // Fallback: Try direct navigation to DMS
     console.log('Trying direct navigation to DMS...');
     try {
-      await page.goto('https://sqa.note-iq.com/dms');
+      await page.goto('https://sqa.note-iq.com/dms/dashboard');
       await page.waitForLoadState('networkidle', { timeout: 10000 });
       if (page.url().includes('/dms')) {
         console.log('>>> Successfully navigated to DMS via direct URL');
-        dmsClicked = true;
+        return;
       }
-    } catch (error) {
-      console.log(`⚠️ Direct DMS navigation failed: ${error.message}`);
+    } catch (directError) {
+      console.log(`⚠️ Direct DMS navigation failed: ${directError.message}`);
     }
-  }
-
-  if (!dmsClicked) {
+    
     throw new Error('Could not locate or click DMS navigation element');
-  }
-
-  // Wait for navigation to DMS dashboard
-  console.log('Waiting for DMS dashboard to load...');
-  await page.waitForLoadState('networkidle', { timeout: 15000 });
-  
-  // Verify we're on the DMS dashboard
-  const finalUrl = page.url();
-  if (finalUrl.includes('/dms/dashboard')) {
-    console.log(`>>> Successfully navigated to DMS dashboard: ${finalUrl}`);
-  } else {
-    console.log(`⚠️ Expected /dms/dashboard but got: ${finalUrl}`);
   }
 }
 

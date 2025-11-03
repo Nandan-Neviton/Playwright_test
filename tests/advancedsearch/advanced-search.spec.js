@@ -44,9 +44,9 @@ test.describe.serial('CI Tests — Advanced Search', () => {
         'text=Search Type',
         'text=Type',
         'label:has-text("Search Type")',
-        'label:has-text("Type")'
+        'label:has-text("Type")',
       ];
-      
+
       let searchTypeFound = false;
       for (const selector of searchTypeSelectors) {
         try {
@@ -59,15 +59,15 @@ test.describe.serial('CI Tests — Advanced Search', () => {
           continue;
         }
       }
-      
+
       const selectFieldsSelectors = [
         'text=Select Fields*',
         'text=Select Fields',
         'text=Fields',
         'label:has-text("Select Fields")',
-        'label:has-text("Fields")'
+        'label:has-text("Fields")',
       ];
-      
+
       let selectFieldsFound = false;
       for (const selector of selectFieldsSelectors) {
         try {
@@ -80,15 +80,15 @@ test.describe.serial('CI Tests — Advanced Search', () => {
           continue;
         }
       }
-      
+
       const conditionSelectors = [
         'text=Select Condition*',
         'text=Select Condition',
         'text=Condition',
         'label:has-text("Condition")',
-        'label:has-text("Select Condition")'
+        'label:has-text("Select Condition")',
       ];
-      
+
       let conditionFound = false;
       for (const selector of conditionSelectors) {
         try {
@@ -101,13 +101,12 @@ test.describe.serial('CI Tests — Advanced Search', () => {
           continue;
         }
       }
-      
+
       if (searchTypeFound || selectFieldsFound || conditionFound) {
         console.log('✅ Advanced Search interface elements verified');
       } else {
         console.log('⚠️ Some interface elements not found, but Advanced Search appears to be loaded');
       }
-
     } catch (error) {
       console.log('⚠️ Error verifying interface elements:', error.message);
     }
@@ -130,7 +129,7 @@ test.describe.serial('CI Tests — Advanced Search', () => {
 
     // Test Document Title search
     console.log(`🔸 Searching by Document Title: ${searchData.exactTitle}`);
-    
+
     try {
       // Select search type (Document)
       const searchTypeDropdown = page.getByLabel('').nth(2);
@@ -138,21 +137,21 @@ test.describe.serial('CI Tests — Advanced Search', () => {
       await page.waitForTimeout(500);
       await page.getByRole('option', { name: 'Document', exact: true }).click();
       await page.waitForTimeout(1000);
-      
+
       // Select field (Document Title)
-      const fieldDropdown = page.getByLabel('').nth(3)
+      const fieldDropdown = page.getByLabel('').nth(3);
       await fieldDropdown.click();
       await page.waitForTimeout(500);
       await page.getByRole('option', { name: 'Document Title' }).click();
       await page.waitForTimeout(1000);
-      
+
       // Select condition (Contains)
       const conditionDropdown = page.getByLabel('').nth(4);
       await conditionDropdown.click();
       await page.waitForTimeout(500);
       await page.getByRole('option', { name: 'Contains', exact: true }).click();
       await page.waitForTimeout(1000);
-      
+
       await page.locator('input[name="searchValue"]').fill(searchData.exactTitle);
       await page.getByRole('button', { name: 'Add Criteria' }).click();
       await page.getByRole('button', { name: 'Generate' }).click();
@@ -176,10 +175,10 @@ test.describe.serial('CI Tests — Advanced Search', () => {
 
     // Search with Contains condition
     console.log(`🔸 Searching documents containing: ${searchData.partialTitle}`);
-    
+
     // Wait for advanced search page to load
     await page.waitForLoadState('networkidle');
-    
+
     try {
       // Select search type (Document)
       const searchTypeDropdown = page.getByLabel('').nth(2);
@@ -187,20 +186,20 @@ test.describe.serial('CI Tests — Advanced Search', () => {
       await page.waitForTimeout(500);
       await page.getByRole('option', { name: 'Document', exact: true }).click();
       await page.waitForTimeout(500);
-      
+
       // Select field (Document Title)
-      const fieldDropdown = page.getByLabel('').nth(3)
+      const fieldDropdown = page.getByLabel('').nth(3);
       await fieldDropdown.click();
       await page.waitForTimeout(500);
       await page.getByRole('option', { name: 'Document Title' }).click();
       await page.waitForTimeout(500);
-      
+
       // Select condition (Contains)
       const conditionDropdown = page.getByLabel('').nth(4);
       await conditionDropdown.click();
       await page.waitForTimeout(500);
       await page.getByRole('option', { name: 'Contains', exact: true }).click();
-      
+
       await page.locator('input[name="searchValue"]').fill(searchData.partialTitle);
       await page.getByRole('button', { name: 'Add Criteria' }).click();
       await page.getByRole('button', { name: 'Generate' }).click();
@@ -223,23 +222,23 @@ test.describe.serial('CI Tests — Advanced Search', () => {
 
     // Search by Author
     console.log('🔸 Searching by Author: Nameera Alam');
-    
+
     try {
       // Select search type (Document)
       const searchTypeDropdown = page.getByLabel('').nth(2);
       await searchTypeDropdown.click();
       await page.getByRole('option', { name: 'Document', exact: true }).click();
-      
+
       // Select field (Author)
-      const fieldDropdown = page.getByLabel('').nth(3)
+      const fieldDropdown = page.getByLabel('').nth(3);
       await fieldDropdown.click();
       await page.getByRole('option', { name: 'Author' }).click();
-      
+
       // Select condition (Contains)
       const conditionDropdown = page.getByLabel('').nth(4);
       await conditionDropdown.click();
       await page.getByRole('option', { name: 'Contains', exact: true }).click();
-      
+
       await page.locator('input[name="searchValue"]').fill('Nameera');
       await page.getByRole('button', { name: 'Add Criteria' }).click();
       await page.getByRole('button', { name: 'Generate' }).click();
@@ -262,23 +261,23 @@ test.describe.serial('CI Tests — Advanced Search', () => {
 
     // Search by Content
     console.log('🔸 Searching by document content');
-    
+
     try {
       // Select search type (Document)
       const searchTypeDropdown = page.getByLabel('').nth(2);
       await searchTypeDropdown.click();
       await page.getByRole('option', { name: 'Document', exact: true }).click();
-      
+
       // Select field (Content)
-      const fieldDropdown = page.getByLabel('').nth(3)
+      const fieldDropdown = page.getByLabel('').nth(3);
       await fieldDropdown.click();
       await page.getByRole('option', { name: 'Content' }).click();
-      
+
       // Select condition (Contains Phrase)
       const conditionDropdown = page.getByLabel('').nth(4);
       await conditionDropdown.click();
       await page.getByRole('option', { name: 'Contains Phrase' }).click();
-      
+
       await page.locator('input[name="searchValue"]').fill('document');
       await page.getByRole('button', { name: 'Add Criteria' }).click();
       await page.getByRole('button', { name: 'Generate' }).click();
@@ -301,19 +300,19 @@ test.describe.serial('CI Tests — Advanced Search', () => {
 
     // Search by Document Type
     console.log('🔸 Searching by Document Type');
-    
+
     try {
       // Select search type (Document Type)
       const searchTypeDropdown = page.getByLabel('').nth(2);
       await searchTypeDropdown.click();
       await page.getByRole('option', { name: 'Document Type' }).click();
-      
+
       // Select a document type
       const openButton = page.getByRole('button', { name: 'Open' });
       if (await openButton.isVisible({ timeout: 3000 })) {
         await openButton.click();
         await page.getByRole('option', { name: '@NA_DocType(Default)' }).click();
-        
+
         await page.getByRole('button', { name: 'Add Criteria' }).click();
         await page.getByRole('button', { name: 'Generate' }).click();
       }
@@ -333,19 +332,19 @@ test.describe.serial('CI Tests — Advanced Search', () => {
 
     try {
       await login(page);
-      
+      await goToAdvancedSearch(page);
       // Wait for Advanced Search button with retry logic
       await page.waitForSelector('button[name="Advanced Search"], [role="button"]:has-text("Advanced Search")', { timeout: 30000 });
       await page.getByRole('button', { name: 'Advanced Search' }).click();
 
       // Search by Template Type
       console.log('🔸 Searching by Template Type');
-      
+
       // Select search type (Template Type)
       const searchTypeDropdown = page.getByLabel('').nth(2);
       await searchTypeDropdown.click();
       await page.getByRole('option', { name: 'Template Type' }).click();
-      
+
       // Check if template types are available and select one
       const openButton = page.getByRole('button', { name: 'Open' });
       if (await openButton.isVisible({ timeout: 2000 })) {
@@ -354,7 +353,7 @@ test.describe.serial('CI Tests — Advanced Search', () => {
         if (await firstOption.isVisible({ timeout: 2000 })) {
           await firstOption.click();
         }
-        
+
         await page.getByRole('button', { name: 'Add Criteria' }).click();
         await page.getByRole('button', { name: 'Generate' }).click();
         await page.waitForTimeout(3000);
@@ -374,38 +373,39 @@ test.describe.serial('CI Tests — Advanced Search', () => {
 
     try {
       await login(page);
-      
+      await goToAdvancedSearch(page);
+
       // Wait for Advanced Search button
       await page.waitForSelector('button[name="Advanced Search"], [role="button"]:has-text("Advanced Search")', { timeout: 30000 });
       await page.getByRole('button', { name: 'Advanced Search' }).click();
 
       // Search by Workflow
       console.log('🔸 Searching by Workflow');
-    
-    try {
-      // Select search type (Workflow)
-      const searchTypeDropdown = page.getByLabel('').nth(2);
-      await searchTypeDropdown.click();
-      await page.getByRole('option', { name: 'Workflow' }).click();
-      
-      // Check if workflow options are available and select one
-      const openButton = page.getByRole('button', { name: 'Open' });
-      if (await openButton.isVisible({ timeout: 2000 })) {
-        await openButton.click();
-        const firstOption = page.getByRole('option').first();
-        if (await firstOption.isVisible({ timeout: 2000 })) {
-          await firstOption.click();
-        }
-        
-        await page.getByRole('button', { name: 'Add Criteria' }).click();
-        await page.getByRole('button', { name: 'Generate' }).click();
-        await page.waitForTimeout(3000);
-      }
 
-      console.log('✅ Workflow search completed');
-    } catch (error) {
-      console.log(`ℹ️ Workflow search issue: ${error.message} - continuing test`);
-    }
+      try {
+        // Select search type (Workflow)
+        const searchTypeDropdown = page.getByLabel('').nth(2);
+        await searchTypeDropdown.click();
+        await page.getByRole('option', { name: 'Workflow' }).click();
+
+        // Check if workflow options are available and select one
+        const openButton = page.getByRole('button', { name: 'Open' });
+        if (await openButton.isVisible({ timeout: 2000 })) {
+          await openButton.click();
+          const firstOption = page.getByRole('option').first();
+          if (await firstOption.isVisible({ timeout: 2000 })) {
+            await firstOption.click();
+          }
+
+          await page.getByRole('button', { name: 'Add Criteria' }).click();
+          await page.getByRole('button', { name: 'Generate' }).click();
+          await page.waitForTimeout(3000);
+        }
+
+        console.log('✅ Workflow search completed');
+      } catch (error) {
+        console.log(`ℹ️ Workflow search issue: ${error.message} - continuing test`);
+      }
     } catch (error) {
       console.log(`ℹ️ Workflow test failed: ${error.message} - continuing test`);
     }
@@ -419,54 +419,55 @@ test.describe.serial('CI Tests — Advanced Search', () => {
 
     try {
       await login(page);
-      
+      await goToAdvancedSearch(page);
+
       // Wait for Advanced Search button
       await page.waitForSelector('button[name="Advanced Search"], [role="button"]:has-text("Advanced Search")', { timeout: 30000 });
       await page.getByRole('button', { name: 'Advanced Search' }).click();
 
-    try {
-      // Add first criteria - Document Title
-      console.log('🔸 Adding first criteria - Document Title');
-      let searchTypeDropdown = page.locator('[role="combobox"]').nth(2);
-      await searchTypeDropdown.click();
-      await page.getByRole('option', { name: 'Document', exact: true }).click();
-      
-      let fieldDropdown = page.locator('[role="combobox"]').nth(3);
-      await fieldDropdown.click();
-      await page.getByRole('option', { name: 'Document Title' }).click();
-      
-      let conditionDropdown = page.locator('[role="combobox"]').nth(4);
-      await conditionDropdown.click();
-      await page.getByRole('option', { name: 'Contains', exact: true }).click();
-      
-      await page.locator('input[name="searchValue"]').fill('Doc');
-      await page.getByRole('button', { name: 'Add Criteria' }).click();
+      try {
+        // Add first criteria - Document Title
+        console.log('🔸 Adding first criteria - Document Title');
+        let searchTypeDropdown = page.locator('[role="combobox"]').nth(2);
+        await searchTypeDropdown.click();
+        await page.getByRole('option', { name: 'Document', exact: true }).click();
 
-      // Add second criteria - Author
-      console.log('🔸 Adding second criteria - Author');
-      searchTypeDropdown = page.locator('[role="combobox"]').nth(2);
-      await searchTypeDropdown.click();
-      await page.getByRole('option', { name: 'Document', exact: true }).click();
-      
-      fieldDropdown = page.locator('[role="combobox"]').nth(3);
-      await fieldDropdown.click();
-      await page.getByRole('option', { name: 'Author' }).click();
-      
-      conditionDropdown = page.locator('[role="combobox"]').nth(4);
-      await conditionDropdown.click();
-      await page.getByRole('option', { name: 'Contains', exact: true }).click();
-      
-      await page.locator('input[name="searchValue"]').fill('Nameera');
-      await page.getByRole('button', { name: 'Add Criteria' }).click();
+        let fieldDropdown = page.locator('[role="combobox"]').nth(3);
+        await fieldDropdown.click();
+        await page.getByRole('option', { name: 'Document Title' }).click();
 
-      // Generate search results
-      await page.getByRole('button', { name: 'Generate' }).click();
-      await page.waitForTimeout(3000);
+        let conditionDropdown = page.locator('[role="combobox"]').nth(4);
+        await conditionDropdown.click();
+        await page.getByRole('option', { name: 'Contains', exact: true }).click();
 
-      console.log('✅ Multiple criteria search completed');
-    } catch (error) {
-      console.log(`ℹ️ Multiple criteria search issue: ${error.message} - continuing test`);
-    }
+        await page.locator('input[name="searchValue"]').fill('Doc');
+        await page.getByRole('button', { name: 'Add Criteria' }).click();
+
+        // Add second criteria - Author
+        console.log('🔸 Adding second criteria - Author');
+        searchTypeDropdown = page.locator('[role="combobox"]').nth(2);
+        await searchTypeDropdown.click();
+        await page.getByRole('option', { name: 'Document', exact: true }).click();
+
+        fieldDropdown = page.locator('[role="combobox"]').nth(3);
+        await fieldDropdown.click();
+        await page.getByRole('option', { name: 'Author' }).click();
+
+        conditionDropdown = page.locator('[role="combobox"]').nth(4);
+        await conditionDropdown.click();
+        await page.getByRole('option', { name: 'Contains', exact: true }).click();
+
+        await page.locator('input[name="searchValue"]').fill('Nameera');
+        await page.getByRole('button', { name: 'Add Criteria' }).click();
+
+        // Generate search results
+        await page.getByRole('button', { name: 'Generate' }).click();
+        await page.waitForTimeout(3000);
+
+        console.log('✅ Multiple criteria search completed');
+      } catch (error) {
+        console.log(`ℹ️ Multiple criteria search issue: ${error.message} - continuing test`);
+      }
     } catch (error) {
       console.log(`ℹ️ Multiple criteria test failed: ${error.message} - continuing test`);
     }
@@ -480,63 +481,64 @@ test.describe.serial('CI Tests — Advanced Search', () => {
 
     try {
       await login(page);
-      
+      await goToAdvancedSearch(page);
+
       // Wait for Advanced Search button
       await page.waitForSelector('button[name="Advanced Search"], [role="button"]:has-text("Advanced Search")', { timeout: 30000 });
       await page.getByRole('button', { name: 'Advanced Search' }).click();
 
-    const conditions = ['Is', 'Is Not', 'Contains', 'Does not contains', 'Begins With', 'Ends With'];
-    
-    for (const condition of conditions) {
-      console.log(`🔸 Testing condition: ${condition}`);
-      
-      try {
-        // Reset form
-        const resetButton = page.getByRole('button', { name: 'Reset' });
-        if (await resetButton.isEnabled({ timeout: 1000 })) {
-          await resetButton.click();
+      const conditions = ['Is', 'Is Not', 'Contains', 'Does not contains', 'Begins With', 'Ends With'];
+
+      for (const condition of conditions) {
+        console.log(`🔸 Testing condition: ${condition}`);
+
+        try {
+          // Reset form
+          const resetButton = page.getByRole('button', { name: 'Reset' });
+          if (await resetButton.isEnabled({ timeout: 1000 })) {
+            await resetButton.click();
+            await page.waitForTimeout(500);
+          }
+
+          // Set up search criteria using consistent selectors
+          const searchTypeDropdown = page.getByLabel('').nth(2);
+          await searchTypeDropdown.click();
           await page.waitForTimeout(500);
-        }
+          await page.getByRole('option', { name: 'Document', exact: true }).click();
+          await page.waitForTimeout(500);
 
-        // Set up search criteria using consistent selectors
-        const searchTypeDropdown = page.getByLabel('').nth(2);
-        await searchTypeDropdown.click();
-        await page.waitForTimeout(500);
-        await page.getByRole('option', { name: 'Document', exact: true }).click();
-        await page.waitForTimeout(500);
-        
-        const fieldDropdown = page.getByLabel('').nth(3)
-        await fieldDropdown.click();
-        await page.waitForTimeout(500);
-        await page.getByRole('option', { name: 'Document Title' }).click();
-        await page.waitForTimeout(500);
-        
-        const conditionDropdown = page.getByLabel('').nth(4);
-        await conditionDropdown.click();
-        await page.waitForTimeout(500);
-        await page.getByRole('option', { name: condition, exact: true }).click();
-        await page.waitForTimeout(500);
-        
-        // Use appropriate search text for condition
-        let searchText = 'Retention';
-        if (condition === 'Begins With') {
-          searchText = 'Revie';
-        } else if (condition === 'Ends With') {
-          searchText = 'Doc1';
+          const fieldDropdown = page.getByLabel('').nth(3);
+          await fieldDropdown.click();
+          await page.waitForTimeout(500);
+          await page.getByRole('option', { name: 'Document Title' }).click();
+          await page.waitForTimeout(500);
+
+          const conditionDropdown = page.getByLabel('').nth(4);
+          await conditionDropdown.click();
+          await page.waitForTimeout(500);
+          await page.getByRole('option', { name: condition, exact: true }).click();
+          await page.waitForTimeout(500);
+
+          // Use appropriate search text for condition
+          let searchText = 'Retention';
+          if (condition === 'Begins With') {
+            searchText = 'Revie';
+          } else if (condition === 'Ends With') {
+            searchText = 'Doc1';
+          }
+
+          await page.locator('input[name="searchValue"]').fill(searchText);
+          await page.getByRole('button', { name: 'Add Criteria' }).click();
+          await page.getByRole('button', { name: 'Generate' }).click();
+          await page.waitForTimeout(2000);
+
+          console.log(`✅ Condition "${condition}" tested successfully`);
+        } catch (error) {
+          console.log(`ℹ️ Issue testing condition "${condition}": ${error.message} - continuing`);
         }
-        
-        await page.locator('input[name="searchValue"]').fill(searchText);
-        await page.getByRole('button', { name: 'Add Criteria' }).click();
-        await page.getByRole('button', { name: 'Generate' }).click();
-        await page.waitForTimeout(2000);
-        
-        console.log(`✅ Condition "${condition}" tested successfully`);
-      } catch (error) {
-        console.log(`ℹ️ Issue testing condition "${condition}": ${error.message} - continuing`);
       }
-    }
 
-    console.log('✅ All condition types tested');
+      console.log('✅ All condition types tested');
     } catch (error) {
       console.log(`ℹ️ All condition types test failed: ${error.message} - continuing test`);
     }
@@ -550,57 +552,58 @@ test.describe.serial('CI Tests — Advanced Search', () => {
 
     try {
       await login(page);
-      
+      await goToAdvancedSearch(page);
+
       // Wait for Advanced Search button
       await page.waitForSelector('button[name="Advanced Search"], [role="button"]:has-text("Advanced Search")', { timeout: 30000 });
       await page.getByRole('button', { name: 'Advanced Search' }).click();
 
-    try {
-      // Create a search criteria using consistent selectors
-      console.log('🔸 Creating search criteria to save');
-      const searchTypeDropdown = page.getByLabel('').nth(2);
-      await searchTypeDropdown.click();
-      await page.waitForTimeout(500);
-      await page.getByRole('option', { name: 'Document', exact: true }).click();
-      await page.waitForTimeout(500);
-      
-      const fieldDropdown = page.getByLabel('').nth(3)
-      await fieldDropdown.click();
-      await page.waitForTimeout(500);
-      await page.getByRole('option', { name: 'Document Title' }).click();
-      await page.waitForTimeout(500);
-      
-      const conditionDropdown = page.getByLabel('').nth(4);
-      await conditionDropdown.click();
-      await page.waitForTimeout(500);
-      await page.getByRole('option', { name: 'Contains', exact: true }).click();
-      await page.waitForTimeout(500);
-      
-      await page.locator('input[name="searchValue"]').fill('Test');
-      await page.getByRole('button', { name: 'Add Criteria' }).click();
+      try {
+        // Create a search criteria using consistent selectors
+        console.log('🔸 Creating search criteria to save');
+        const searchTypeDropdown = page.getByLabel('').nth(2);
+        await searchTypeDropdown.click();
+        await page.waitForTimeout(500);
+        await page.getByRole('option', { name: 'Document', exact: true }).click();
+        await page.waitForTimeout(500);
 
-      // Save search parameters
-      const saveButton = page.getByRole('button', { name: 'Save Search Parameters' });
-      if (await saveButton.isEnabled({ timeout: 2000 })) {
-        console.log('🔸 Saving search parameters');
-        await saveButton.click();
-        await page.waitForTimeout(1000); // Wait for save to complete
+        const fieldDropdown = page.getByLabel('').nth(3);
+        await fieldDropdown.click();
+        await page.waitForTimeout(500);
+        await page.getByRole('option', { name: 'Document Title' }).click();
+        await page.waitForTimeout(500);
+
+        const conditionDropdown = page.getByLabel('').nth(4);
+        await conditionDropdown.click();
+        await page.waitForTimeout(500);
+        await page.getByRole('option', { name: 'Contains', exact: true }).click();
+        await page.waitForTimeout(500);
+
+        await page.locator('input[name="searchValue"]').fill('Test');
+        await page.getByRole('button', { name: 'Add Criteria' }).click();
+
+        // Save search parameters
+        const saveButton = page.getByRole('button', { name: 'Save Search Parameters' });
+        if (await saveButton.isEnabled({ timeout: 2000 })) {
+          console.log('🔸 Saving search parameters');
+          await saveButton.click();
+          await page.waitForTimeout(1000); // Wait for save to complete
+        }
+
+        // Check saved search parameters
+        console.log('🔸 Checking saved search parameters');
+        const savedParamsButton = page.getByRole('button', { name: 'Saved Search Parameters' });
+        if (await savedParamsButton.isVisible({ timeout: 2000 })) {
+          await savedParamsButton.click();
+          console.log('✅ Saved search parameters accessed successfully');
+        } else {
+          console.log('ℹ️ Saved Search Parameters button not available');
+        }
+      } catch (error) {
+        console.log(`ℹ️ Save/Load search parameters issue: ${error.message} - continuing test`);
       }
 
-      // Check saved search parameters
-      console.log('🔸 Checking saved search parameters');
-      const savedParamsButton = page.getByRole('button', { name: 'Saved Search Parameters' });
-      if (await savedParamsButton.isVisible({ timeout: 2000 })) {
-        await savedParamsButton.click();
-        console.log('✅ Saved search parameters accessed successfully');
-      } else {
-        console.log('ℹ️ Saved Search Parameters button not available');
-      }
-    } catch (error) {
-      console.log(`ℹ️ Save/Load search parameters issue: ${error.message} - continuing test`);
-    }
-
-    console.log('✅ Save/Load search parameters tested');
+      console.log('✅ Save/Load search parameters tested');
     } catch (error) {
       console.log(`ℹ️ Save/Load test failed: ${error.message} - continuing test`);
     }
@@ -614,62 +617,61 @@ test.describe.serial('CI Tests — Advanced Search', () => {
 
     try {
       await login(page);
-      
+      await goToAdvancedSearch(page);
+
       // Wait for Advanced Search button
       await page.waitForSelector('button[name="Advanced Search"], [role="button"]:has-text("Advanced Search")', { timeout: 30000 });
       await page.getByRole('button', { name: 'Advanced Search' }).click();
-    await page.getByRole('button', { name: 'Advanced Search' }).click();
+      await page.getByRole('button', { name: 'Advanced Search' }).click();
 
-    try {
-      // Create search criteria that will return results using consistent selectors
-      console.log('🔸 Creating search criteria for download test');
-      const searchTypeDropdown = page.getByLabel('').nth(2);
-      await searchTypeDropdown.click();
-      await page.waitForTimeout(500);
-      await page.getByRole('option', { name: 'Document', exact: true }).click();
-      await page.waitForTimeout(500);
-      
-      const fieldDropdown = page.getByLabel('').nth(3)
-      await fieldDropdown.click();
-      await page.waitForTimeout(500);
-      await page.getByRole('option', { name: 'Author' }).click();
-      await page.waitForTimeout(500);
-      
-      const conditionDropdown = page.getByLabel('').nth(4);
-      await conditionDropdown.click();
-      await page.waitForTimeout(500);
-      await page.getByRole('option', { name: 'Contains', exact: true }).click();
-      await page.waitForTimeout(500);
-      
-      await page.locator('input[name="searchValue"]').fill('Nameera');
-      await page.getByRole('button', { name: 'Add Criteria' }).click();
-      await page.getByRole('button', { name: 'Generate' }).click();
+      try {
+        // Create search criteria that will return results using consistent selectors
+        console.log('🔸 Creating search criteria for download test');
+        const searchTypeDropdown = page.getByLabel('').nth(2);
+        await searchTypeDropdown.click();
+        await page.waitForTimeout(500);
+        await page.getByRole('option', { name: 'Document', exact: true }).click();
+        await page.waitForTimeout(500);
 
-      // Wait for results and try download
-      await page.waitForTimeout(3000);
-      
-      const downloadButton = page.getByRole('button', { name: 'Download' });
-      if (await downloadButton.isEnabled({ timeout: 2000 })) {
-        console.log('🔸 Attempting to download search results');
-        await downloadButton.click();
+        const fieldDropdown = page.getByLabel('').nth(3);
+        await fieldDropdown.click();
+        await page.waitForTimeout(500);
+        await page.getByRole('option', { name: 'Author' }).click();
+        await page.waitForTimeout(500);
+
+        const conditionDropdown = page.getByLabel('').nth(4);
+        await conditionDropdown.click();
+        await page.waitForTimeout(500);
+        await page.getByRole('option', { name: 'Contains', exact: true }).click();
+        await page.waitForTimeout(500);
+
+        await page.locator('input[name="searchValue"]').fill('Nameera');
+        await page.getByRole('button', { name: 'Add Criteria' }).click();
+        await page.getByRole('button', { name: 'Generate' }).click();
+
+        // Wait for results and try download
+        await page.waitForTimeout(3000);
+
+        const downloadButton = page.getByRole('button', { name: 'Download' });
+        if (await downloadButton.isEnabled({ timeout: 2000 })) {
+          console.log('🔸 Attempting to download search results');
+          await downloadButton.click();
+        }
+      } catch (error) {
+        console.log(`ℹ️ Download functionality issue: ${error.message} - continuing test`);
       }
-    } catch (error) {
-      console.log(`ℹ️ Download functionality issue: ${error.message} - continuing test`);
-    }
 
-    console.log('✅ Download functionality tested');
+      console.log('✅ Download functionality tested');
     } catch (error) {
       console.log(`ℹ️ Download test failed: ${error.message} - continuing test`);
     }
   });
 });
 
-
 // ==============================================================
 // Advanced Search Validation Tests
 // ==============================================================
 test.describe('Advanced Search Validations', () => {
-
   // ==============================================================
   // TEST — Validate Empty Search Submission
   // ==============================================================
@@ -690,9 +692,9 @@ test.describe('Advanced Search Validations', () => {
         'button[type="submit"]',
         'input[type="submit"]',
         '.generate-btn',
-        '#generate-button'
+        '#generate-button',
       ];
-      
+
       let generateButton = null;
       for (const selector of generateSelectors) {
         try {
@@ -706,11 +708,11 @@ test.describe('Advanced Search Validations', () => {
           continue;
         }
       }
-      
+
       if (generateButton) {
         isDisabled = await generateButton.isDisabled();
         console.log(`🔸 Generate button disabled state: ${isDisabled}`);
-        
+
         if (!isDisabled) {
           await generateButton.click();
           await page.waitForTimeout(1000);
@@ -719,11 +721,10 @@ test.describe('Advanced Search Validations', () => {
       } else {
         console.log('⚠️ Generate button not found');
       }
-
     } catch (error) {
       console.log('⚠️ Error testing empty search validation:', error.message);
     }
-    
+
     expect(isDisabled).toBe(true);
     console.log('✅ Generate button correctly disabled without criteria');
   });
@@ -747,9 +748,9 @@ test.describe('Advanced Search Validations', () => {
         'button:has-text("Generate")',
         '[role="button"]:has-text("Generate")',
         'button[type="submit"]',
-        'input[type="submit"]'
+        'input[type="submit"]',
       ];
-      
+
       for (const selector of generateSelectors) {
         try {
           const btn = page.locator(selector);
@@ -761,18 +762,17 @@ test.describe('Advanced Search Validations', () => {
           continue;
         }
       }
-      
+
       if (generateButton) {
         isGenerateDisabled = await generateButton.isDisabled();
         console.log(`🔸 Generate button disabled state: ${isGenerateDisabled}`);
       } else {
         console.log('⚠️ Generate button not found for validation test');
       }
-
     } catch (error) {
       console.log('⚠️ Error testing incomplete search validation:', error.message);
     }
-    
+
     expect(isGenerateDisabled).toBe(true);
     console.log('✅ Generate button correctly disabled with no criteria');
   });
@@ -789,30 +789,30 @@ test.describe('Advanced Search Validations', () => {
 
     // Fill search criteria and add it, then verify Generate becomes enabled
     console.log('🔸 Testing Generate button activation after adding criteria');
-    
+
     try {
       // Select search type (Document)
       const searchTypeDropdown = page.getByLabel('').nth(2);
       await searchTypeDropdown.click();
       await page.getByRole('option', { name: 'Document', exact: true }).click();
-      
+
       // Select field (Document Title)
-      const fieldDropdown = page.getByLabel('').nth(3)
+      const fieldDropdown = page.getByLabel('').nth(3);
       await fieldDropdown.click();
       await page.getByRole('option', { name: 'Document Title' }).click();
-      
+
       // Select condition (Contains)
       const conditionDropdown = page.getByLabel('').nth(4);
       await conditionDropdown.click();
       await page.getByRole('option', { name: 'Contains', exact: true }).click();
-      
+
       await page.locator('input[name="searchValue"]').fill('Test');
       await page.getByRole('button', { name: 'Add Criteria' }).click();
-      
+
       // Verify Generate button becomes enabled after adding criteria
       const generateButton = page.getByRole('button', { name: 'Generate' });
       const isEnabled = await generateButton.isEnabled();
-      
+
       expect(isEnabled).toBe(true);
       console.log('✅ Generate button correctly enabled after adding criteria');
     } catch (error) {
@@ -832,23 +832,23 @@ test.describe('Advanced Search Validations', () => {
 
     // Add search criteria
     console.log('🔸 Adding search criteria');
-    
+
     try {
       // Select search type (Document)
       const searchTypeDropdown = page.getByLabel('').nth(2);
       await searchTypeDropdown.click();
       await page.getByRole('option', { name: 'Document', exact: true }).click();
-      
+
       // Select field (Document Title)
-      const fieldDropdown = page.getByLabel('').nth(3)
+      const fieldDropdown = page.getByLabel('').nth(3);
       await fieldDropdown.click();
       await page.getByRole('option', { name: 'Document Title' }).click();
-      
+
       // Select condition (Contains)
       const conditionDropdown = page.getByLabel('').nth(4);
       await conditionDropdown.click();
       await page.getByRole('option', { name: 'Contains', exact: true }).click();
-      
+
       await page.locator('input[name="searchValue"]').fill('Test');
       await page.getByRole('button', { name: 'Add Criteria' }).click();
 
@@ -857,7 +857,7 @@ test.describe('Advanced Search Validations', () => {
       const resetButton = page.getByRole('button', { name: 'Reset' });
       if (await resetButton.isEnabled({ timeout: 2000 })) {
         await resetButton.click();
-        
+
         // Verify form is cleared
         const searchText = await page.locator('input[name="searchValue"]').inputValue();
         expect(searchText).toBe('');
@@ -882,7 +882,7 @@ test.describe('Advanced Search Validations', () => {
 
     // Search for something that doesn't exist
     console.log('🔸 Searching for non-existent content');
-    
+
     try {
       // Use consistent selectors for dropdowns
       const moduleDropdown = page.locator('[role="combobox"]').nth(2);
@@ -892,15 +892,15 @@ test.describe('Advanced Search Validations', () => {
         await page.getByRole('option', { name: 'Document', exact: true }).click();
         await page.waitForTimeout(1000);
       }
-      
-      const fieldDropdown = page.getByLabel('').nth(3)
+
+      const fieldDropdown = page.getByLabel('').nth(3);
       if (await fieldDropdown.isVisible({ timeout: 5000 })) {
         await fieldDropdown.click();
         await page.waitForTimeout(500);
         await page.getByRole('option', { name: 'Document Title' }).click();
         await page.waitForTimeout(1000);
       }
-      
+
       const operatorDropdown = page.locator('[role="combobox"]').nth(4);
       if (await operatorDropdown.isVisible({ timeout: 5000 })) {
         await operatorDropdown.click();
@@ -908,7 +908,7 @@ test.describe('Advanced Search Validations', () => {
         await page.getByRole('option', { name: 'Is', exact: true }).click();
         await page.waitForTimeout(1000);
       }
-      
+
       await page.locator('input[name="searchValue"]').fill('NonExistentDocument12345XYZ');
       await page.getByRole('button', { name: 'Add Criteria' }).click();
       await page.getByRole('button', { name: 'Generate' }).click();

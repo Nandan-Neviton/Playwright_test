@@ -279,12 +279,10 @@ test.describe.serial('Admin - Site Management Tests', () => {
 
   // ---------- TEST 8: Validate Business Logic Constraints ----------
   test('should validate business logic constraints using MCP patterns', async ({ page }) => {
-    console.log('ðŸ”¹ [START] MCP Validation - Business logic constraints');
+    console.log('[START] MCP Validation - Business logic constraints');
 
     // Click Configure button to access admin section
 
-
-    await page.getByRole('button', { name: 'Configure' }).click();
     await goToModule(page, 'Site');
 
     // Test: Try to create a site with minimal valid data

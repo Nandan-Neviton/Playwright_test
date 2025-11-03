@@ -1,0 +1,385 @@
+Test Case ID,User Story ID,Test Description,Pre-Conditions,Test Data,Test Steps,Expected Result,Test Type,Automation Status,Executed By,Comments / Notes
+,,,,,,,,,,
+DASHBOARD MODULE TEST CASES,,,,,,,,,,
+TC_001,DASH-Navigate,Navigate to Dashboard and verify interface,User logged in,N/A,"1. Login to application with valid credentials
+2. Verify automatic redirection to Dashboard page
+3. Check that Overall Task Status widget displays
+4. Verify Completed Task Status widget is visible
+5. Confirm Task Types widget shows data correctly","Dashboard loads with all widgets visible and functional","Functional, UI",Automated,QA,Dashboard interface verification
+TC_002,DASH-TaskStatus,Verify task status widgets accuracy,"User logged in, Task data available",Task data,"1. Navigate to Dashboard and locate task widgets
+2. Record counts from Overall Task Status widget
+3. Navigate to actual modules and verify counts
+4. Compare widget data with source module data
+5. Verify data consistency across all widgets","Task widgets display accurate data matching source modules","Functional, Data",Automated,QA,Task status widget validation
+TC_003,DASH-DataConsistency,Verify dashboard data consistency,"User logged in, Dashboard accessible",Multiple module data,"1. Record dashboard widget counts and totals
+2. Navigate to Document module and verify actual counts
+3. Navigate to Workflow module and verify counts
+4. Create new document and return to dashboard
+5. Verify dashboard widgets update automatically","Dashboard data consistent with module data and updates in real-time","Functional, Regression",Automated,QA,Dashboard data consistency
+,,,,,,,,,,
+DOCUMENT MODULE TEST CASES,,,,,,,,,,
+TC_004,DOC-Navigate,Navigate to Document module and verify interface,User logged in,N/A,"1. Login and navigate to Document module
+2. Verify Document List tab displays correctly
+3. Check grid columns and sub-tabs are visible
+4. Verify All, My Documents, Pending Task tabs
+5. Test sorting functionality by clicking column headers","Document module interface displays with proper navigation and controls","Functional, UI",Automated,QA,Document module navigation
+TC_005,DOC-Create,Create new document with valid data,"User logged in, Document module accessible",Valid document data,"1. Navigate to Document module and click New Document
+2. Fill in document title and description
+3. Add document content and tags
+4. Select appropriate category and properties
+5. Save document and verify success message","Document created successfully and appears in document list","Functional, Positive",Automated,QA,Document creation functionality
+TC_006,DOC-Upload,Upload document file,"User logged in, Document module accessible",Valid file for upload,"1. Navigate to Document module and click Upload button
+2. Select valid file from local system
+3. Fill in required metadata fields
+4. Add tags and set document properties
+5. Complete upload and verify success","File uploaded successfully and document appears in list","Functional, Integration",Automated,QA,File upload functionality
+TC_007,DOC-Edit,Edit existing document,"User logged in, Document exists",Document ID and new data,"1. Navigate to Document module and locate document
+2. Click Edit button to open editing form
+3. Modify title, description, and content
+4. Update tags and properties as needed
+5. Save changes and verify success message","Document updated successfully with changes reflected","Functional, Positive",Automated,QA,Document modification
+TC_008,DOC-Delete,Delete existing document,"User logged in, Document exists",Document ID,"1. Navigate to Document module and locate document
+2. Select document and click Delete button
+3. Confirm deletion in confirmation dialog
+4. Verify success message appears
+5. Check document is removed from list","Document deleted successfully and removed from list","Functional, Regression",Automated,QA,Document deletion
+TC_009,DOC-Search,Search documents by criteria,"User logged in, Documents exist",Search criteria,"1. Navigate to Document module
+2. Enter search criteria in search field
+3. Apply search filters if available
+4. Verify search results accuracy
+5. Clear search and verify reset functionality","Search returns accurate results matching criteria","Functional, Positive",Automated,QA,Document search functionality
+TC_010,DOC-Filter,Filter documents by various criteria,"User logged in, Documents exist",Filter criteria,"1. Navigate to Document module
+2. Use filter dropdown options
+3. Apply various filter criteria
+4. Verify filtered results are accurate
+5. Test Reset Filter functionality","Document filtering works correctly for all criteria","Functional, Positive",Automated,QA,Document filtering
+,,,,,,,,,,
+TEMPLATE MODULE TEST CASES,,,,,,,,,,
+TC_011,TPL-Navigate,Navigate to template interface,User logged in,N/A,"1. Login and navigate to Template module
+2. Verify Template List tab displays
+3. Check New Template tab is available
+4. Verify grid columns and filter options
+5. Test template list functionality","Template module interface displays correctly with all options","Functional, UI",Automated,QA,Template navigation
+TC_012,TPL-Create,Create new template with valid data,"User logged in, Template module accessible",Valid template data,"1. Navigate to Template module and click New Template
+2. Fill in template name and description
+3. Configure template fields and properties
+4. Set template category and permissions
+5. Save template and verify creation","Template created successfully and appears in template list","Functional, Positive",Automated,QA,Template creation
+TC_013,TPL-Edit,Edit existing template,"User logged in, Template exists",Template ID and new data,"1. Navigate to Template module and locate template
+2. Click Edit button to open template editor
+3. Modify template name, description, and fields
+4. Update template properties and settings
+5. Save changes and verify success","Template updated successfully with changes applied","Functional, Positive",Automated,QA,Template modification
+TC_014,TPL-Delete,Delete existing template,"User logged in, Template exists",Template ID,"1. Navigate to Template module and locate template
+2. Select template and click Delete button
+3. Confirm deletion in confirmation dialog
+4. Verify success message appears
+5. Check template is removed from list","Template deleted successfully and removed from list","Functional, Regression",Automated,QA,Template deletion
+TC_015,TPL-DuplicateValidation,Create template with duplicate name,"User logged in, Existing template present",Same template name,"1. Navigate to Template module and click New Template
+2. Enter existing template name in name field
+3. Fill other required fields with valid data
+4. Attempt to save the duplicate template
+5. Verify system prevents creation with error message","System prevents duplicate creation and shows appropriate error","Functional, Negative",Automated,QA,Duplicate template validation
+TC_016,TPL-Search,Search and filter templates,"User logged in, Templates exist",Template search criteria,"1. Navigate to Template module
+2. Enter search criteria in search field
+3. Apply template filters by category or type
+4. Verify search results accuracy
+5. Test filter combinations and reset functionality","Template search and filtering returns accurate results","Functional, Positive",Automated,QA,Template search functionality
+,,,,,,,,,,
+WORKFLOW MODULE TEST CASES,,,,,,,,,,
+TC_017,WF-Navigate,Navigate to workflow interface,User logged in,N/A,"1. Login and navigate to Workflow module
+2. Verify workflow grid displays correctly
+3. Check grid columns and action options
+4. Verify filter and search functionality
+5. Test workflow list navigation","Workflow module interface displays with proper navigation","Functional, UI",Automated,QA,Workflow navigation
+TC_018,WF-Create,Create new workflow with valid data,"User logged in, Workflow module accessible",Valid workflow data,"1. Navigate to Workflow module and click Create Workflow
+2. Fill in workflow name and description
+3. Configure workflow steps and properties
+4. Set workflow permissions and assignments
+5. Save workflow and verify creation","Workflow created successfully and appears in workflow list","Functional, Positive",Automated,QA,Workflow creation
+TC_019,WF-View,View existing workflow details,"User logged in, Workflow exists",Existing workflow,"1. Navigate to Workflow module
+2. Locate existing workflow in list
+3. Click View button for workflow
+4. Verify workflow details display correctly
+5. Check all workflow information is accessible","Workflow details display correctly with all information","Functional, Positive",Automated,QA,Workflow view functionality
+TC_020,WF-Edit,Edit workflow with proper permissions,"User logged in, Workflow exists",Workflow ID and new data,"1. Navigate to Workflow module and locate workflow
+2. Click Edit button to access editing interface
+3. Modify workflow properties and settings
+4. Update workflow steps or assignments
+5. Save changes and verify success","Workflow edited successfully with changes applied","Functional, Positive",Automated,QA,Workflow editing
+TC_021,WF-Delete,Delete existing workflow,"User logged in, Workflow exists",Workflow ID,"1. Navigate to Workflow module and locate workflow
+2. Select workflow and click Delete button
+3. Confirm deletion in confirmation dialog
+4. Verify success message appears
+5. Check workflow is removed from list","Workflow deleted successfully and removed from list","Functional, Regression",Automated,QA,Workflow deletion
+TC_022,WF-StatusTransition,Test workflow status transitions,"User logged in, Workflow with status",Workflow with defined statuses,"1. Navigate to workflow with defined status transitions
+2. Open workflow details or status management
+3. Attempt valid status transition
+4. Attempt invalid status transition (skip steps)
+5. Verify system handles transitions correctly","Valid transitions allowed, invalid transitions prevented with proper messages","Functional, Regression",Automated,QA,Workflow status validation
+TC_023,WF-Search,Search workflows by criteria,"User logged in, Workflows exist",Workflow search criteria,"1. Navigate to Workflow module
+2. Enter search criteria in search field
+3. Apply workflow filters by status or type
+4. Verify search results accuracy
+5. Test filter combinations and reset","Workflow search returns accurate results matching criteria","Functional, Positive",Automated,QA,Workflow search functionality
+,,,,,,,,,,
+ADMIN MODULE TEST CASES,,,,,,,,,,
+TC_024,ADMIN-UserCreate,Create new user with valid data,"User logged in, Admin access",Valid user data,"1. Navigate to Admin section and access User Management
+2. Click Create User and fill Login ID and Name
+3. Enter Email Address and Employee Number
+4. Select User Type and Authentication Type
+5. Save user and verify creation success","User created successfully and appears in user list","Functional, Admin",Automated,QA,User creation functionality
+TC_025,ADMIN-UserCreateNegative,Create user with missing fields,"User logged in, Admin access",Incomplete user data,"1. Navigate to Admin section and open User Creation
+2. Leave mandatory fields empty (Login ID, Name, Email)
+3. Skip required User Type selection
+4. Attempt to create user
+5. Verify validation messages for required fields","Validation messages appear and user creation prevented","Functional, Negative",Automated,QA,User creation validation
+TC_026,ADMIN-RoleCreate,Create new role with permissions,"User logged in, Admin access",Valid role data,"1. Navigate to Admin section and access Role Management
+2. Click Create Role and fill role name and description
+3. Set access level and account type
+4. Configure role permissions and hierarchy
+5. Save role and verify creation","Role created successfully with proper permissions","Functional, Admin",Automated,QA,Role creation functionality
+TC_027,ADMIN-DeptCreate,Create new department,"User logged in, Admin access",Valid department data,"1. Navigate to Admin section and access Department Management
+2. Click Create Department and fill name and code
+3. Add department description and business units
+4. Set department properties and manager
+5. Save department and verify creation","Department created successfully and available for assignments","Functional, Admin",Automated,QA,Department creation
+TC_028,ADMIN-SiteCreate,Create new site with valid data,"User logged in, Admin access",Valid site data,"1. Navigate to Admin section and access Site Management
+2. Click Create Site and fill site name and code
+3. Add site description and location details
+4. Set site properties and contact information
+5. Save site and verify creation","Site created successfully and appears in site list","Functional, Admin",Automated,QA,Site creation functionality
+TC_029,ADMIN-TagsManage,Create and manage tags,"User logged in, Admin access",Valid tag data,"1. Navigate to Admin section and access Tags Management
+2. Create new tag with name and description
+3. Set tag properties and hierarchy
+4. Organize existing tags and update properties
+5. Verify tag functionality across modules","Tags created and managed successfully with proper organization","Functional, Admin",Automated,QA,Tag management
+TC_030,ADMIN-UserGroupCreate,Create and manage user groups,"User logged in, Admin access",Valid group data,"1. Navigate to Admin section and access User Group Management
+2. Create new group with name and description
+3. Add users to group and set permissions
+4. Configure group hierarchy and properties
+5. Verify group functionality and member access","User group created successfully with proper member assignments","Functional, Admin",Automated,QA,User group management
+,,,,,,,,,,
+CONFIGURATION MODULE TEST CASES,,,,,,,,,,
+TC_031,CONFIG-WorkflowType,Create workflow type configuration,"User logged in, Config access",Valid workflow type data,"1. Navigate to Config section and access Workflow Types
+2. Create new workflow type with name and description
+3. Set prefix code and SLA configuration
+4. Assign roles, departments, and lifecycle states
+5. Save configuration and verify creation","Workflow type created successfully and available for use","Functional, Config",Automated,QA,Workflow type configuration
+TC_032,CONFIG-DocumentType,Create document type configuration,"User logged in, Config access",Valid document type data,"1. Navigate to Config section and access Document Types
+2. Create new document type with name and prefix
+3. Set numbering system and format settings
+4. Configure metadata fields and permissions
+5. Save configuration and verify availability","Document type created successfully and appears in dropdown lists","Functional, Config",Automated,QA,Document type configuration
+TC_033,CONFIG-LifecycleState,Create lifecycle state configuration,"User logged in, Config access",Valid lifecycle data,"1. Navigate to Config section and access Lifecycle States
+2. Create new state with name and description
+3. Set state properties and transition rules
+4. Configure permissions and notification settings
+5. Save state and verify integration","Lifecycle state created successfully and available for workflows","Functional, Config",Automated,QA,Lifecycle state configuration
+TC_034,CONFIG-SystemDataField,Create system data field type,"User logged in, Config access",Valid field type data,"1. Navigate to Config section and access System Data Field Types
+2. Create new field type with name and data type
+3. Configure field properties and validation rules
+4. Set field permissions and usage scope
+5. Save field type and verify availability","System data field type created and available in form builders","Functional, Config",Automated,QA,System data field configuration
+TC_035,CONFIG-Checklist,Create checklist with checkpoints,"User logged in, Config access",Valid checklist data,"1. Navigate to Config section and access Checklist Management
+2. Create new checklist with name and description
+3. Add multiple checkpoints with properties
+4. Configure checkpoint dependencies and validation
+5. Save checklist and verify functionality","Checklist created successfully with all checkpoints configured","Functional, Config",Automated,QA,Checklist configuration
+TC_036,CONFIG-EmailTemplate,Create email template configuration,"User logged in, Config access",Valid email template data,"1. Navigate to Config section and access Email Templates
+2. Create new template with name and subject
+3. Design email content with dynamic variables
+4. Configure template settings and permissions
+5. Test template and verify functionality","Email template created successfully and available for use","Functional, Config",Automated,QA,Email template configuration
+,,,,,,,,,,
+REPOSITORY MODULE TEST CASES,,,,,,,,,,
+TC_037,REPO-Navigate,Navigate to repository interface,User logged in,N/A,"1. Login and navigate to Repository module
+2. Verify Create Repository section displays
+3. Check Tree View and Grid View options
+4. Verify repository list and file management areas
+5. Test repository navigation functionality","Repository interface displays correctly with all management options","Functional, UI",Automated,QA,Repository navigation
+TC_038,REPO-CreateRepository,Create new repository,"User logged in, Repository access",Valid repository data,"1. Navigate to Repository module
+2. Click Create Repository button
+3. Fill in repository name and description
+4. Set repository properties and permissions
+5. Create repository and verify success","Repository created successfully and appears in repository list","Functional, Positive",Automated,QA,Repository creation
+TC_039,REPO-FileUpload,Upload files to repository,"User logged in, Repository exists",Valid files for upload,"1. Navigate to Repository module and select repository
+2. Click Upload Files button
+3. Select multiple files from local system
+4. Configure file properties and metadata
+5. Complete upload and verify files appear","Files uploaded successfully and accessible in repository","Functional, Integration",Automated,QA,Repository file upload
+TC_040,REPO-ManageFiles,Manage files in repository,"User logged in, Files exist in repository",Repository with files,"1. Navigate to Repository and select repository with files
+2. Test file operations (rename, move, copy)
+3. Organize files into folders and categories
+4. Update file metadata and properties
+5. Verify file management operations work correctly","File management operations work correctly with proper organization","Functional, Positive",Automated,QA,Repository file management
+TC_041,REPO-Search,Search files in repository,"User logged in, Repository with files",File search criteria,"1. Navigate to Repository module
+2. Enter search criteria for files
+3. Apply file type and date filters
+4. Verify search results accuracy
+5. Test advanced search functionality","Repository search returns accurate file results","Functional, Positive",Automated,QA,Repository search functionality
+,,,,,,,,,,
+REPORTS MODULE TEST CASES,,,,,,,,,,
+TC_042,REPORTS-Navigate,Navigate to reports interface,User logged in,N/A,"1. Login and navigate to Reports module
+2. Verify Reports List tab displays
+3. Check New Report tab availability
+4. Verify report categories and filters
+5. Test reports navigation functionality","Reports module interface displays with proper navigation options","Functional, UI",Automated,QA,Reports navigation
+TC_043,REPORTS-Generate,Generate report with criteria,"User logged in, Reports access",Report criteria data,"1. Navigate to Reports module
+2. Select report type and parameters
+3. Configure date range and filters
+4. Generate report and verify completion
+5. Review report content and accuracy","Report generated successfully with accurate data","Functional, Positive",Automated,QA,Report generation
+TC_044,REPORTS-Export,Export reports in different formats,"User logged in, Report generated",Generated report data,"1. Navigate to Reports module and generate report
+2. Select export format (PDF, Excel, CSV)
+3. Configure export settings and options
+4. Export report and verify download
+5. Verify exported file content and format","Report exported successfully in requested format","Functional, Integration",Automated,QA,Report export functionality
+TC_045,REPORTS-Schedule,Schedule automated reports,"User logged in, Reports access",Scheduling parameters,"1. Navigate to Reports module
+2. Create new scheduled report
+3. Configure report parameters and frequency
+4. Set delivery options and recipients
+5. Save schedule and verify activation","Scheduled report created successfully and will run automatically","Functional, Integration",Automated,QA,Report scheduling
+TC_046,REPORTS-Filter,Filter and search reports,"User logged in, Reports exist",Filter criteria,"1. Navigate to Reports module
+2. Apply various report filters by type and date
+3. Search reports by name or description
+4. Verify filtered results accuracy
+5. Test filter combinations and reset","Report filtering and search returns accurate results","Functional, Positive",Automated,QA,Reports filtering
+,,,,,,,,,,
+PRINT TEMPLATES MODULE TEST CASES,,,,,,,,,,
+TC_047,PRINT-Navigate,Navigate to print templates interface,User logged in,N/A,"1. Login and navigate to Print Templates module
+2. Verify Print Templates List tab displays
+3. Check New Print Templates tab availability
+4. Verify template grid and action options
+5. Test print templates navigation","Print templates interface displays correctly with all options","Functional, UI",Automated,QA,Print templates navigation
+TC_048,PRINT-CreateTemplate,Create new print template,"User logged in, Print Templates access",Valid template data,"1. Navigate to Print Templates module
+2. Click New Print Template button
+3. Design template layout and format
+4. Configure template variables and fields
+5. Save template and verify creation","Print template created successfully and available for use","Functional, Positive",Automated,QA,Print template creation
+TC_049,PRINT-EditTemplate,Edit existing print template,"User logged in, Template exists",Template ID and new data,"1. Navigate to Print Templates and locate template
+2. Click Edit button to open template editor
+3. Modify template design and fields
+4. Update template properties and settings
+5. Save changes and verify success","Print template updated successfully with changes applied","Functional, Positive",Automated,QA,Print template editing
+TC_050,PRINT-TestTemplate,Test print template functionality,"User logged in, Template exists",Template and test data,"1. Navigate to Print Templates and select template
+2. Click Test or Preview button
+3. Provide test data for template variables
+4. Generate preview and verify formatting
+5. Test actual printing functionality","Print template works correctly with proper formatting","Functional, Integration",Automated,QA,Print template testing
+TC_051,PRINT-ManageTemplates,Manage print template library,"User logged in, Templates exist",Multiple template data,"1. Navigate to Print Templates module
+2. Organize templates by categories
+3. Update template descriptions and metadata
+4. Test template search and filtering
+5. Verify template accessibility across modules","Print templates managed successfully with proper organization","Functional, Positive",Automated,QA,Print template management
+,,,,,,,,,,
+AUDIT TRAIL MODULE TEST CASES,,,,,,,,,,
+TC_052,AUDIT-Navigate,Navigate to audit trail interface,User logged in,N/A,"1. Login and navigate to System module
+2. Access Audit Trail section
+3. Verify audit trail interface loads
+4. Check filter options and date ranges
+5. Test audit trail navigation functionality","Audit trail interface displays correctly with all filter options","Functional, UI",Automated,QA,Audit trail navigation
+TC_053,AUDIT-FilterByCategory,Filter audit trail by category,"User logged in, Audit data exists",Category filter data,"1. Navigate to Audit Trail section
+2. Click Select Category Name dropdown
+3. Choose specific category option
+4. Apply category filter and verify results
+5. Test multiple category combinations","Category filtering works correctly showing relevant audit entries","Functional, Positive",Automated,QA,Audit trail category filtering
+TC_054,AUDIT-FilterByDate,Filter audit trail by date range,"User logged in, Audit data exists",Date range data,"1. Navigate to Audit Trail section
+2. Set From Date and To Date ranges
+3. Apply date filter and verify results
+4. Test various date range combinations
+5. Verify audit entries within specified dates","Date filtering shows accurate audit entries within specified range","Functional, Positive",Automated,QA,Audit trail date filtering
+TC_055,AUDIT-FilterByUser,Filter audit trail by user actions,"User logged in, Audit data exists",User filter data,"1. Navigate to Audit Trail section
+2. Select specific user from filter options
+3. Apply user filter and verify results
+4. Test filtering by multiple users
+5. Verify audit entries for selected users","User filtering shows accurate audit entries for selected users","Functional, Positive",Automated,QA,Audit trail user filtering
+TC_056,AUDIT-ViewDetails,View detailed audit entry information,"User logged in, Audit entries exist",Audit entry data,"1. Navigate to Audit Trail and locate audit entry
+2. Click on audit entry to view details
+3. Verify all audit information displays correctly
+4. Check timestamp, user, action, and object details
+5. Test audit entry navigation and display","Audit entry details display completely with accurate information","Functional, Positive",Automated,QA,Audit trail detail view
+TC_057,AUDIT-ExportAudit,Export audit trail data,"User logged in, Audit data exists",Export criteria,"1. Navigate to Audit Trail section
+2. Apply desired filters for export
+3. Click Export or Download button
+4. Select export format and options
+5. Verify exported file content and accuracy","Audit trail exported successfully with accurate filtered data","Functional, Integration",Automated,QA,Audit trail export
+TC_058,AUDIT-SearchAudit,Search audit trail entries,"User logged in, Audit data exists",Search criteria,"1. Navigate to Audit Trail section
+2. Enter search criteria in search field
+3. Apply search filters and execute search
+4. Verify search results accuracy
+5. Test various search patterns and terms","Audit trail search returns accurate results matching criteria","Functional, Positive",Automated,QA,Audit trail search
+TC_059,AUDIT-MonitorChanges,Monitor system changes through audit,"User logged in, System access",Change monitoring data,"1. Navigate to Audit Trail section
+2. Perform actions in other modules
+3. Return to Audit Trail and verify logging
+4. Check that all actions are properly recorded
+5. Verify audit completeness and accuracy","System changes properly recorded in audit trail with complete information","Functional, Integration",Automated,QA,Audit trail monitoring
+,,,,,,,,,,
+ADVANCED SEARCH MODULE TEST CASES,,,,,,,,,,
+TC_060,ADV-Navigate,Navigate to advanced search interface,User logged in,N/A,"1. Login and navigate to Advanced Search module
+2. Verify Search Type dropdown displays
+3. Check Select Fields and Condition options
+4. Verify search input fields and parameters
+5. Test advanced search interface functionality","Advanced search interface displays with all search configuration options","Functional, UI",Automated,QA,Advanced search navigation
+TC_061,ADV-SearchDocuments,Search documents using advanced criteria,"User logged in, Documents exist",Document search criteria,"1. Navigate to Advanced Search
+2. Select Document from Search Type dropdown
+3. Configure search fields and conditions
+4. Enter specific search criteria
+5. Execute search and verify results","Advanced document search returns accurate results based on criteria","Functional, Positive",Automated,QA,Advanced document search
+TC_062,ADV-SearchExact,Search with exact match criteria,"User logged in, Known data exists",Exact search terms,"1. Navigate to Advanced Search
+2. Configure exact match conditions
+3. Enter precise search terms
+4. Execute search and verify exact matches
+5. Test exact match accuracy","Exact match search returns only precisely matching results","Functional, Positive",Automated,QA,Advanced exact search
+TC_063,ADV-SearchPartial,Search with partial match criteria,"User logged in, Data exists",Partial search terms,"1. Navigate to Advanced Search
+2. Configure partial match conditions
+3. Enter partial search terms
+4. Execute search and verify partial matches
+5. Test partial match functionality","Partial match search returns all relevant results containing search terms","Functional, Positive",Automated,QA,Advanced partial search
+TC_064,ADV-SearchMultipleCriteria,Search with multiple criteria,"User logged in, Data exists",Multiple search criteria,"1. Navigate to Advanced Search
+2. Configure multiple search fields and conditions
+3. Enter criteria for multiple fields
+4. Execute complex search
+5. Verify results match all criteria","Multiple criteria search returns accurate results matching all conditions","Functional, Positive",Automated,QA,Advanced multi-criteria search
+TC_065,ADV-SearchInvalid,Search with invalid criteria,"User logged in, Advanced Search access",Invalid search data,"1. Navigate to Advanced Search
+2. Enter invalid search criteria
+3. Configure invalid conditions or parameters
+4. Execute search with invalid data
+5. Verify system handles invalid input gracefully","System handles invalid search criteria gracefully with appropriate messages","Functional, Negative",Automated,QA,Advanced search validation
+TC_066,ADV-ExportSearchResults,Export advanced search results,"User logged in, Search results available",Search results data,"1. Navigate to Advanced Search and execute search
+2. Verify search results display correctly
+3. Click Export or Download button
+4. Select export format and options
+5. Verify exported file content matches results","Advanced search results exported successfully with accurate data","Functional, Integration",Automated,QA,Advanced search export
+TC_067,ADV-SaveSearchCriteria,Save and reuse search criteria,"User logged in, Advanced Search access",Search criteria data,"1. Navigate to Advanced Search
+2. Configure complex search criteria
+3. Save search criteria with descriptive name
+4. Reload saved search criteria
+5. Verify saved criteria works correctly","Search criteria saved and reloaded successfully maintaining accuracy","Functional, Positive",Automated,QA,Advanced search save functionality
+,,,,,,,,,,
+INTEGRATION AND CROSS-MODULE TEST CASES,,,,,,,,,,
+TC_068,INT-WorkflowTemplate,Link workflow with template,"User logged in, Both modules active",Workflow and Template IDs,"1. Navigate to Template module and verify templates exist
+2. Navigate to Workflow module and open workflow
+3. Locate template linking section in workflow
+4. Select and link appropriate template
+5. Save workflow and verify template association","Workflow successfully linked with template and association displays correctly","Functional, Integration",Automated,QA,Cross-module workflow-template integration
+TC_069,INT-DocumentWorkflow,Associate document with workflow,"User logged in, Document and Workflow exist",Document and Workflow data,"1. Create or locate existing document
+2. Navigate to workflow association section
+3. Select appropriate workflow for document
+4. Configure workflow parameters and assignments
+5. Verify document-workflow association works","Document successfully associated with workflow and workflow triggers correctly","Functional, Integration",Automated,QA,Document-workflow integration
+TC_070,INT-RolePermissions,Test role-based access across modules,"User logged in, Multiple roles configured",Different user role data,"1. Login with admin user and verify full access
+2. Login with editor role and verify limited access
+3. Login with viewer role and verify read-only access
+4. Test that restricted functions are properly disabled
+5. Verify role permissions work consistently across modules","Role-based permissions work correctly across all modules with proper restrictions","Functional, Security",Automated,QA,Cross-module role validation
+TC_071,INT-DataConsistency,Verify data consistency across modules,"User logged in, Multiple modules accessible",Cross-module data,"1. Create data in one module
+2. Navigate to related modules and verify data appears
+3. Update data in one module
+4. Verify updates reflect in related modules
+5. Test data integrity across module boundaries","Data consistency maintained across modules with real-time updates","Functional, Integration",Automated,QA,Cross-module data consistency
+TC_072,INT-SearchAcrossModules,Test search functionality across modules,"User logged in, Data in multiple modules",Search criteria,"1. Navigate to global search functionality
+2. Enter search criteria that spans multiple modules
+3. Verify search results from all relevant modules
+4. Test search result navigation to source modules
+5. Verify search accuracy across module boundaries","Search functionality works correctly across all modules returning accurate results","Functional, Integration",Automated,QA,Cross-module search functionality

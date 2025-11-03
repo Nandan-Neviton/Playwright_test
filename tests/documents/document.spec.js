@@ -54,7 +54,7 @@ test.describe.serial('CI Tests — Document Management', () => {
     // Step 1: Login to application
     console.log('🔸 Logging into the application...');
     await login(page);
-
+    await goToDMS(page);
     // Step 2: Navigate to Document section
     console.log('🔸 Navigating to Document Section...');
     await goToDocumentSection(page);
@@ -91,6 +91,7 @@ test.describe.serial('CI Tests — Document Management', () => {
 
     // Step 1: Login and navigate
     await login(page);
+    await goToDMS(page);
     await waitForDocumentShell(page);
     await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
@@ -211,6 +212,7 @@ test.describe.serial('CI Tests — Document Management', () => {
 
     // Step 1: Login and navigate
     await login(page);
+    await goToDMS(page);
     await waitForDocumentShell(page);
     await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
@@ -237,6 +239,7 @@ test.describe.serial('CI Tests — Document Management', () => {
 
     // Step 1: Login and navigate
     await login(page);
+    await goToDMS(page);
     await waitForDocumentShell(page);
     await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
@@ -274,6 +277,7 @@ test.describe.serial('CI Tests — Document Management', () => {
 
     // Step 1: Login and navigate
     await login(page);
+    await goToDMS(page);
     await waitForDocumentShell(page);
     await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
@@ -299,6 +303,7 @@ test.describe.serial('Document Validations', () => {
 
     // Step 1: Login and navigate
     await login(page);
+    await goToDMS(page);
     await waitForDocumentShell(page);
     await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
@@ -328,6 +333,7 @@ test.describe.serial('Document Validations', () => {
 
     // Step 1: Login and navigate
     await login(page);
+    await goToDMS(page);
     await waitForDocumentShell(page);
     await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
@@ -359,6 +365,7 @@ test.describe.serial('Document Validations', () => {
 
     // Step 1: Login and navigate
     await login(page);
+    await goToDMS(page);
     await waitForDocumentShell(page);
     await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
@@ -396,6 +403,7 @@ test.describe.serial('Document Enhancement Tests', () => {
     console.log('🔹 [START] Document Version Control');
 
     await login(page);
+    await goToDMS(page);
     await waitForDocumentShell(page);
     await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
@@ -421,6 +429,7 @@ test.describe.serial('Document Enhancement Tests', () => {
     console.log('🔹 [START] Document Bulk Operations');
 
     await login(page);
+    await goToDMS(page);
     await waitForDocumentShell(page);
     await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
@@ -447,6 +456,7 @@ test.describe.serial('Document Enhancement Tests', () => {
     console.log('🔹 [START] Document Search & Filters');
 
     await login(page);
+    await goToDMS(page);
     await waitForDocumentShell(page);
     await goToDocumentSection(page);
     await goToModule(page, 'DMS Document');
