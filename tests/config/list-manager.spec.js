@@ -164,12 +164,13 @@ test.describe.serial('CI Tests — Admin List Manager', () => {
 
 /*
 =========================================================
-OPTIONAL VALIDATION TEST (currently commented out)
+VALIDATION TEST
 =========================================================
 This test checks whether validation messages appear
 when attempting to create a Pick List without filling
 required fields.
 =========================================================
+*/
 
 test.describe('List Manager Validations', () => {
   test('Validation: Empty Pick List creation', async ({ page }) => {
@@ -185,4 +186,3 @@ test.describe('List Manager Validations', () => {
     console.log('✅ Validation messages checked');
   });
 });
-*/

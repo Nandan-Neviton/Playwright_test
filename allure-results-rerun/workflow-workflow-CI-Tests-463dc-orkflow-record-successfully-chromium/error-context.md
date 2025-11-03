@@ -1,108 +1,322 @@
 # Page snapshot
 
 ```yaml
-- generic [active] [ref=e1]:
+- generic [ref=e1]:
   - generic [ref=e3]:
     - generic [ref=e4]:
-      - generic [ref=e5]:
-        - img
-      - img [ref=e7] [cursor=pointer]
-      - generic [ref=e9]:
-        - link [ref=e10] [cursor=pointer]:
-          - /url: /dashboard
-          - img [ref=e12]
-        - link [ref=e14] [cursor=pointer]:
-          - /url: /admin
-          - img [ref=e16]
-        - link [ref=e18] [cursor=pointer]:
-          - /url: /configuration
-          - img [ref=e20]
-        - link [ref=e22] [cursor=pointer]:
-          - /url: /workflow
-          - img [ref=e24]
-        - link [ref=e26] [cursor=pointer]:
-          - /url: /template
-          - img [ref=e28]
-        - link [ref=e30] [cursor=pointer]:
-          - /url: /document
-          - img [ref=e32]
-        - link [ref=e34] [cursor=pointer]:
-          - /url: /report
-          - img [ref=e36]
-        - link [ref=e38] [cursor=pointer]:
-          - /url: /print
-          - img [ref=e40]
-        - link "Print Manager" [ref=e43] [cursor=pointer]:
-          - /url: /print-manager
-          - img "Print Manager" [ref=e45]
-        - link [ref=e47] [cursor=pointer]:
-          - /url: /virtual-data-room
-          - img [ref=e49]
-        - link [ref=e51] [cursor=pointer]:
-          - /url: /repository
-          - img [ref=e53]
-        - link [ref=e55] [cursor=pointer]:
-          - /url: /system
-          - img [ref=e57]
-    - generic [ref=e61]:
-      - generic [ref=e65]:
-        - img [ref=e66]
-        - textbox "search documents" [ref=e69]:
+      - img [ref=e6]
+      - img [ref=e8] [cursor=pointer]
+      - generic [ref=e10]:
+        - link [ref=e11] [cursor=pointer]:
+          - /url: /dms/dashboard
+          - img [ref=e13]
+        - link [ref=e15] [cursor=pointer]:
+          - /url: /dms/configuration
+          - img [ref=e17]
+        - link [active] [ref=e19] [cursor=pointer]:
+          - /url: /dms/workflow
+          - img [ref=e21]
+        - link [ref=e23] [cursor=pointer]:
+          - /url: /dms/template
+          - img [ref=e25]
+        - link [ref=e27] [cursor=pointer]:
+          - /url: /dms/document
+          - img [ref=e29]
+        - link [ref=e31] [cursor=pointer]:
+          - /url: /dms/report
+          - img [ref=e33]
+        - link [ref=e35] [cursor=pointer]:
+          - /url: /dms/print
+          - img [ref=e37]
+        - link [ref=e40] [cursor=pointer]:
+          - /url: /dms/repository
+          - img [ref=e42]
+        - link [ref=e44] [cursor=pointer]:
+          - /url: /dms/system
+          - img [ref=e46]
+    - generic [ref=e50]:
+      - generic [ref=e54]:
+        - img [ref=e55]
+        - textbox "search documents" [ref=e58]:
           - /placeholder: Search for Documents or Templates
-        - button "Advanced Search" [ref=e70] [cursor=pointer]: Advanced Search
-      - button "10" [ref=e72] [cursor=pointer]:
-        - generic [ref=e73]:
-          - img [ref=e74]
-          - generic [ref=e76]: "10"
-      - generic [ref=e80]:
-        - img [ref=e82]
-        - combobox "Neviton USA" [ref=e84] [cursor=pointer]
-        - textbox: ba69edcf-27f6-476f-bcbb-07c8bde5b1a0
+        - button "Advanced Search" [ref=e59] [cursor=pointer]: Advanced Search
+      - button "Back to Platform" [ref=e61] [cursor=pointer]: Back to Platform
+      - button "1" [ref=e63] [cursor=pointer]:
+        - generic [ref=e64]:
+          - img [ref=e65]
+          - generic [ref=e67]: "1"
+      - generic [ref=e71]:
+        - img [ref=e73]
+        - combobox "PlatformCheckSite" [ref=e75] [cursor=pointer]
+        - textbox: 358995d4-10b1-46fe-8f35-eb1ebfe3bc3c
         - img
         - group
-      - generic [ref=e87] [cursor=pointer]:
-        - img "Bruce Wayne" [ref=e90]
-        - generic [ref=e91]:
-          - paragraph [ref=e92]:
-            - text: Nameera Alam
-            - img [ref=e93]
-          - paragraph [ref=e95]: Nameera.Alam@neviton.com
-    - generic [ref=e97]:
-      - link "DMS Document" [ref=e102] [cursor=pointer]:
-        - /url: /document/document
-        - img [ref=e104]
-        - paragraph [ref=e106]: DMS Document
-      - generic [ref=e108]:
-        - generic [ref=e111]:
-          - button [ref=e112] [cursor=pointer]:
-            - img [ref=e113]
-          - paragraph [ref=e115]: undefined - vundefined
-        - generic [ref=e116]:
-          - generic [ref=e118]:
-            - button "View document Detail" [ref=e120] [cursor=pointer]: View document Detail
-            - button "Show document details" [ref=e122] [cursor=pointer]: Show document details
-            - button "Show document history" [ref=e124] [cursor=pointer]: Show document history
-            - button "Print" [ref=e126] [cursor=pointer]: Print
-          - tabpanel [ref=e129]:
-            - paragraph [ref=e131]
-        - generic [ref=e134]:
-          - button "Cancel" [ref=e136] [cursor=pointer]: Cancel
-          - button "Update" [ref=e138] [cursor=pointer]: Update
+      - generic [ref=e78] [cursor=pointer]:
+        - img "Bruce Wayne" [ref=e81]
+        - generic [ref=e82]:
+          - paragraph [ref=e83]:
+            - text: Swetha Kulkarni
+            - img [ref=e84]
+          - paragraph [ref=e86]: swetha.kulkarni@neviton.com
+    - generic [ref=e88]:
+      - link "Workflow" [ref=e92] [cursor=pointer]:
+        - /url: /dms/workflow/workflow-dms
+        - img [ref=e94]
+        - paragraph [ref=e96]: Workflow
+      - generic [ref=e99]:
+        - tablist [ref=e102]:
+          - tab "Workflow" [selected] [ref=e103] [cursor=pointer]
+        - tabpanel [ref=e105]:
+          - generic [ref=e106]:
+            - generic [ref=e108]:
+              - generic [ref=e111]:
+                - combobox "All" [ref=e112] [cursor=pointer]
+                - textbox:
+                  - /placeholder: Filter
+                  - text: All
+                - img
+                - group
+              - generic [ref=e115]:
+                - img [ref=e117]
+                - textbox "Search" [ref=e119]
+                - group
+              - generic [ref=e122]:
+                - combobox "All" [ref=e123] [cursor=pointer]
+                - textbox:
+                  - /placeholder: Filter
+                  - text: All
+                - img
+                - group
+              - button "Reset Filter" [ref=e125] [cursor=pointer]:
+                - img [ref=e127]
+                - text: Reset Filter
+              - button "Download" [ref=e130] [cursor=pointer]:
+                - img [ref=e132]
+                - text: Download
+            - grid [ref=e135]:
+              - generic [ref=e136]:
+                - rowgroup [ref=e137]:
+                  - row "Action Document Title Document Number Workflow Name Workflow Number Status Created On Co-ordinator" [ref=e138]:
+                    - columnheader "Action" [ref=e139]:
+                      - generic [ref=e141]: Action
+                    - columnheader "Document Title" [ref=e142] [cursor=pointer]:
+                      - generic [ref=e144]: Document Title
+                    - columnheader "Document Number" [ref=e145] [cursor=pointer]:
+                      - generic [ref=e147]: Document Number
+                    - columnheader "Workflow Name" [ref=e148] [cursor=pointer]:
+                      - generic [ref=e150]: Workflow Name
+                    - columnheader "Workflow Number" [ref=e151] [cursor=pointer]:
+                      - generic [ref=e153]: Workflow Number
+                    - columnheader "Status" [ref=e154] [cursor=pointer]:
+                      - generic [ref=e156]: Status
+                    - columnheader "Created On" [ref=e157] [cursor=pointer]:
+                      - generic [ref=e159]: Created On
+                    - columnheader "Co-ordinator" [ref=e160] [cursor=pointer]:
+                      - generic [ref=e162]: Co-ordinator
+                - rowgroup [ref=e163]:
+                  - row "Check305Doc PCDTcico|PL1|D1|25-- Check305Doc [TWFT-013][v1] TWFT-013 Life Cycle Activated 29-10-2025 11:36 Nameera Alam" [ref=e164]:
+                    - cell [ref=e165]:
+                      - generic [ref=e166]:
+                        - link "View" [ref=e167] [cursor=pointer]:
+                          - /url: /dms/workflow/workflow-dms/view-workflow/1cde5379-035b-4331-816c-220c872f612b
+                          - img [ref=e168]
+                        - button "Edit" [disabled]:
+                          - img
+                    - cell "Check305Doc" [ref=e170]
+                    - cell "PCDTcico|PL1|D1|25--" [ref=e171]
+                    - cell "Check305Doc [TWFT-013][v1]" [ref=e172]
+                    - cell "TWFT-013" [ref=e173]
+                    - cell "Life Cycle Activated" [ref=e174]:
+                      - paragraph [ref=e175]: Life Cycle Activated
+                    - cell "29-10-2025 11:36" [ref=e176]:
+                      - paragraph [ref=e177]: 29-10-2025 11:36
+                    - cell "Nameera Alam" [ref=e178]
+                  - row "Test266Main1Doc VDTd|PL1|D1|25-- dff [TWFT-004][v1] TWFT-004 Life Cycle Activated 28-10-2025 16:32 Shanmukha Ganta" [ref=e179]:
+                    - cell [ref=e180]:
+                      - generic [ref=e181]:
+                        - link "View" [ref=e182] [cursor=pointer]:
+                          - /url: /dms/workflow/workflow-dms/view-workflow/5eaa532e-91c4-429a-9529-63141524b8ac
+                          - img [ref=e183]
+                        - button "Edit" [disabled]:
+                          - img
+                    - cell "Test266Main1Doc" [ref=e185]
+                    - cell "VDTd|PL1|D1|25--" [ref=e186]
+                    - cell "dff [TWFT-004][v1]" [ref=e187]
+                    - cell "TWFT-004" [ref=e188]
+                    - cell "Life Cycle Activated" [ref=e189]:
+                      - paragraph [ref=e190]: Life Cycle Activated
+                    - cell "28-10-2025 16:32" [ref=e191]:
+                      - paragraph [ref=e192]: 28-10-2025 16:32
+                    - cell "Shanmukha Ganta" [ref=e193]
+                  - row "Naga! - Naga [D1EV-0006][v1] D1EV-0006 Life Cycle Activated 28-10-2025 16:15 Sneha" [ref=e194]:
+                    - cell [ref=e195]:
+                      - generic [ref=e196]:
+                        - link "View" [ref=e197] [cursor=pointer]:
+                          - /url: /dms/workflow/workflow-dms/view-workflow/d30ee49a-a13d-4ba5-8cdc-dea722916987
+                          - img [ref=e198]
+                        - button "Edit" [ref=e200] [cursor=pointer]:
+                          - img [ref=e201]
+                    - cell "Naga!" [ref=e203]
+                    - cell "-" [ref=e204]
+                    - cell "Naga [D1EV-0006][v1]" [ref=e205]
+                    - cell "D1EV-0006" [ref=e206]
+                    - cell "Life Cycle Activated" [ref=e207]:
+                      - paragraph [ref=e208]: Life Cycle Activated
+                    - cell "28-10-2025 16:15" [ref=e209]:
+                      - paragraph [ref=e210]: 28-10-2025 16:15
+                    - cell "Sneha" [ref=e211]
+                  - row "Test266Main1Doc VDTd|PL1|D1|25-- Test266Workflow2 [TWFT-012][v1] TWFT-012 Life Cycle Activated 24-10-2025 16:13 Nameera Alam" [ref=e212]:
+                    - cell [ref=e213]:
+                      - generic [ref=e214]:
+                        - link "View" [ref=e215] [cursor=pointer]:
+                          - /url: /dms/workflow/workflow-dms/view-workflow/9e43cb0f-bea6-4769-a7b1-64c21d25e6c0
+                          - img [ref=e216]
+                        - button "Edit" [disabled]:
+                          - img
+                    - cell "Test266Main1Doc" [ref=e218]
+                    - cell "VDTd|PL1|D1|25--" [ref=e219]
+                    - cell "Test266Workflow2 [TWFT-012][v1]" [ref=e220]
+                    - cell "TWFT-012" [ref=e221]
+                    - cell "Life Cycle Activated" [ref=e222]:
+                      - paragraph [ref=e223]: Life Cycle Activated
+                    - cell "24-10-2025 16:13" [ref=e224]:
+                      - paragraph [ref=e225]: 24-10-2025 16:13
+                    - cell "Nameera Alam" [ref=e226]
+                  - row "Test266AssociateDoc VDTd|PL1|D1|25-- Test266Workflow1 [TWFT-011][v1] TWFT-011 Life Cycle Activated 24-10-2025 15:07 Nameera Alam" [ref=e227]:
+                    - cell [ref=e228]:
+                      - generic [ref=e229]:
+                        - link "View" [ref=e230] [cursor=pointer]:
+                          - /url: /dms/workflow/workflow-dms/view-workflow/e09b30fd-237b-479d-a953-3905d3db2306
+                          - img [ref=e231]
+                        - button "Edit" [disabled]:
+                          - img
+                    - cell "Test266AssociateDoc" [ref=e233]
+                    - cell "VDTd|PL1|D1|25--" [ref=e234]
+                    - cell "Test266Workflow1 [TWFT-011][v1]" [ref=e235]
+                    - cell "TWFT-011" [ref=e236]
+                    - cell "Life Cycle Activated" [ref=e237]:
+                      - paragraph [ref=e238]: Life Cycle Activated
+                    - cell "24-10-2025 15:07" [ref=e239]:
+                      - paragraph [ref=e240]: 24-10-2025 15:07
+                    - cell "Nameera Alam" [ref=e241]
+                  - row "Test266MainDoc VDTd|PL1|D1|25-- Test266Workflow [TWFT-010][v1] TWFT-010 Life Cycle Activated 24-10-2025 15:06 Nameera Alam" [ref=e242]:
+                    - cell [ref=e243]:
+                      - generic [ref=e244]:
+                        - link "View" [ref=e245] [cursor=pointer]:
+                          - /url: /dms/workflow/workflow-dms/view-workflow/f269b43e-4524-4269-bd90-020c78afe6f5
+                          - img [ref=e246]
+                        - button "Edit" [disabled]:
+                          - img
+                    - cell "Test266MainDoc" [ref=e248]
+                    - cell "VDTd|PL1|D1|25--" [ref=e249]
+                    - cell "Test266Workflow [TWFT-010][v1]" [ref=e250]
+                    - cell "TWFT-010" [ref=e251]
+                    - cell "Life Cycle Activated" [ref=e252]:
+                      - paragraph [ref=e253]: Life Cycle Activated
+                    - cell "24-10-2025 15:06" [ref=e254]:
+                      - paragraph [ref=e255]: 24-10-2025 15:06
+                    - cell "Nameera Alam" [ref=e256]
+                  - row "Test306Issue3Doc VDTd|PL1|D1|25-- Test306Issue3Workflow1 [TWFT-009][v1] TWFT-009 Life Cycle Activated 23-10-2025 17:23 Nameera Alam" [ref=e257]:
+                    - cell [ref=e258]:
+                      - generic [ref=e259]:
+                        - link "View" [ref=e260] [cursor=pointer]:
+                          - /url: /dms/workflow/workflow-dms/view-workflow/d5d8ef06-754e-4ae7-8dde-45c0e3b8c049
+                          - img [ref=e261]
+                        - button "Edit" [ref=e263] [cursor=pointer]:
+                          - img [ref=e264]
+                    - cell "Test306Issue3Doc" [ref=e266]
+                    - cell "VDTd|PL1|D1|25--" [ref=e267]
+                    - cell "Test306Issue3Workflow1 [TWFT-009][v1]" [ref=e268]
+                    - cell "TWFT-009" [ref=e269]
+                    - cell "Life Cycle Activated" [ref=e270]:
+                      - paragraph [ref=e271]: Life Cycle Activated
+                    - cell "23-10-2025 17:23" [ref=e272]:
+                      - paragraph [ref=e273]: 23-10-2025 17:23
+                    - cell "Nameera Alam" [ref=e274]
+                  - row "Test306Issue1Doc VDTd|PL1|D1|25-- Test306Issue1Workflow [TWFT-008][v1] TWFT-008 Life Cycle Activated 23-10-2025 16:00 Nameera Alam" [ref=e275]:
+                    - cell [ref=e276]:
+                      - generic [ref=e277]:
+                        - link "View" [ref=e278] [cursor=pointer]:
+                          - /url: /dms/workflow/workflow-dms/view-workflow/a289bd9b-7185-483a-9b3c-28e5b801808e
+                          - img [ref=e279]
+                        - button "Edit" [disabled]:
+                          - img
+                    - cell "Test306Issue1Doc" [ref=e281]
+                    - cell "VDTd|PL1|D1|25--" [ref=e282]
+                    - cell "Test306Issue1Workflow [TWFT-008][v1]" [ref=e283]
+                    - cell "TWFT-008" [ref=e284]
+                    - cell "Life Cycle Activated" [ref=e285]:
+                      - paragraph [ref=e286]: Life Cycle Activated
+                    - cell "23-10-2025 16:00" [ref=e287]:
+                      - paragraph [ref=e288]: 23-10-2025 16:00
+                    - cell "Nameera Alam" [ref=e289]
+                  - row "Test306MainDoc VDTd|PL1|D1|25-- Test306Issue3Workflow [TWFT-004][v1] TWFT-004 Life Cycle Activated 23-10-2025 15:36 Nameera Alam" [ref=e290]:
+                    - cell [ref=e291]:
+                      - generic [ref=e292]:
+                        - link "View" [ref=e293] [cursor=pointer]:
+                          - /url: /dms/workflow/workflow-dms/view-workflow/9009816b-000f-41e6-adf7-17617e0f12ef
+                          - img [ref=e294]
+                        - button "Edit" [disabled]:
+                          - img
+                    - cell "Test306MainDoc" [ref=e296]
+                    - cell "VDTd|PL1|D1|25--" [ref=e297]
+                    - cell "Test306Issue3Workflow [TWFT-004][v1]" [ref=e298]
+                    - cell "TWFT-004" [ref=e299]
+                    - cell "Life Cycle Activated" [ref=e300]:
+                      - paragraph [ref=e301]: Life Cycle Activated
+                    - cell "23-10-2025 15:36" [ref=e302]:
+                      - paragraph [ref=e303]: 23-10-2025 15:36
+                    - cell "Nameera Alam" [ref=e304]
+                  - row "Test VDTd|PL1|a|25-- Test106 [TWFT-003][v2] TWFT-003 Life Cycle Activated 23-10-2025 11:51 Nameera Alam" [ref=e305]:
+                    - cell [ref=e306]:
+                      - generic [ref=e307]:
+                        - link "View" [ref=e308] [cursor=pointer]:
+                          - /url: /dms/workflow/workflow-dms/view-workflow/46ffd19b-d474-4c9a-b83a-0ba8ff8cd757
+                          - img [ref=e309]
+                        - button "Edit" [ref=e311] [cursor=pointer]:
+                          - img [ref=e312]
+                    - cell "Test" [ref=e314]
+                    - cell "VDTd|PL1|a|25--" [ref=e315]
+                    - cell "Test106 [TWFT-003][v2]" [ref=e316]
+                    - cell "TWFT-003" [ref=e317]
+                    - cell "Life Cycle Activated" [ref=e318]:
+                      - paragraph [ref=e319]: Life Cycle Activated
+                    - cell "23-10-2025 11:51" [ref=e320]:
+                      - paragraph [ref=e321]: 23-10-2025 11:51
+                    - cell "Nameera Alam" [ref=e322]
+              - generic [ref=e325]:
+                - paragraph [ref=e326]: "Rows per page:"
+                - generic [ref=e327]:
+                  - 'combobox "Rows per page: 10" [ref=e328] [cursor=pointer]': "10"
+                  - textbox: "10"
+                  - img
+                - paragraph [ref=e329]: 1–10 of 58
+                - generic [ref=e330]:
+                  - button "Go to previous page" [disabled]:
+                    - img
+                  - button "Go to next page" [ref=e331] [cursor=pointer]:
+                    - img [ref=e332]
   - generic:
-    - iframe [ref=e139]:
+    - iframe [ref=e334]:
       - generic [ref=f1e1] [cursor=pointer]:
         - img "Help" [ref=f1e2]
         - generic [ref=f1e4]: Help
-    - iframe [ref=e140]:
+    - iframe [ref=e335]:
       - generic [ref=f2e1] [cursor=pointer]:
         - img "Help" [ref=f2e2]
         - generic [ref=f2e4]: Help
-    - iframe [ref=e141]:
+    - iframe [ref=e336]:
       - generic [ref=f3e1] [cursor=pointer]:
         - img "Help" [ref=f3e2]
         - generic [ref=f3e4]: Help
-    - iframe [ref=e142]:
+    - iframe [ref=e337]:
       - generic [ref=f4e1] [cursor=pointer]:
         - img "Help" [ref=f4e2]
         - generic [ref=f4e4]: Help
+    - iframe [ref=e338]:
+      - generic [ref=f5e1] [cursor=pointer]:
+        - img "Help" [ref=f5e2]
+        - generic [ref=f5e4]: Help
+  - tooltip "Workflow" [ref=e339]:
+    - paragraph [ref=e341]: Workflow
 ```
